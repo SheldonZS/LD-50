@@ -15,6 +15,8 @@ public class DataBucket : MonoBehaviour
 
     public GameData data;
 
+    public int selection;
+
     void Awake()
     {
         if (instance == null)

@@ -15,9 +15,9 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene("Credits");
     }
 
-    public void onClickEndings()
+    public void onClickJukebox()
     {
-        SceneManager.LoadScene("Endings");
+        SceneManager.LoadScene("Jukebox");
     }
 
     public void onClickTitle()
