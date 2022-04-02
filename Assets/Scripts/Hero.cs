@@ -51,7 +51,6 @@ public class Hero : MonoBehaviour
         if (RTSController.instance.selected != gameObject)
         {
             highlight.SetBool("Selected", false);
-            selection = Commands.idle;
 
             ExecuteCommand();
 
@@ -59,6 +58,7 @@ public class Hero : MonoBehaviour
         }
 
         highlight.SetBool("Selected", true);
+        bool manualMove = false;
 
         if ((currentCommand.command == Commands.idle || currentCommand.command == Commands.move) &&
             (Input.GetKey(KeyCode.W) ||Input.GetKey(KeyCode.A) ||Input.GetKey(KeyCode.S) ||Input.GetKey(KeyCode.D) ||
@@ -74,7 +74,8 @@ public class Hero : MonoBehaviour
                 if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) direction.y -= 1;
                 if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) direction.x += 1;
 
-                rb.velocity = (Vector3)direction.normalized * moveSpeed;
+                rb.velocity = direction.normalized * moveSpeed;
+                manualMove = true;
             }
         else if(Input.GetMouseButtonDown(1))
         {
@@ -83,14 +84,15 @@ public class Hero : MonoBehaviour
 
             if (clickPos.x >= -.5 && clickPos.x <= 17.5 && clickPos.y >= 0 && clickPos.y <= 10)
             {
-                if (commands.Count == 0 || commands.Peek().command == Commands.idle || !(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
+                if (currentCommand.command == Commands.idle || !(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
                     commands.Clear();
 
                 commands.Enqueue(new HeroCommand(Commands.move,clickPos));
             }
         }
 
-        ExecuteCommand();
+        if  (!manualMove)
+            ExecuteCommand();
 
     }
 
