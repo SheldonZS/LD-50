@@ -5,15 +5,22 @@ using UnityEngine;
 public class RTSController : MonoBehaviour
 {
     public static RTSController instance { get; private set; }
-    [HideInInspector] public GameObject selected = null;
+    //[HideInInspector] 
+    public GameObject selected = null;
     public List<GameObject> heroes;
+
+    public GameObject[] monsters;
+
+    public SpawnPoint[] spawnPoints;
     // Start is called before the first frame update
 
     void Start()
     {
         if (instance == null)
             instance = this;
-        else Destroy(this);
+        else Destroy(gameObject);
+
+        selected = null;
     }
 
     // Update is called once per frame
@@ -40,4 +47,11 @@ public class RTSController : MonoBehaviour
             selected = heroes[(index + 1) % heroes.Count];
         }
     }
+}
+
+[System.Serializable]
+public struct SpawnPoint
+{
+    public Vector2Int location;
+    public Vector2Int[] path;
 }
