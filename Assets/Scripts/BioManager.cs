@@ -9,6 +9,7 @@ public class BioManager : MonoBehaviour
     private Text bioText;
     private DataBucket db;
 
+
     private void Awake()
     {
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
@@ -24,7 +25,7 @@ public class BioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //db.data.ending = EndingCode.good;
+        db.data.ending = EndingCode.good;
 
         if (db.data.ending == EndingCode.none)
         {
@@ -51,25 +52,25 @@ public class BioManager : MonoBehaviour
         switch (character)
         {
             case "raol":
-                bioText.color = new Color(255f / 255f, 166f / 255f, 83f / 255f, 128f);
+                bioText.color = new Color(219f / 255f, 133f / 255f, 30f / 255f, 255f);
                 bioText.text = "Name: Raol Eon" +
-                    "\nAge: " +
-                    "\nRace/Class: [Race] Ranger Shifter" +
-                    "\nAlignment: " +
+                    "\nAge: 92" +
+                    "\nRace/Class: Shifter Ranger" +
+                    "\nAlignment: Chaotic Neutral" +
                     "\n\nBackstory: Grumpy and misanthropic, Raol was hoping to retire to a quiet room in the Home for Aged Adventurers and live out the rest of his days gazing at Mother Moon in blissful isolation. Alas, the fight goes on, mostly with nurses trying to convince him that learning to type would be \"good for his fingers.\" \n\nWith his dulled senses of smell and hearing, his hunting days are far behind him. But when the Reaper comes calling, Raol gears up again to evade death, as he has many times before." +
                     "\n\nPlayer: Henna";
                 if (db.data.ending == EndingCode.none)
                     bioText.text += "\n\nInevitable Fate: ???";
                 else
-                    bioText.text += "\n\nInevitable Fate: ";
+                    bioText.text += "\n\nInevitable Fate: Trying to find his feathery friend before his friend does something stupid.";
                 break;
             case "balthasar":
-                bioText.color = new Color(0f / 255f, 168f / 255f, 243f / 255f, 128f);
+                bioText.color = new Color(105f / 255f, 165f / 255f, 209f / 255f, 255f);
                 bioText.text = "Name: Balthasar Wildstone" +
-                    "\nAge:" +
+                    "\nAge: 193" +
                     "\nRace/Class: Half-Elf Mage" +
                     "\nAlignment: Chaotic Good" +
-                    "\n\nBackstory: Balthasar doesn't mean any harm, but that doesn't mean he's harmless. His magic is wildly unpredictable and has led to explosive mishaps that he recounts with gusto to disbelieving listeners. \n\nHe insists he once died 13 times in the span of six months, making the Reaper an old acquaintance of his by now. Perhaps there is some credence to this story, for when the Reaper enters their retirement community and sees Balthasar, his hooded face takes on a look of exasperated recognition." +
+                    "\n\nBackstory: Balthasar doesn't mean any harm, but that doesn't mean he's harmless. His magic is wildly unpredictable and has led to explosive mishaps that he recounts with gusto to disbelieving listeners. \n\nHe insists he once died 13 times in the span of six months, making the Reaper an old acquaintance of his by now. Perhaps there is some credence to this tale, for when the Reaper enters the retirement community and sees Balthasar, his hooded face takes on a look of exasperated recognition." +
                     "\n\nPlayer: Marppuli";
                 if (db.data.ending == EndingCode.none)
                     bioText.text += "\n\nInevitable Fate: ???";
@@ -77,12 +78,12 @@ public class BioManager : MonoBehaviour
                     bioText.text += "\n\nInevitable Fate: ";
                 break;
             case "thob":
-                bioText.color = new Color(244f / 255f, 69f / 255f, 248f / 255f, 128f);
+                bioText.color = new Color(148f / 255f, 73f / 255f, 191f / 255f, 255f);
                 bioText.text = "Name: Thob Thunartilat" +
-                    "\nAge:" +
+                    "\nAge: 344" +
                     "\nRace/Class: Dwarf Bard" +
                     "\nAlignment: True Neutral" +
-                    "\n\nBackstory: Even after stealing enough to afford a comfortable retirement, Thob  can't stop himself from chasing the shinies. When the other retirees catch him rifling through their pockets, he apologies immediately, often so politely that they can't help but forgive him. He strums a good tune and makes a good drinking buddy, and everyone around here understands that some things never change. \n\nEspecially Thob's hatred of trees. A tree almost killed him once. He really hates trees." +
+                    "\n\nBackstory: Even after stealing enough to afford a comfortable retirement, Thob can't stop himself from chasing the shinies. When the other retirees catch him rifling through their pockets, he apologies immediately, often so politely that they can't help but forgive him. He strums a good tune and makes a good drinking buddy, and everyone around here understands that some things never change. \n\nEspecially Thob's hatred of trees. A tree almost killed him once, which is more than the Reaper's ever done, that's for sure." +
                     "\n\nPlayer: ";
                 if (db.data.ending == EndingCode.none)
                     bioText.text += "\n\nInevitable Fate: ???";
@@ -90,17 +91,17 @@ public class BioManager : MonoBehaviour
                     bioText.text += "\n\nInevitable Fate: ";
                 break;
             case "jolie":
-                bioText.color = new Color(255f / 255f, 62f / 255f, 62f / 255f, 128f);
+                bioText.color = new Color(179f / 255f, 40f / 255f, 40f / 255f, 255f);
                 bioText.text = "Name: Jolie Cooper" +
-                   "\nAge:" +
+                   "\nAge: 86" +
                    "\nRace/Class: Human Fighter" +
-                   "\nAlignment: " +
+                   "\nAlignment: Neutral Tired" +
                    "\n\nBackstory: Jolie is ready to die. She's prepared her will and put her things in order. Now it's time for the long sleep. Why hasn't the Reaper come for her yet? All the years in the army, and she couldn't even get a Near-Death Experience? Maybe the Reaper thinks she's joking when she says she wants to go. But this is her serious face. (It looks exactly like her sarcastic face.) \n\nWell, if the Reaper isn't ready yet, perhaps she'll just nap while she waits. Her wheelchair is pretty comfortable..." +
                    "\n\nPlayer: Weeping Jester";
                 if (db.data.ending == EndingCode.none)
                     bioText.text += "\n\nInevitable Fate: ???";
                 else
-                    bioText.text += "\n\nInevitable Fate: Complaining that death contains less sleeping than expected.";
+                    bioText.text += "\n\nInevitable Fate: Turning down the Reaper's quest to nap and dream of reincarnating as a housecat.";
                 break;
             case "tarsha":
                 bioText.color = Color.yellow;
