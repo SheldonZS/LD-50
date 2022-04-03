@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class RTSController : MonoBehaviour
 {
     public static RTSController instance { get; private set; }
+    public int bones = 0;
 
     public Sprite[] build;
     public Sprite[] repair;
@@ -13,6 +15,7 @@ public class RTSController : MonoBehaviour
     private Image buildButton;
     private Image repairButton;
     private Image upgradeButton;
+    private Text bonesText;
 
     public Camera camera { get; private set; }
     //[HideInInspector] 
@@ -20,11 +23,12 @@ public class RTSController : MonoBehaviour
     public List<GameObject> heroes;
 
     public GameObject[] monsters;
-
     public SpawnPoint[] spawnPoints;
 
     public Transform gridAnchor { get; private set; }
     public Commands command { get; private set; }
+
+    public DialogueBox dialogueBox { get; private set; }
     //public CursorCollider mouseOver { get; private set; }
 
     public bool raol_alive;
@@ -47,10 +51,13 @@ public class RTSController : MonoBehaviour
         buildButton = GameObject.Find("Build").GetComponent<Image>();
         repairButton = GameObject.Find("Repair").GetComponent<Image>();
         upgradeButton = GameObject.Find("Upgrade").GetComponent<Image>();
-        //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
-    }
+        dialogueBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
+        bonesText = GameObject.Find("BonesText").GetComponent<Text>();
 
-    private void Start()
+    //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
+}
+
+private void Start()
     {
         raol_alive = true;
         bal_alive = true;
@@ -69,6 +76,18 @@ public class RTSController : MonoBehaviour
         return false;
     }
 
+    public TowerBase GetTowerAt(Vector2 location)
+    {
+        Collider2D[] hits = Physics2D.OverlapBoxAll(gridAnchor.TransformPoint(RoundToGrid(location, 0.5f)), Vector2.one * 0.1f, 0);
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject.tag == "Tower")
+                return hit.gameObject.GetComponent<TowerBase>();
+        }
+
+        return null;
+    }
+
     public Vector2 RoundToGrid(Vector2 loc, float Yoffset = 0f)
     {
         loc.x = Mathf.RoundToInt(loc.x);
@@ -80,11 +99,23 @@ public class RTSController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            int spawner = Random.Range(0, spawnPoints.Length);
+            MonsterBase monster = Instantiate(monsters[0], gridAnchor).GetComponent<MonsterBase>();
+            monster.SetSpawn(spawnPoints[spawner]);
+        }
+        bonesText.text = bones.ToString();
+
+        if (selected == null)
+        {
+            Reset();
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mouseWorldPosition = camera.ScreenToWorldPoint(Input.mousePosition);
 
-            Debug.Log("Clicked at world position: " + mouseWorldPosition);
+            //Debug.Log("Clicked at world position: " + mouseWorldPosition);
 
             RaycastHit2D[] hits = Physics2D.RaycastAll(mouseWorldPosition, Vector2.zero);
 
@@ -152,9 +183,9 @@ public class RTSController : MonoBehaviour
         buildButton.overrideSprite = build[0];
         repairButton.overrideSprite = repair[1];
         upgradeButton.overrideSprite = upgrade[0];
-    }    
-    
-    
+    }
+
+
     public void UpgradeButton()
     {
         command = Commands.upgrade;
@@ -163,6 +194,25 @@ public class RTSController : MonoBehaviour
         repairButton.overrideSprite = repair[0];
         upgradeButton.overrideSprite = upgrade[1];
     }
+
+    public void Say(string text)
+    {
+        if (dialogueBox != null)
+        StartCoroutine(AnimateText(text));
+    }
+    
+    public void Say(Hero hero, string text)
+    {
+        if (dialogueBox != null)
+        StartCoroutine(AnimateText(hero.gameObject.name + ": " + text));
+    }
+
+    public IEnumerator AnimateText(string text)
+    {
+        yield return dialogueBox.PlayText(new List<string>() { text }, true);
+        yield return dialogueBox.CloseWindow();
+    }
+
 
 }
 
