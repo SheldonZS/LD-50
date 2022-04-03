@@ -58,9 +58,8 @@ public class DialogueBox : MonoBehaviour
         minY = -GetComponent<RectTransform>().sizeDelta.y + margins + lineHeight;
         //Debug.Log("Min Y: " + minY);
 
-        background.enabled = false;
-        textMask.enabled = false;
-
+        background.enabled = true;
+        textMask.enabled = true;
 
 
     }
@@ -187,8 +186,6 @@ public class DialogueBox : MonoBehaviour
                 }
                 while (index < words.Length)
                 {
-                    Debug.Log("doing while");
-
 
                     //checks whether the next word in the line is an italicize or normal command
                     if (words[index] == "/i" || words[index] == "/n")
