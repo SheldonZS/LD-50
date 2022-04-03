@@ -23,7 +23,7 @@ public class DialogueBox : MonoBehaviour
 
     public float charactersPerSecond = 50;
     public float scrollTime = .2f;
-    public float autoPauseatLineEndTime = 1f;
+    public float autoPauseAtLineEndTime = 1f;
 
     private List<Text> textBoxes;
 
@@ -118,7 +118,7 @@ public class DialogueBox : MonoBehaviour
             if (textBoxes.Count > 0)
                 currentLineY = textBoxes[textBoxes.Count - 1].GetComponent<RectTransform>().localPosition.y - lineHeight;
 
-            Debug.Log("is " + currentLineY + " less than " + minY);
+            //Debug.Log("is " + currentLineY + " less than " + minY);
 
             if (currentLineY < minY)
             {
@@ -290,7 +290,7 @@ public class DialogueBox : MonoBehaviour
             //at the end of a line of dialogue
             if (auto)
             {
-                yield return new WaitForSeconds(autoPauseatLineEndTime);
+                yield return new WaitForSeconds(autoPauseAtLineEndTime);
             }
 
         }//displaying multiple lines of dialogue
