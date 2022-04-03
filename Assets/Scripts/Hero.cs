@@ -11,6 +11,7 @@ public class Hero : MonoBehaviour
     public float buildSpeedMultiplier = 1f;
 
     public GameObject[] towers;
+    public GameObject[] attackPrefabs;
 
     private HealthBar healthBar;
     private List<HeroCommand> commands;

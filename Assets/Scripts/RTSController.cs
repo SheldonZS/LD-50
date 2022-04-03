@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class RTSController : MonoBehaviour
 {
     public static RTSController instance { get; private set; }
+    public int bones = 0;
 
     public Sprite[] build;
     public Sprite[] repair;
@@ -14,6 +15,7 @@ public class RTSController : MonoBehaviour
     private Image buildButton;
     private Image repairButton;
     private Image upgradeButton;
+    private Text bonesText;
 
     public Camera camera { get; private set; }
     //[HideInInspector] 
@@ -21,7 +23,6 @@ public class RTSController : MonoBehaviour
     public List<GameObject> heroes;
 
     public GameObject[] monsters;
-
     public SpawnPoint[] spawnPoints;
 
     public Transform gridAnchor { get; private set; }
@@ -51,10 +52,12 @@ public class RTSController : MonoBehaviour
         repairButton = GameObject.Find("Repair").GetComponent<Image>();
         upgradeButton = GameObject.Find("Upgrade").GetComponent<Image>();
         dialogueBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
-        //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
-    }
+        bonesText = GameObject.Find("BonesText").GetComponent<Text>();
 
-    private void Start()
+    //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
+}
+
+private void Start()
     {
         raol_alive = true;
         bal_alive = true;
@@ -96,6 +99,14 @@ public class RTSController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            int spawner = Random.Range(0, spawnPoints.Length);
+            MonsterBase monster = Instantiate(monsters[0], gridAnchor).GetComponent<MonsterBase>();
+            monster.SetSpawn(spawnPoints[spawner]);
+        }
+        bonesText.text = bones.ToString();
+
         if (selected == null)
         {
             Reset();
