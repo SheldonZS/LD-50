@@ -17,6 +17,7 @@ public class DataBucket : MonoBehaviour
     public GameData data;
 
     public int selection;
+    public bool raolUnlocked, balUnlocked, thobUnlocked, jolieUnlocked;
 
     void Awake()
     {
@@ -33,6 +34,11 @@ public class DataBucket : MonoBehaviour
     void Start()
     {
         data.ending = EndingCode.none;
+
+        //raolUnlocked = true;
+        //balUnlocked = true;
+        //thobUnlocked = true;
+        //jolieUnlocked = true;
     }
 }
 
