@@ -159,7 +159,7 @@ public class Hero : MonoBehaviour
                 Vector2 movement = command.location - (Vector2) transform.localPosition;
                 float mag = movement.magnitude;
 
-                if (mag <= moveSpeed * Time.deltaTime)
+                if (mag <= moveSpeed * Time.deltaTime * 2)
                 {
                     transform.localPosition = command.location;
                     rb.velocity = Vector2.zero;
@@ -183,36 +183,45 @@ public class Hero : MonoBehaviour
                     return true;
                 }
                 TowerBase newTower = Instantiate(towers[0], RTSC.gridAnchor).GetComponent<TowerBase>();
+                newTower.transform.localPosition = command.location;
                 newTower.SetHealth(1);
 
+                Debug.Log(commands.Peek().command);
                 commands.Dequeue();
-                commands.Enqueue(new HeroCommand(Commands.repair, RTSC.RoundToGrid(RTSC.MouseToGrid())));
+                commands.Enqueue(new HeroCommand(Commands.repair, command.location, newTower.gameObject));
+                Debug.Log(commands.Peek().command);
+
 
                 for (int i = 1; i < commands.Count; i++)
                     commands.Enqueue(commands.Dequeue());
 
+                RTSC.Reset();
                 return false;
             case Commands.repair:
-                if (repairTower == null)
+                if (command.tower == null)
                 {
 
-                    Collider2D[] hits = Physics2D.OverlapBoxAll(command.location + Vector2.up * 0.5f, Vector2.one * 0.1f, 0);
+                    Collider2D[] hits = Physics2D.OverlapBoxAll(RTSC.gridAnchor.TransformPoint(command.location + Vector2.up * 0.5f), Vector2.one * 0.1f, 0);
+
+                    Debug.Log("Found " + hits.Length + " colliders around coordinates " + (command.location + Vector2.up * 0.5f));
+
                     foreach (Collider2D hit in hits)
                     {
+                        Debug.Log("Collider Found: " + hit.gameObject.name);
                         if (hit.gameObject.tag == "Tower")
                         {
                             repairTower = hit.gameObject.GetComponent<TowerBase>();
                             break;
                         }
                     }
+                }
+                else repairTower = command.tower.GetComponent<TowerBase>();
 
-                    if (repairTower == null || repairTower.health <= 0)
-                    {
-                        Debug.Log("No tower here");
-                        return true;
-                    }
-
+                if (repairTower == null || repairTower.health <= 0)
+                {
+                    Debug.Log("No tower here");
                     repairDecimal = 0;
+                    return true;
                 }
 
                 float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * Time.deltaTime + repairDecimal;
@@ -222,17 +231,20 @@ public class Hero : MonoBehaviour
                 if(repairTower.health >= repairTower.maxHealth)
                 {
                     Debug.Log("Job's done!");
+                    repairDecimal = 0;
                     return true;
                 }
 
                 repairDecimal = repairAmount - repairInt;
+                RTSC.Reset();
                 return false;
 
             case Commands.upgrade:  Debug.Log("Upgrading..."); return false;
-                if (repairTower == null)
+                if (command.tower == null)
                 {
 
-                    Collider2D[] hits = Physics2D.OverlapBoxAll(command.location + Vector2.up * 0.5f, Vector2.one * 0.1f, 0);
+                    Collider2D[] hits = Physics2D.OverlapBoxAll(RTSC.gridAnchor.TransformPoint(command.location + Vector2.up * 0.5f), Vector2.one * 0.1f, 0);
+
                     foreach (Collider2D hit in hits)
                     {
                         if (hit.gameObject.tag == "Tower")
@@ -241,6 +253,7 @@ public class Hero : MonoBehaviour
                             break;
                         }
                     }
+
 
                     if (repairTower == null || repairTower.health <= 0)
                     {
@@ -257,7 +270,9 @@ public class Hero : MonoBehaviour
                     upgradeStartTime = Time.time;
                 }
 
-                if(Time.time >= upgradeStartTime + repairTower.upgradeTime)
+                RTSC.Reset();
+
+                if (Time.time >= upgradeStartTime + repairTower.upgradeTime)
                 {
                     Debug.Log("Job's done!");
                     return true;
@@ -275,7 +290,7 @@ public class Hero : MonoBehaviour
     }
 }
 
-
+[System.Serializable]
 public class HeroCommand
 {
     public Commands command = Commands.idle;
