@@ -29,6 +29,8 @@ public class DialogueManager : MonoBehaviour
 
     List<string> enemiesOnPath = new List<string>();
     List<string> howBonesWork = new List<string>();
+    List<string> cannotRepairHome = new List<string>();
+
 
     //deaths
     List<string> firstDeath_R = new List<string>();

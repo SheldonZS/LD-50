@@ -182,6 +182,16 @@ public class Hero : MonoBehaviour
                     Debug.Log("Already a tower here");
                     return true;
                 }
+                else if (RTSC.GridContains(command.location, "Path"))
+                {
+                    Debug.Log("Path Here");
+                    return true;
+                }
+                else if (RTSC.GridContains(command.location, "Obstacle"))
+                {
+                    Debug.Log("Obstacle Here");
+                    return true;
+                }
                 TowerBase newTower = Instantiate(towers[0], RTSC.gridAnchor).GetComponent<TowerBase>();
                 newTower.transform.localPosition = command.location;
                 newTower.SetHealth(1);

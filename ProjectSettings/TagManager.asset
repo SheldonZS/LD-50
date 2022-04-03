@@ -8,6 +8,8 @@ TagManager:
   - Cursor
   - Monster
   - Tower
+  - Obstacle
+  - Path
   layers:
   - Default
   - TransparentFX

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1700075702503200029}
   - component: {fileID: 1700075702503200003}
   - component: {fileID: 1700075702503200028}
-  - component: {fileID: 1700075702503200002}
+  - component: {fileID: 3162602239451062783}
   m_Layer: 5
   m_Name: TextWindow
   m_TagString: Untagged
@@ -36,11 +36,11 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -395, y: -5}
-  m_SizeDelta: {x: 390, y: -10}
-  m_Pivot: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1200, y: 231.5708}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &1700075702503200003
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1700075702503200002
+--- !u!114 &3162602239451062783
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,17 +88,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1700075702503200030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b13c853c8907c32428867ee691ea73d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 25b06d685d1589b438f1a0e829232f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalText: {r: 0, g: 0, b: 0, a: 0}
+  normalText: {r: 1, g: 1, b: 1, a: 1}
   choiceText: {r: 0, g: 0, b: 0, a: 0}
   highlightedChoiceText: {r: 0, g: 0, b: 0, a: 0}
   selectedChoiceText: {r: 0, g: 0, b: 0, a: 0}
   disabledChoiceText: {r: 0, g: 0, b: 0, a: 0}
-  margins: 5
+  margins: 10
   charactersPerSecond: 50
   scrollTime: 0.2
+  autoPauseAtLineEndTime: 1
+  displayingText: 0
 --- !u!1 &1700075702636611101
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +311,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1700075702503200002}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: speedDown
         m_Mode: 1
@@ -441,7 +443,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1700075702503200002}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: speedUp
         m_Mode: 1
@@ -487,8 +489,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 628, y: 33}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1155.6711, y: 55.4082}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1700075703951564423
 CanvasRenderer:
@@ -510,8 +512,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 9b54ab30d0b56024a8f29ba2ca688941, type: 2}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Material: {fileID: 2100000, guid: aa30ce31490551d449ae3c0a3fe4bbb8, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -519,8 +521,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: a913f008caadd854bb0a46323c7a30bd, type: 3}
-    m_FontSize: 21
+    m_Font: {fileID: 12800000, guid: b74845dc88c22b3429e67647b0b0644d, type: 3}
+    m_FontSize: 42
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -528,7 +530,7 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: New Text
