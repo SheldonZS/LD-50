@@ -35,4 +35,4 @@ public class DataBucket : MonoBehaviour
     }
 }
 
-public enum EndingCode { none, bad, good, joke};
+public enum EndingCode { none, Raol, Bal, Thob, Jolie};

@@ -117,7 +117,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitializeAllStory();
+        InitializeAllStories();
         StartCoroutine(diaBox.PlayText(testWords, true));
     }
 
@@ -127,8 +127,27 @@ public class DialogueManager : MonoBehaviour
         
     }
     
+    //play randomized text
+    void PlayRandom (List<string> possibleStories)
+    {
+        int chosenIndex = Random.Range(0, possibleStories.Count - 1);
+        List<string> chosenStory = new List<string>();
+        chosenStory.Add(possibleStories[chosenIndex]);
+        StartCoroutine(diaBox.PlayText(chosenStory, true));
+    }
 
-    void InitializeAllStory()
+    //play a random text and remove it so it is only played once per game
+    void PlayThenRemove(List<string> possibleStories)
+    {
+        int chosenIndex = Random.Range(0, possibleStories.Count-1);
+        List <string> chosenStory = new List<string>();
+        chosenStory.Add(possibleStories[chosenIndex]);
+        possibleStories.RemoveAt(chosenIndex);
+        StartCoroutine(diaBox.PlayText(chosenStory, true));
+
+    }
+
+    void InitializeAllStories()
     {
         testWords.Add("Raol: Stop");
         testWords.Add("Balthasar: Yeah no");
