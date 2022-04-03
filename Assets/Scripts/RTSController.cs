@@ -25,7 +25,12 @@ public class RTSController : MonoBehaviour
 
     public Transform gridAnchor { get; private set; }
     public Commands command { get; private set; }
-    public CursorCollider mouseOver { get; private set; }
+    //public CursorCollider mouseOver { get; private set; }
+
+    public bool raol_alive;
+    public bool bal_alive;
+    public bool thob_alive;
+    public bool jolie_alive;
 
     // Start is called before the first frame update
 
@@ -42,9 +47,16 @@ public class RTSController : MonoBehaviour
         buildButton = GameObject.Find("Build").GetComponent<Image>();
         repairButton = GameObject.Find("Repair").GetComponent<Image>();
         upgradeButton = GameObject.Find("Upgrade").GetComponent<Image>();
-        mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
+        //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
     }
 
+    private void Start()
+    {
+        raol_alive = true;
+        bal_alive = true;
+        thob_alive = true;
+        jolie_alive = true;
+    }
     public bool GridContains(Vector2 location, string tag)
     {
         Collider2D[] hits = Physics2D.OverlapBoxAll(RoundToGrid(location, 0.5f), Vector2.one * 0.9f, 0);

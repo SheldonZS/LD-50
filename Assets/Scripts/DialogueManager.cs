@@ -10,8 +10,8 @@ public class DialogueManager : MonoBehaviour
     List<string> testWords = new List<string>();
 
     //one time
-    List<string> enemiesOnPath = new List<string>();
-    List<string> howBonesWork = new List<string>();
+
+
     List<string> intro = new List<string>();
     List<string> tutorial = new List<string>();
     List<string> firstRuin_R = new List<string>();
@@ -26,6 +26,9 @@ public class DialogueManager : MonoBehaviour
     List<string> firstUpgrade_B = new List<string>();
     List<string> firstUpgrade_T = new List<string>();
     List<string> firstUpgrade_J = new List<string>();
+
+    List<string> enemiesOnPath = new List<string>();
+    List<string> howBonesWork = new List<string>();
 
     //deaths
     List<string> firstDeath_R = new List<string>();

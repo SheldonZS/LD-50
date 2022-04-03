@@ -8,6 +8,7 @@ public class DialogueBox : MonoBehaviour
     private Image background;
     private Image textMask;
     private Text testText;
+    private RTSController RTSC;
 
     public Color normalText, choiceText, highlightedChoiceText, selectedChoiceText, disabledChoiceText;
     public int margins = 5;
@@ -29,13 +30,19 @@ public class DialogueBox : MonoBehaviour
 
     public bool displayingText;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         background = GetComponent<Image>();
         textMask = GameObject.Find("TextMask").GetComponent<Image>();
         testText = GameObject.Find("TestText").GetComponent<Text>();
+        RTSC = GameObject.Find("RTS Controller").GetComponent<RTSController>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+
         textBoxes = new List<Text>();
 
         FFButton = GameObject.Find("Fast Forward");
@@ -49,7 +56,7 @@ public class DialogueBox : MonoBehaviour
         maxWidth = GetComponent<RectTransform>().sizeDelta.x - margins * 2;
         //minY = -transform.parent.GetComponent<RectTransform>().sizeDelta.y - GetComponent<RectTransform>().sizeDelta.y + margins + lineHeight;
         minY = -GetComponent<RectTransform>().sizeDelta.y + margins + lineHeight;
-        Debug.Log("Min Y: " + minY);
+        //Debug.Log("Min Y: " + minY);
 
         background.enabled = false;
         textMask.enabled = false;
@@ -67,8 +74,8 @@ public class DialogueBox : MonoBehaviour
 
         background.enabled = true;
         textMask.enabled = true;
-        FFButton.SetActive(true);
-        slowButton.SetActive(true);
+        //FFButton.SetActive(true);
+        //slowButton.SetActive(true);
 
         yield return null;
     }
@@ -115,97 +122,147 @@ public class DialogueBox : MonoBehaviour
             int index = 0;
             FontStyle currentStyle = FontStyle.Normal;
 
-            if (textBoxes.Count > 0)
-                currentLineY = textBoxes[textBoxes.Count - 1].GetComponent<RectTransform>().localPosition.y - lineHeight;
-
-            //Debug.Log("is " + currentLineY + " less than " + minY);
-
-            if (currentLineY < minY)
+            //Check if hero is alive and change color if so
+            bool speakerAlive = true;
+            
+            switch (words[index].Split(':')[0])
             {
-                yield return ScrollText();
-                currentLineY += lineHeight;
+                case "Raol":
+                    if (!RTSC.raol_alive)
+                        speakerAlive = false;
+                    break;
+                case "Balthasar":
+                    if (!RTSC.bal_alive)
+                        speakerAlive = false;
+                    break;
+                case "Thob":
+                    if (!RTSC.thob_alive)
+                        speakerAlive = false;
+                    break;
+                case "Jolie":
+                    if (!RTSC.jolie_alive)
+                        speakerAlive = false;
+                    break;
+                default:
+                    break;
             }
 
-            float startTime = Time.time;
-
-            testText.text = "";
-            currentTextField = Instantiate(testText.gameObject, testText.transform.parent).GetComponent<Text>();
-            textBoxes.Add(currentTextField);
-            currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
-
-
-
-            while (index < words.Length)
+            if (speakerAlive)
             {
-                //change color depending on speaker
-                if (words[index].Contains(":"))
+                if (textBoxes.Count > 0)
+                    currentLineY = textBoxes[textBoxes.Count - 1].GetComponent<RectTransform>().localPosition.y - lineHeight;
+
+                //Debug.Log("is " + currentLineY + " less than " + minY);
+
+                if (currentLineY < minY)
                 {
-                    switch (words[index].Split(':')[0])
-                    {
-                        case "Raol":
+                    yield return ScrollText();
+                    currentLineY += lineHeight;
+                }
+
+                float startTime = Time.time;
+
+                testText.text = "";
+                currentTextField = Instantiate(testText.gameObject, testText.transform.parent).GetComponent<Text>();
+                textBoxes.Add(currentTextField);
+                currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
+
+                //change color based on speaker
+                switch (words[index].Split(':')[0])
+                {
+                    case "Raol":
                             currentTextField.color = new Color(219f / 255f, 133f / 255f, 30f / 255f, 255f);
-                            break;
-                        case "Balthasar":
+                        break;
+                    case "Balthasar":
                             currentTextField.color = new Color(105f / 255f, 165f / 255f, 209f / 255f, 255f);
-                            break;
-                        case "Thob":
+                        break;
+                    case "Thob":
                             currentTextField.color = new Color(148f / 255f, 73f / 255f, 191f / 255f, 255f);
-                            break;
-                        case "Jolie":
+                        break;
+                    case "Jolie":
                             currentTextField.color = new Color(179f / 255f, 40f / 255f, 40f / 255f, 255f);
-                            break;
-                        default:
-                            break;
-                    }
-                    /*
-                    currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
-                    textBoxes.Add(currentTextField);
-                    
-                    currentLineWidth = currentTextField.preferredWidth + margins;
-                    currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
-
-                    currentTextField = null;
-                    currentStyle = FontStyle.Normal;
-                    index++;
-                    */
+                        break;
+                    default:
+                        break;
                 }
-
-                if (words[index] == "/i" || words[index] == "/n")
+                while (index < words.Length)
                 {
-                    if (words[index] == "/i") currentStyle = FontStyle.Italic;
-                    else currentStyle = FontStyle.Normal;
+                    Debug.Log("doing while");
 
-                    if (currentTextField != null)
-                    {
-                        currentLineWidth += currentTextField.rectTransform.sizeDelta.x;
-                        cumulativeCharacters += currentTextField.text.Length;
-                        currentTextField = null;
-                    }
-                }
-                else
-                {
-                    if (currentTextField == null)
-                    {
-                        testText.text = "";
-                        currentTextField = Instantiate(testText.gameObject, testText.transform.parent).GetComponent<Text>();
-                        currentTextField.fontStyle = currentStyle;
-                        textBoxes.Add(currentTextField);
 
-                        if (currentLineWidth == margins)
+                    //checks whether the next word in the line is an italicize or normal command
+                    if (words[index] == "/i" || words[index] == "/n")
+                    {
+                        if (words[index] == "/i") currentStyle = FontStyle.Italic;
+                        else currentStyle = FontStyle.Normal;
+
+                        if (currentTextField != null)
                         {
-                            currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
-                            currentTextField.text = words[index];
-                            currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
+                            currentLineWidth += currentTextField.rectTransform.sizeDelta.x;
+                            cumulativeCharacters += currentTextField.text.Length;
+                            currentTextField = null;
+                        }
+                    }
+                    else
+                    {
+                        if (currentTextField == null)
+                        {
+                            testText.text = "";
+                            currentTextField = Instantiate(testText.gameObject, testText.transform.parent).GetComponent<Text>();
+                            currentTextField.fontStyle = currentStyle;
+                            textBoxes.Add(currentTextField);
+
+                            if (currentLineWidth == margins)
+                            {
+                                currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
+                                currentTextField.text = words[index];
+                                currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
+                            }
+                            else
+                            {
+                                testText.text = " " + words[index];
+                                if (currentLineWidth + testText.preferredWidth <= maxWidth)
+                                {
+                                    currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
+                                    currentTextField.text += " " + words[index];
+                                    currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
+                                }
+                                else
+                                {
+                                    currentLineY -= lineHeight;
+                                    currentLineWidth = margins;
+                                    cumulativeCharacters += currentTextField.text.Length;
+
+                                    if (currentLineY < minY)
+                                    {
+                                        yield return ScrollText();
+                                        currentLineY += lineHeight;
+                                    }
+
+                                    startTime = Time.time;
+                                    cumulativeCharacters = 0;
+
+                                    currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
+                                    currentTextField.text = words[index];
+                                    currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
+                                }
+                            }
                         }
                         else
                         {
-                            testText.text = " " + words[index];
-                            if (currentLineWidth + testText.preferredWidth <= maxWidth)
+                            testText.text = currentTextField.text + " " + words[index];
+                            if (currentTextField.text == "")
                             {
-                                currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
+                                currentTextField.text = words[index];
+                                currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
+
+                            }
+                            else if (currentLineWidth + testText.preferredWidth <= maxWidth)
+                            {
                                 currentTextField.text += " " + words[index];
                                 currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
                             }
+                            //in instance that text is longer than the textbox length, automatically creates new line with the remainder of the text
                             else
                             {
                                 currentLineY -= lineHeight;
@@ -214,6 +271,7 @@ public class DialogueBox : MonoBehaviour
 
                                 if (currentLineY < minY)
                                 {
+                                    Debug.Log("Scroll text played");
                                     yield return ScrollText();
                                     currentLineY += lineHeight;
                                 }
@@ -221,77 +279,46 @@ public class DialogueBox : MonoBehaviour
                                 startTime = Time.time;
                                 cumulativeCharacters = 0;
 
+                                testText.text = "";
+
+                                Color colorStash = currentTextField.color;
+
+                                currentTextField = Instantiate(testText.gameObject, testText.transform.parent).GetComponent<Text>();
+                                currentTextField.fontStyle = currentStyle;
+                                currentTextField.color = colorStash;
+                                textBoxes.Add(currentTextField);
+
                                 currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
                                 currentTextField.text = words[index];
                                 currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
                             }
                         }
-                    }
-                    else
-                    {
-                        testText.text = currentTextField.text + " " + words[index];
-                        if (currentTextField.text == "")
+
+                        string fullText = currentTextField.text;
+                        int shownCharacters = (int)Mathf.Clamp(((Time.time - startTime) * charactersPerSecond) - cumulativeCharacters, 0, fullText.Length);
+
+                        while (shownCharacters < fullText.Length && Input.GetMouseButtonDown(0) == false)
                         {
-                            currentTextField.text = words[index];
-                            currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
-
+                            currentTextField.text = fullText.Substring(0, shownCharacters);
+                            yield return null;
+                            shownCharacters = (int)Mathf.Clamp(((Time.time - startTime) * charactersPerSecond) - cumulativeCharacters, 0, fullText.Length);
                         }
-                        else if (currentLineWidth + testText.preferredWidth <= maxWidth)
-                        {
-                            currentTextField.text += " " + words[index];
-                            currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
-                        }
-                        //in instance that text is longer than the textbox length, automatically creates new line with the remainder of the text
-                        else
-                        {
-                            currentLineY -= lineHeight;
-                            currentLineWidth = margins;
-                            cumulativeCharacters += currentTextField.text.Length;
-
-                            if (currentLineY < minY)
-                            {
-                                Debug.Log("Scroll text played");
-                                yield return ScrollText();
-                                currentLineY += lineHeight;
-                            }
-
-                            startTime = Time.time;
-                            cumulativeCharacters = 0;
-
-                            testText.text = "";
-
-                            Color colorStash = currentTextField.color;
-
-                            currentTextField = Instantiate(testText.gameObject, testText.transform.parent).GetComponent<Text>();
-                            currentTextField.fontStyle = currentStyle;
-                            currentTextField.color = colorStash;
-                            textBoxes.Add(currentTextField);
-
-                            currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
-                            currentTextField.text = words[index];
-                            currentTextField.rectTransform.sizeDelta = new Vector2(currentTextField.preferredWidth, lineHeight);
-                        }
+                        currentTextField.text = fullText;
                     }
+                    index++;
 
-                    string fullText = currentTextField.text;
-                    int shownCharacters = (int)Mathf.Clamp(((Time.time - startTime) * charactersPerSecond) - cumulativeCharacters, 0, fullText.Length);
 
-                    while (shownCharacters < fullText.Length && Input.GetMouseButtonDown(0) == false)
-                    {
-                        currentTextField.text = fullText.Substring(0, shownCharacters);
-                        yield return null;
-                        shownCharacters = (int)Mathf.Clamp(((Time.time - startTime) * charactersPerSecond) - cumulativeCharacters, 0, fullText.Length);
-                    }
-                    currentTextField.text = fullText;
                 }
-                index++;
-            }
 
-            //at the end of a line of dialogue
-            if (auto)
-            {
-                yield return new WaitForSeconds(autoPauseAtLineEndTime);
+                //at the end of a line of dialogue
+                if (auto && speakerAlive)
+                {
+                    yield return new WaitForSeconds(autoPauseAtLineEndTime);
+                }
             }
+   
+
+            speakerAlive = true;
 
         }//displaying multiple lines of dialogue
         
