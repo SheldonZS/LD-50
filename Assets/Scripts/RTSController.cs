@@ -47,7 +47,7 @@ public class RTSController : MonoBehaviour
 
     public bool GridContains(Vector2 location, string tag)
     {
-        Collider2D[] hits = Physics2D.OverlapBoxAll(RoundToGrid(location, 0.5f), Vector2.one * 0.9f, 0);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(gridAnchor.TransformPoint(RoundToGrid(location, 0.5f)), Vector2.one * 0.9f, 0);
         foreach (Collider2D hit in hits)
         {
             if (hit.gameObject.tag == tag)

@@ -315,6 +315,9 @@ MonoBehaviour:
   maxHealth: 100
   buildTime: 10
   upgradeTime: 10
+  damageImages:
+  - minHealth: 0
+    image: {fileID: 3316745083922413979, guid: db43f5fdbd3a61642a8d8b12d673b75c, type: 3}
 --- !u!61 &-3544528945124626178
 BoxCollider2D:
   m_ObjectHideFlags: 0

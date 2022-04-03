@@ -61,6 +61,7 @@ public class TowerBase : MonoBehaviour
     }
 }
 
+[System.Serializable]
 public struct TowerDamage
 {
     public int minHealth;

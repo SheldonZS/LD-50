@@ -198,26 +198,30 @@ public class Hero : MonoBehaviour
                 RTSC.Reset();
                 return false;
             case Commands.repair:
-                if (repairTower == null)
+                if (command.tower == null)
                 {
 
-                    Collider2D[] hits = Physics2D.OverlapBoxAll(command.location + Vector2.up * 0.5f, Vector2.one * 0.1f, 0);
+                    Collider2D[] hits = Physics2D.OverlapBoxAll(RTSC.gridAnchor.TransformPoint(command.location + Vector2.up * 0.5f), Vector2.one * 0.1f, 0);
+
+                    Debug.Log("Found " + hits.Length + " colliders around coordinates " + (command.location + Vector2.up * 0.5f));
+
                     foreach (Collider2D hit in hits)
                     {
+                        Debug.Log("Collider Found: " + hit.gameObject.name);
                         if (hit.gameObject.tag == "Tower")
                         {
                             repairTower = hit.gameObject.GetComponent<TowerBase>();
                             break;
                         }
                     }
+                }
+                else repairTower = command.tower.GetComponent<TowerBase>();
 
-                    if (repairTower == null || repairTower.health <= 0)
-                    {
-                        Debug.Log("No tower here");
-                        return true;
-                    }
-
+                if (repairTower == null || repairTower.health <= 0)
+                {
+                    Debug.Log("No tower here");
                     repairDecimal = 0;
+                    return true;
                 }
 
                 float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * Time.deltaTime + repairDecimal;
@@ -227,6 +231,7 @@ public class Hero : MonoBehaviour
                 if(repairTower.health >= repairTower.maxHealth)
                 {
                     Debug.Log("Job's done!");
+                    repairDecimal = 0;
                     return true;
                 }
 
@@ -235,10 +240,11 @@ public class Hero : MonoBehaviour
                 return false;
 
             case Commands.upgrade:  Debug.Log("Upgrading..."); return false;
-                if (repairTower == null)
+                if (command.tower == null)
                 {
 
-                    Collider2D[] hits = Physics2D.OverlapBoxAll(command.location + Vector2.up * 0.5f, Vector2.one * 0.1f, 0);
+                    Collider2D[] hits = Physics2D.OverlapBoxAll(RTSC.gridAnchor.TransformPoint(command.location + Vector2.up * 0.5f), Vector2.one * 0.1f, 0);
+
                     foreach (Collider2D hit in hits)
                     {
                         if (hit.gameObject.tag == "Tower")
@@ -247,6 +253,7 @@ public class Hero : MonoBehaviour
                             break;
                         }
                     }
+
 
                     if (repairTower == null || repairTower.health <= 0)
                     {
@@ -262,6 +269,7 @@ public class Hero : MonoBehaviour
 
                     upgradeStartTime = Time.time;
                 }
+
                 RTSC.Reset();
 
                 if (Time.time >= upgradeStartTime + repairTower.upgradeTime)
