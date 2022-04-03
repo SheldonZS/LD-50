@@ -10,6 +10,7 @@ TagManager:
   - Tower
   - Obstacle
   - Path
+  - PlayerProjectile
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - Border
   - Tower
   - Cursor
-  - 
-  - 
+  - PlayerProjectile
+  - Background
   - 
   - 
   - 
