@@ -83,10 +83,7 @@ public class RTSController : MonoBehaviour
                     if (hit.collider.gameObject != selected)
                     {
                         selected = hit.collider.gameObject;
-                        command = Commands.move;
-                        buildButton.overrideSprite = build[0];
-                        repairButton.overrideSprite = repair[0];
-                        upgradeButton.overrideSprite = upgrade[0];
+                        Reset();
                     }
                 }
             }
@@ -95,10 +92,7 @@ public class RTSController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             selected = null;
-            command = Commands.move;
-            buildButton.overrideSprite = build[0];
-            repairButton.overrideSprite = repair[0];
-            upgradeButton.overrideSprite = upgrade[0];
+            Reset();
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -107,10 +101,7 @@ public class RTSController : MonoBehaviour
 
             selected = heroes[(index + 1) % heroes.Count];
 
-            command = Commands.move;
-            buildButton.overrideSprite = build[0];
-            repairButton.overrideSprite = repair[0];
-            upgradeButton.overrideSprite = upgrade[0];
+            Reset();
         }
 
         if (Input.GetKeyDown(KeyCode.B))
@@ -126,6 +117,13 @@ public class RTSController : MonoBehaviour
         return gridAnchor.InverseTransformPoint(camera.ScreenToWorldPoint(Input.mousePosition));
     }
 
+    public void Reset()
+    {
+        command = Commands.move;
+        buildButton.overrideSprite = build[0];
+        repairButton.overrideSprite = repair[0];
+        upgradeButton.overrideSprite = upgrade[0];
+    }
     public void BuildButton()
     {
         command = Commands.build;
