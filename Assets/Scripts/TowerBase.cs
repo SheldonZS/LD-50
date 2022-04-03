@@ -27,6 +27,8 @@ public class TowerBase : MonoBehaviour
 
     public void SetHealth(int x)
     {
+        if (healthBar == null)
+            healthBar = GetComponentInChildren<HealthBar>();
         health = x;
         healthBar.UpdateHealth(x, maxHealth);
     }

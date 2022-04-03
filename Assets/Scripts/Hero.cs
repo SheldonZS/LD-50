@@ -159,7 +159,7 @@ public class Hero : MonoBehaviour
                 Vector2 movement = command.location - (Vector2) transform.localPosition;
                 float mag = movement.magnitude;
 
-                if (mag <= moveSpeed * Time.deltaTime)
+                if (mag <= moveSpeed * Time.deltaTime * 2)
                 {
                     transform.localPosition = command.location;
                     rb.velocity = Vector2.zero;
@@ -183,14 +183,19 @@ public class Hero : MonoBehaviour
                     return true;
                 }
                 TowerBase newTower = Instantiate(towers[0], RTSC.gridAnchor).GetComponent<TowerBase>();
+                newTower.transform.localPosition = command.location;
                 newTower.SetHealth(1);
 
+                Debug.Log(commands.Peek().command);
                 commands.Dequeue();
-                commands.Enqueue(new HeroCommand(Commands.repair, RTSC.RoundToGrid(RTSC.MouseToGrid())));
+                commands.Enqueue(new HeroCommand(Commands.repair, command.location, newTower.gameObject));
+                Debug.Log(commands.Peek().command);
+
 
                 for (int i = 1; i < commands.Count; i++)
                     commands.Enqueue(commands.Dequeue());
 
+                RTSC.Reset();
                 return false;
             case Commands.repair:
                 if (repairTower == null)
@@ -226,6 +231,7 @@ public class Hero : MonoBehaviour
                 }
 
                 repairDecimal = repairAmount - repairInt;
+                RTSC.Reset();
                 return false;
 
             case Commands.upgrade:  Debug.Log("Upgrading..."); return false;
@@ -256,8 +262,9 @@ public class Hero : MonoBehaviour
 
                     upgradeStartTime = Time.time;
                 }
+                RTSC.Reset();
 
-                if(Time.time >= upgradeStartTime + repairTower.upgradeTime)
+                if (Time.time >= upgradeStartTime + repairTower.upgradeTime)
                 {
                     Debug.Log("Job's done!");
                     return true;
@@ -275,7 +282,7 @@ public class Hero : MonoBehaviour
     }
 }
 
-
+[System.Serializable]
 public class HeroCommand
 {
     public Commands command = Commands.idle;
