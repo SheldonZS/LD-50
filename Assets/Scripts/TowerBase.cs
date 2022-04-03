@@ -10,9 +10,11 @@ public class TowerBase : MonoBehaviour
     public int buildTime;
     public int upgradeTime;
 
+    public Hero builder;
+
     public TowerDamage[] damageImages;
     private SpriteRenderer sr;
-    private bool operational = false;
+    public bool operational { get; private set; }
     private HealthBar healthBar;
     
 
