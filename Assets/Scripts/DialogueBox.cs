@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueBox : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class DialogueBox : MonoBehaviour
     private Image textMask;
     private Text testText;
     private RTSController RTSC;
+    private EndingManager endingManager;
 
     public Color normalText, choiceText, highlightedChoiceText, selectedChoiceText, disabledChoiceText;
     public int margins = 5;
@@ -35,7 +37,14 @@ public class DialogueBox : MonoBehaviour
         background = GetComponent<Image>();
         textMask = GameObject.Find("TextMask").GetComponent<Image>();
         testText = GameObject.Find("TestText").GetComponent<Text>();
-        RTSC = GameObject.Find("RTS Controller").GetComponent<RTSController>();
+        if (SceneManager.GetActiveScene().name == "Ending")
+        {
+            endingManager = GameObject.Find("EndingManager").GetComponent<EndingManager>();
+        }
+        else
+        {
+            RTSC = GameObject.Find("RTS Controller").GetComponent<RTSController>();
+        }
     }
 
     // Start is called before the first frame update
@@ -121,32 +130,41 @@ public class DialogueBox : MonoBehaviour
             int index = 0;
             FontStyle currentStyle = FontStyle.Normal;
 
-            //Check if hero is alive and change color if so
             bool speakerAlive = true;
-            
-            switch (words[index].Split(':')[0])
+
+            //Check if hero is alive unless in ending
+            if (SceneManager.GetActiveScene().name != "Ending")
             {
-                case "Raol":
-                    if (!RTSC.raol_alive)
-                        speakerAlive = false;
-                    break;
-                case "Balthasar":
-                    if (!RTSC.bal_alive)
-                        speakerAlive = false;
-                    break;
-                case "Thob":
-                    if (!RTSC.thob_alive)
-                        speakerAlive = false;
-                    break;
-                case "Jolie":
-                    if (!RTSC.jolie_alive)
-                        speakerAlive = false;
-                    break;
-                default:
-                    break;
+                switch (words[index].Split(':')[0])
+                {
+                    case "Raol":
+                        if (!RTSC.raol_alive)
+                            speakerAlive = false;
+                        break;
+                    case "Balthasar":
+                        if (!RTSC.bal_alive)
+                            speakerAlive = false;
+                        break;
+                    case "Thob":
+                        if (!RTSC.thob_alive)
+                            speakerAlive = false;
+                        break;
+                    case "Jolie":
+                        if (!RTSC.jolie_alive)
+                            speakerAlive = false;
+                        break;
+                    default:
+                        break;
+                }
+            
             }
 
-            if (speakerAlive)
+            if (words[index] == "startEnding")
+            {
+                Debug.Log("starting ending");
+                StartCoroutine(endingManager.RevealEnding());
+            }
+            else if (speakerAlive) //creates a new line (clone)
             {
                 if (textBoxes.Count > 0)
                     currentLineY = textBoxes[textBoxes.Count - 1].GetComponent<RectTransform>().localPosition.y - lineHeight;

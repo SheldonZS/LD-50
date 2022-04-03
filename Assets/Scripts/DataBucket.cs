@@ -5,6 +5,7 @@ using UnityEngine;
 public struct GameData
 {
     public EndingCode ending;
+    public int wavesSurvived;
 }
 
 public class DataBucket : MonoBehaviour
