@@ -29,6 +29,7 @@ public class DialogueBox : MonoBehaviour
     public float autoPauseAtLineEndTime = 1f;
 
     private List<Text> textBoxes;
+    private List<List<string>> storyQueue;
 
     public bool displayingText;
 
@@ -53,6 +54,7 @@ public class DialogueBox : MonoBehaviour
 
 
         textBoxes = new List<Text>();
+        storyQueue = new List<List<string>>();
 
         FFButton = GameObject.Find("Fast Forward");
         slowButton = GameObject.Find("Slow");
@@ -110,6 +112,11 @@ public class DialogueBox : MonoBehaviour
 
     public IEnumerator PlayText(List<string> story, bool auto)
     {
+        if (displayingText)
+        {
+            storyQueue.Add(story);
+            yield break;
+        }
         string[] words;
 
         for (int i = 0; i < story.Count; i++)
@@ -340,6 +347,12 @@ public class DialogueBox : MonoBehaviour
         displayingText = false;
 
         yield return null;
+
+        if (storyQueue.Count > 0)
+        {
+            StartCoroutine(PlayText(storyQueue[0], true));
+            storyQueue.RemoveAt(0);
+        }
 
     }
 

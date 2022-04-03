@@ -62,7 +62,7 @@ public class BioManager : MonoBehaviour
                 if (db.data.ending == EndingCode.none)
                     bioText.text += "\n\nInevitable Fate: ???";
                 else
-                    bioText.text += "\n\nInevitable Fate: Trying to find his feathery friend before his friend does something stupid.";
+                    bioText.text += "\n\nInevitable Fate: Attempting to rescue his feathery friend, but needing rescue himself in the process.";
                 break;
             case "balthasar":
                 bioText.color = new Color(105f / 255f, 165f / 255f, 209f / 255f, 255f);
@@ -75,7 +75,7 @@ public class BioManager : MonoBehaviour
                 if (db.data.ending == EndingCode.none)
                     bioText.text += "\n\nInevitable Fate: ???";
                 else
-                    bioText.text += "\n\nInevitable Fate: ";
+                    bioText.text += "\n\nInevitable Fate: Joined the Reaper's quest when threatened with boredom, then immediately forgot its grand purpose.";
                 break;
             case "thob":
                 bioText.color = new Color(148f / 255f, 73f / 255f, 191f / 255f, 255f);
@@ -88,7 +88,7 @@ public class BioManager : MonoBehaviour
                 if (db.data.ending == EndingCode.none)
                     bioText.text += "\n\nInevitable Fate: ???";
                 else
-                    bioText.text += "\n\nInevitable Fate: ";
+                    bioText.text += "\n\nInevitable Fate: Selling the interplanar rights to his 21-movement flute sonata, assuming he can contact a living publisher.";
                 break;
             case "jolie":
                 bioText.color = new Color(179f / 255f, 40f / 255f, 40f / 255f, 255f);

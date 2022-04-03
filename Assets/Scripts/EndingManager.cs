@@ -46,13 +46,13 @@ public class EndingManager : MonoBehaviour
                 endStory.Add("Thob: She gets like that sometimes.");
                 endStory.Add("Raol: More like all the time. Anyway, what did you want us for?");
                 endStory.Add("Reaper: I needed you all here so I could ask you to embark on a new quest.");
-                endStory.Add("Balthasar: See? I knew he just wanted to talk to us.");
+                endStory.Add("Balthasar: See? I knew my old associate just wanted to talk to us.");
                 endStory.Add("Raol: Could have talked to us without killing us.");
                 endStory.Add("Reaper: It's a quest that can only be done in the afterlife. And only the four of you are qualified. Would you please consider it?");
                 endStory.Add("Thob: It depends...");
                 endStory.Add("Reaper: Yes, there is treasure.");
                 endStory.Add("Thob: Then sign me up!");
-                endStory.Add("Balthasar: More adventure! More fun! More explosions!");
+                endStory.Add("Balthasar: Post-mortal job recruitment. Finally, an adventure you all will believe took place.");
                 endStory.Add("Raol: Actually, there's someone I need to find first.");
                 endStory.Add("Reaper: I'll help you find them.");
                 endStory.Add("Raol: Fine.");
@@ -63,7 +63,8 @@ public class EndingManager : MonoBehaviour
                 endStory.Add("Thob: The Reaper has a quest for us. There's riches and--");
                 endStory.Add("Jolie: No. Zzzzzz...");
                 endStory.Add("Reaper: Well. I suppose we'll just...let her sleep. She's earned it.");
-                endStory.Add("\nJolie delayed eternal sleep for " + db.data.wavesSurvived + "waves.");
+                endStory.Add("***");
+                endStory.Add("Somehow, Jolie delayed eternal sleep for " + db.data.wavesSurvived + " waves.");
                 break;
             default:
                 break;
