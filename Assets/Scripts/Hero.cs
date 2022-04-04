@@ -7,6 +7,10 @@ public class Hero : MonoBehaviour
     private int health;
     public int maxHealth;
 
+    public int level = 1;
+    public int exp = 0;
+    public int maxExp = 5;
+
     public float moveSpeed = 200f;
     public float buildSpeedMultiplier = 1f;
 
