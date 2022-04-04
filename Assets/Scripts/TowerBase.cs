@@ -52,10 +52,10 @@ public class TowerBase : MonoBehaviour
 
     private void Update()
     {
-        if (builder == null)
+        if (builder == null || operational == false)
             return;
 
-        if (cooldown <= 0 && operational)
+        if (cooldown <= 0)
             switch (builder.gameObject.name)
             {
                 case "Raol":
@@ -121,9 +121,20 @@ public class TowerBase : MonoBehaviour
 
         if (health <= 0)
         {
+            operational = false;
             if (builder != null)
-                builder.PlayRuinText();
-            diaBox.PlayText(DM.homeRuined, TextMode.queue);
+            {
+                //builder.PlayRuinText();
+                diaBox.PlayText(DM.homeRuined, TextMode.queue);
+            }
+ 
+            else
+            {
+                RTSController.instance.base_intact = false;
+                gameObject.tag = "Obstacle";
+                gameObject.layer = 0;
+                //text when base is destroyed
+            }
         }
     }
 

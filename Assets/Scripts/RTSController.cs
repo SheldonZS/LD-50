@@ -34,10 +34,11 @@ public class RTSController : MonoBehaviour
     //public CursorCollider mouseOver { get; private set; }
     public WaveManager wave;
 
-    public bool raol_alive;
-    public bool bal_alive;
-    public bool thob_alive;
-    public bool jolie_alive;
+    public bool raol_alive = true;
+    public bool bal_alive = true;
+    public bool thob_alive = true;
+    public bool jolie_alive = true;
+    public bool base_intact = true;
 
     // Start is called before the first frame update
 
@@ -77,6 +78,7 @@ public class RTSController : MonoBehaviour
         bal_alive = true;
         thob_alive = true;
         jolie_alive = true;
+        base_intact = true;
 
         bones = 200;
         ResetButtons();
@@ -199,6 +201,11 @@ public class RTSController : MonoBehaviour
     }
     public void BuildButton()
     {
+        if (command == Commands.build)
+        {
+            Reset();
+            return;
+        }
         command = Commands.build;
 
         buildButtonImage.overrideSprite = build[1];
@@ -208,6 +215,12 @@ public class RTSController : MonoBehaviour
 
     public void RepairButton()
     {
+        if (command == Commands.repair)
+        {
+            Reset();
+            return;
+        }
+
         command = Commands.repair;
 
         buildButtonImage.overrideSprite = build[0];
@@ -218,6 +231,11 @@ public class RTSController : MonoBehaviour
 
     public void UpgradeButton()
     {
+        if (command == Commands.upgrade)
+        {
+            Reset();
+            return;
+        }
         command = Commands.upgrade;
 
         buildButtonImage.overrideSprite = build[0];

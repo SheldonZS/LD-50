@@ -103,6 +103,8 @@ public class MonsterBase : MonoBehaviour
         }
         else
         {
+            if (moveAI == MonsterMove.path && RTSC.base_intact == false)
+                moveAI = MonsterMove.wander;
             animator.SetInteger("animation", (int)CharacterAnimation.move);
             switch (moveAI)
             {
@@ -229,6 +231,11 @@ public class MonsterBase : MonoBehaviour
     public void Hurt()
     {
         StartCoroutine(HurtAnimation());
+    }
+
+    public void MakeIdle()
+    {
+        animator.SetInteger("animation", (int)CharacterAnimation.idle);
     }
 
     public IEnumerator HurtAnimation()
