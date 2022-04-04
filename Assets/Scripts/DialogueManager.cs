@@ -147,7 +147,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        db.tutorialMode = 5;
+        db.tutorialMode = 0;
 
         InitializeAllStories();
         StartCoroutine(diaBox.PlayText(intro, TextMode.imm));
@@ -157,11 +157,7 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(diaBox.PlayText(firstRuin_T, TextMode.imm));
 
-        }
     }
     
     //play randomized text
@@ -331,7 +327,7 @@ public class DialogueManager : MonoBehaviour
         firstRuin_T.Add("Thob: Dust and ruin! My beautiful tower! Whatever shall I do?");
         firstRuin_T.Add("Jolie: Easy. Just go build a new one.");
 
-        firstRuin_J.Add("Jolie: Eh, that tower was starting to be an eyesore anyway. Build something else there.");
+        firstRuin_J.Add("Jolie: Eh, that tower was starting to be an eyesore anyway. Now we can look at something else.");
         firstRuin_J.Add("Balthasar: Might I suggest one of my patented incendiary structures?");
         
         //first time character successfully upgrades

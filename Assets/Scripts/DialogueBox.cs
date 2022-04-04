@@ -15,6 +15,7 @@ public class DialogueBox : MonoBehaviour
     private EndingManager endingManager;
     private DataBucket db;
     private SceneController SceneController;
+    private WaveManager wm;
     private Hero raol, balthasar, thob, jolie;
 
     public Color normalText, choiceText, highlightedChoiceText, selectedChoiceText, disabledChoiceText;
@@ -36,7 +37,7 @@ public class DialogueBox : MonoBehaviour
 
     public List<Text> textBoxes;
     private List<List<string>> storyQueue;
-    private List<Coroutine> storiesInPlay;
+    public List<Coroutine> storiesInPlay;
 
     public bool displayingText;
     private Coroutine blinkCoroutine;
@@ -60,7 +61,13 @@ public class DialogueBox : MonoBehaviour
             balthasar = GameObject.Find("Balthasar").GetComponent<Hero>();
             thob = GameObject.Find("Thob").GetComponent<Hero>();
             jolie = GameObject.Find("Jolie").GetComponent<Hero>();
+            wm = GameObject.Find("RTS Controller").GetComponent<WaveManager>();
         }
+
+
+        textBoxes = new List<Text>();
+        storyQueue = new List<List<string>>();
+        storiesInPlay = new List<Coroutine>();
     }
 
     // Start is called before the first frame update
@@ -68,9 +75,6 @@ public class DialogueBox : MonoBehaviour
     {
 
 
-        textBoxes = new List<Text>();
-        storyQueue = new List<List<string>>();
-        storiesInPlay = new List<Coroutine>();
 
         FFButton = GameObject.Find("Fast Forward");
         slowButton = GameObject.Find("Slow");
@@ -128,10 +132,10 @@ public class DialogueBox : MonoBehaviour
 
     public void ClearAllStories()
     {
-        foreach (Coroutine story in storiesInPlay)
-        {
-            StopCoroutine(story);
-        }
+            foreach (Coroutine story in storiesInPlay)
+            {
+                StopCoroutine(story);
+            }
     }
 
     public IEnumerator PlayText(List<string> story, TextMode mode)
@@ -140,8 +144,16 @@ public class DialogueBox : MonoBehaviour
          
         if (displayingText && mode == TextMode.queue)
         {
-            storyQueue.Add(story);
-            yield break;
+            if (mode == TextMode.queue)
+            {
+                storyQueue.Add(story);
+                yield break;
+            }
+            else if (mode == TextMode.ifFree)
+            {
+                yield break;
+            }
+
         }
 
         if (mode == TextMode.imm)
@@ -221,7 +233,7 @@ public class DialogueBox : MonoBehaviour
             else if (words[index] == "endTutorial")
             {
                 db.tutorialMode++;
-                //start calling waves
+                wm.StartNextWave();
             }
             else if (words[index] == "endgame")
             {

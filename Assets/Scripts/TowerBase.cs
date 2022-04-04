@@ -34,7 +34,8 @@ public class TowerBase : MonoBehaviour
     public float cooldown { get; private set; }
     public GameObject turret;
 
-
+    private DialogueBox diaBox;
+    private DialogueManager DM;
 
     // Start is called before the first frame update
     void Awake()
@@ -44,6 +45,9 @@ public class TowerBase : MonoBehaviour
 
         healthBar = GetComponentInChildren<HealthBar>();
         cooldown = 0;
+
+        diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
+        DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
     }
 
     private void Update()
@@ -119,7 +123,7 @@ public class TowerBase : MonoBehaviour
         {
             if (builder != null)
                 builder.PlayRuinText();
-            //else text when base is destroyed
+            diaBox.PlayText(DM.homeRuined, TextMode.queue);
         }
     }
 

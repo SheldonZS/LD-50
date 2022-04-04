@@ -38,8 +38,9 @@ public class EndingManager : MonoBehaviour
 
         InitializeEndings();
 
+        db.raolUnlocked = true;
+
         PlayEnding();
- 
     }
 
     void PlayEnding()
@@ -47,20 +48,26 @@ public class EndingManager : MonoBehaviour
         switch (db.data.ending)
         {
             case EndingCode.Raol:
+                instructions.text = "";
                 StartCoroutine(diaBox.PlayText(endStory_R, TextMode.imm));
                 break;
             case EndingCode.Bal:
+                instructions.text = "";
                 StartCoroutine(diaBox.PlayText(endStory_B, TextMode.imm));
 
                 break;
             case EndingCode.Thob:
+                instructions.text = "";
                 StartCoroutine(diaBox.PlayText(endStory_T, TextMode.imm));
                 break;
             case EndingCode.Jolie:
+                instructions.text = "";
                 StartCoroutine(diaBox.PlayText(endStory_J, TextMode.imm));
 
                 break;
             default:
+                instructions.text = "Select a character to view their ending.";
+
                 break;
         }
     }
@@ -70,12 +77,15 @@ public class EndingManager : MonoBehaviour
         foreach (Text go in diaBox.textBoxes)
             Destroy(go.gameObject);
         diaBox.ClearAllStories();
+        diaBox.textBoxes.Clear();
 
         if (db.raolUnlocked)
         {
             db.data.ending = EndingCode.Raol;
             foreach (Text go in diaBox.textBoxes)
                 Destroy(go.gameObject);
+            diaBox.ClearAllStories();
+            diaBox.textBoxes.Clear();
             PlayEnding();
         }
         else
@@ -90,12 +100,15 @@ public class EndingManager : MonoBehaviour
         foreach (Text go in diaBox.textBoxes)
             Destroy(go.gameObject);
         diaBox.ClearAllStories();
+        diaBox.textBoxes.Clear();
 
-        if (db.raolUnlocked)
+        if (db.thobUnlocked)
         {
             db.data.ending = EndingCode.Thob;
             foreach (Text go in diaBox.textBoxes)
                 Destroy(go.gameObject);
+            diaBox.ClearAllStories();
+            diaBox.textBoxes.Clear();
             PlayEnding();
         }
         else
@@ -109,12 +122,15 @@ public class EndingManager : MonoBehaviour
         foreach (Text go in diaBox.textBoxes)
             Destroy(go.gameObject);
         diaBox.ClearAllStories();
+        diaBox.textBoxes.Clear();
 
-        if (db.raolUnlocked)
+        if (db.balUnlocked)
         {
             db.data.ending = EndingCode.Bal;
             foreach (Text go in diaBox.textBoxes)
                 Destroy(go.gameObject);
+            diaBox.ClearAllStories();
+            diaBox.textBoxes.Clear();
             PlayEnding();
         }
         else
@@ -128,11 +144,15 @@ public class EndingManager : MonoBehaviour
         foreach (Text go in diaBox.textBoxes)
             Destroy(go.gameObject);
         diaBox.ClearAllStories();
+        diaBox.textBoxes.Clear();
 
-        if (db.raolUnlocked)
+        if (db.jolieUnlocked)
         {
             db.data.ending = EndingCode.Jolie;
-
+            foreach (Text go in diaBox.textBoxes)
+                Destroy(go.gameObject);
+            diaBox.ClearAllStories();
+            diaBox.textBoxes.Clear();
             PlayEnding();
         }
         else
