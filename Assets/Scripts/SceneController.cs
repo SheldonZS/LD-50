@@ -29,4 +29,9 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene("Bios");
     }
+
+    public void onClickEnding()
+    {
+        SceneManager.LoadScene("Ending");
+    }
 }

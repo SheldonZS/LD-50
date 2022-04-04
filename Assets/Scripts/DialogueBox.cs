@@ -14,6 +14,7 @@ public class DialogueBox : MonoBehaviour
     private RTSController RTSC;
     private EndingManager endingManager;
     private DataBucket db;
+    private SceneController SceneController;
 
     public Color normalText, choiceText, highlightedChoiceText, selectedChoiceText, disabledChoiceText;
     public int margins = 5;
@@ -43,6 +44,7 @@ public class DialogueBox : MonoBehaviour
         background = GetComponent<Image>();
         textMask = GameObject.Find("TextMask").GetComponent<Image>();
         testText = GameObject.Find("TestText").GetComponent<Text>();
+        SceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
         if (SceneManager.GetActiveScene().name == "Ending")
         {
@@ -214,6 +216,33 @@ public class DialogueBox : MonoBehaviour
             {
                 db.tutorialMode++;
                 //start calling waves
+            }
+            else if (words[index] == "endgame")
+            {
+                SceneController.onClickEnding();
+            }
+            else if (words[index].Split(':')[0] == "unpause")
+            {
+                switch (words[index].Split(':')[1])
+                {
+                    case "raol":
+                        //destroy raol gameobject
+                        break;
+                    case "bal":
+                        //destroy bal gameobject
+
+                        break;
+                    case "thob":
+                        //destroy thob gameobject
+
+                        break;
+                    case "jolie":
+                        //destroy jolie gameobject
+
+                        break;
+                }
+
+                //unpause
             }
             else if (speakerAlive) //creates a new line (clone)
             {

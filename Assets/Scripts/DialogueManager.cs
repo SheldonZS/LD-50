@@ -402,12 +402,14 @@ public class DialogueManager : MonoBehaviour
         firstDeath_R.Add("Thob: I wish we had gotten to know him better. Even if he was pretty prickly.");
         firstDeath_R.Add("Balthasar: It would have been a laborious process to befriend someone so misanthropic.");
         firstDeath_R.Add("Jolie: More importantly, I can't believe I didn't die first. What am I doing? I wish I were Raol now. I bet he doesn't have an awful headache.");
+        firstDeath_R.Add("unpause:raol");
 
         firstDeath_B.Add("Balthasar: It seems that I will perish forthwith. Yet I do not sorrow, for I have died a plethora of times before--");
         firstDeath_B.Add("Jolie: He exploded.");
         firstDeath_B.Add("Thob: I could not imagine a more befitting end. He was a colorful sort. A bit talkative, perhaps, but ever unpredictable.");
         firstDeath_B.Add("Raol: Are we going to stand around and die just to hold a funeral? Let's move it.");
         firstDeath_B.Add("Jolie: Why can't I spontaneously explode like that?");
+        firstDeath_B.Add("unpause:bal");
 
         firstDeath_T.Add("Thob: Och, I don't think I can recover from this wound...when I die...please loot my body. Apologies...I was going to return them...");
         firstDeath_T.Add("Jolie: Loot his body ? Does he mean he dropped treasure?");
@@ -417,6 +419,7 @@ public class DialogueManager : MonoBehaviour
         firstDeath_T.Add("Jolie: Used to. Yeah right. And you can't use the \"Wabbajack\" anymore because--?");
         firstDeath_T.Add("Balthasar: It was transformed into a sniper rifle. Also I no longer possess the requisite ammunition.");
         firstDeath_T.Add("Jolie: Also I possess a headache.");
+        firstDeath_T.Add("unpause:thob");
 
         firstDeath_J.Add("Jolie: Finally! I can sleep forever! See you all...never...");
         firstDeath_J.Add("Thob: All things considered, she seems pretty happy to go.");
@@ -425,6 +428,7 @@ public class DialogueManager : MonoBehaviour
         firstDeath_J.Add("Thob: Now that Jolie is no longer here to express disbelief at your tall tales, I need to take up her mantle. Because really? Thirteen times?");
         firstDeath_J.Add("Balthasar: As you can see, I am no worse for wear.");
         firstDeath_J.Add("Raol: This actually explains a lot.");
+        firstDeath_J.Add("unpause:jolie");
 
         //the following death scenes should still work even if any single one of the speakers (in addition to the dying) is missing
         secondDeath_R.Add("Raol: Mother Moon! I...I cannot continue. Kol Kol...don't worry, I'm coming to find you.");
@@ -433,6 +437,7 @@ public class DialogueManager : MonoBehaviour
         secondDeath_R.Add("Balthasar: I find it difficult to imagine someone with such historically antagonistic behavior in an intimate scenario.");
         secondDeath_R.Add("Jolie: I once heard Raol ask the nurses if they would \"come back later for a price.\" It turned out he just wanted to pay them to leave him alone.");
         secondDeath_R.Add("Thob: Raol, you shall be missed. Even if you were pretty prickly.");
+        secondDeath_R.Add("unpause:raol");
 
         secondDeath_B.Add("Balthasar: Hello Reaper, my old acquaintance...");
         secondDeath_B.Add("Thob: That was nearly a song I recognized.");
@@ -440,6 +445,7 @@ public class DialogueManager : MonoBehaviour
         secondDeath_B.Add("Raol: The Reaper might be more annoyed that he's been revived so many times.");
         secondDeath_B.Add("Thob: Whatever the Reaper thinks, getting Balthasar wasn't enough. And we won't be able to repair Balthasar's towers.");
         secondDeath_B.Add("Jolie: I'd like to greet the Reaper soon. If only to demand he explain why it's taken him so long put an end to my headaches.");
+        secondDeath_B.Add("unpause:bal");
 
         secondDeath_T.Add("Thob: Och, I don't think I can recover from this wound...when I die...please loot my body. Apologies...I was going to return them...");
         secondDeath_T.Add("Jolie: Loot his body? Does he mean he's going to drop treasure?");
@@ -449,47 +455,57 @@ public class DialogueManager : MonoBehaviour
         secondDeath_T.Add("Jolie: Yup, found Raol's ring here too.");
         secondDeath_T.Add("Raol: What a scoundrel.");
         secondDeath_T.Add("Balthasar: Indeed, but his final words were so regretful, I cannot help but forgive him. Who among us has never succumbed to our baser instincts?");
+        secondDeath_T.Add("unpause:thob");
 
         secondDeath_J.Add("Jolie: At last! I can be at peace!");
         secondDeath_J.Add("Thob: I've often wished I could be more accepting of death, but perhaps not that accepting.");
         secondDeath_J.Add("Balthasar: You know, if you would like to be more cavalier towards death, you can easily do so by simply undergoing multiple deaths and revivals, as I have.");
         secondDeath_J.Add("Raol: I've evaded death many times and I intend to continue doing so. We don't need Jolie's towers to survive this.");
         secondDeath_J.Add("Thob: Onwards! Let Jolie enjoy her eternal rest as we work to never join her!");
+        secondDeath_J.Add("unpause:jolie");
 
         //the following death scenes should be read as though only one of the speakers is present (aside from the dying speaker)
         thirdDeath_R.Add("Raol: Mother Moon, the pain is too much...Kol Kol...I'm coming to find you.");
         thirdDeath_R.Add("Balthasar: How perplexing. You have never divulged this name \"Kol Kol\" to me before. To be fair, you did not speak of many things. Mostly I expatiated on my own adventurers, and you may or may not have listened. Who shall bear witness to my adventurers now? Aside from Ludvig, that is?");
         thirdDeath_R.Add("Thob: Ah Raol, though I barely knew you, I shall continue to sing of your glory to the end. What rhymes with Raol? Cowl? Drawl? Wait, how do you pronounce your name? Have you been scowling at me this whole time because I was saying it wrong? Hmm, scowl and Raol go together pretty well."); 
         thirdDeath_R.Add("Jolie: Raol, who will repair your towers now? Wait, what am I saying? I don't need to repair your towers or my towers or anyone's towers. I don't need to keep anyone else alive. I can finally rest. Right? Right? Come, Death! You shall not escape me! Rid me of my bad hips!");
-        
+        thirdDeath_R.Add("unpause:raol");
+
         thirdDeath_B.Add("Balthasar: Ah, Reaper, fancy meeting you here...");
         thirdDeath_B.Add("Raol: Sounds like you really did know the Reaper after all. He's probably not too pleased with you after we murdered so many of his minions. I don't even feel bad about it. They're endless. Like new technology. Just when you've learned to dial the phone, they tell you now you have to do the email instead...");
         thirdDeath_B.Add("Thob: No! Balthasar! Do you mind if I...check your pockets for anything shiny? Just to comfort me in my last moments, you know? I might have stolen some of it already. But I was planning to return it, honest. Ooh, this looks pretty...");
         thirdDeath_B.Add("Jolie: You sound delighted to meet the Reaper. Well, when you do, ask him why he hasn't come for me. I've been very patient. Never mind, I'm going to go ask him myself.");
+        thirdDeath_B.Add("unpause:bal");
 
         thirdDeath_T.Add("Thob: When I die, check my pockets...I'm sorry...I couldn't help myself...");
         thirdDeath_T.Add("Raol: I can't loot your body, stupid. You've got too much silver on you. I guess you can't hear me now. Without everyone else's towers, I won't be able to last much longer against these never-ending waves. As endless as new technology. Just when you've learned to dial the phone, they tell you now you have to learn to do the email too... ");
         thirdDeath_T.Add("Balthasar: Check your pockets? Ah, now I comprehend. You have successfully relieved me of my Icicle of Melting Ice, my legendary wand that is now an ammunition-less sniper rifle, and...even my killer sheep skulls? And I had all these items on my person but an hour ago. You stole them over the course of this battle? I commend you for your skill.");
         thirdDeath_T.Add("Jolie: You stole something, didn't you? Let me see...my scabbard! You scoundrel! To be fair, I didn't notice it was missing. Well done. Not that I'll be needing this scabbard much longer, anyway. Everyone else is dead, so I don't need to fight anymore. Take me with you!");
+        thirdDeath_T.Add("unpause:thob");
 
         thirdDeath_J.Add("Jolie: Ah, sweet release! Let me slumber!");
         thirdDeath_J.Add("Raol: Jolie? Jolie? Gone...but at least you seem much happier now. Guess it's just me. Me and the never-ending waves. As endless as new technology. Just when you've learned to dial the phone, they tell you now you have to learn the email too. It seems inevitable to fight against progress. But I fight on.");
         thirdDeath_J.Add("Balthasar: Never have I known someone so eager to rendezvous with death, yet so unable to do so in an expeditious manner. It speaks volumes that you acquiesced, however begrudgingly, to protect your compatriots for so long.");
         thirdDeath_J.Add("Thob: No! Jolie! I never got to tell you...I stole your earrings that one time. I also returned them when you didn't catch me. You were asleep the whole time, so...but I still feel bad about it. I guess it's just me now. I'll memorialize all of you in song. Perhaps if it's even good enough, the Reaper will let me go.");
+        thirdDeath_J.Add("unpause:jolie");
 
         //the following death scenes only have one speaker, so yay!
 
         lastDeath_R.Add("Raol: Kol Kol...it's been so long. Have you gotten yourself into trouble again? Well, look at the trouble I'm in now. Mother Moon, I shall still howl to you...even in death...");
+        lastDeath_R.Add("endgame");
 
         lastDeath_B.Add("Balthasar: Ludvig, my flying feathered familiar, you are the only witness to my final moments.");
         lastDeath_B.Add("Ludvig: Hoot!");
         lastDeath_B.Add("Balthasar: I have left the mortal coil countless times before. My heart clenches with the premonition that I will not return this time.");
         lastDeath_B.Add("Ludvig: Hoot hoot...");
         lastDeath_B.Add("Balthasar: Still, I admit curiosity in seeing what death has to offer...");
+        lastDeath_B.Add("endgame");
 
         lastDeath_T.Add("Thob: Well, this is embarrassing...I meant to return the treasures I stole from everyone else, but they died before they could catch me...I really did mean to bring it up...I suppose it doesn't matter now...at least I'll die with an apology on my lips...and the dignity of knowing that I was never felled by a tree. Wait. These scythes are made from wood...no...");
+        lastDeath_T.Add("endgame");
 
         lastDeath_J.Add("Jolie: Ow! But...worth it...I bet if I close my eyes now, I can die in my sleep...like I've always wanted...though really, any type of death would have been fine...zzz...");
+        lastDeath_J.Add("endgame");
 
         //randomize
         bonePickUp_R.Add("Raol: Those bones must smell terrible, but I've lost my sense of smell.");

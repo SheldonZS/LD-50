@@ -34,7 +34,7 @@ public class Hero : MonoBehaviour
     public bool building;
     public bool repairing;
 
-    private bool firstBuild, firstUpgrade, firstRuin, leveledUp;
+    private bool firstBuild, firstUpgrade, firstRuin, leveledUp, firstHurt;
 
     private int bonesCarried = 0;
 
@@ -66,7 +66,7 @@ public class Hero : MonoBehaviour
 
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
         diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
-        DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>(); 
+        DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
     }
 
     // Update is called once per frame
@@ -378,7 +378,7 @@ public class Hero : MonoBehaviour
                                         ShowText(DM.levelUp_T, TextMode.ifFree);
 
                                         break;
-                                    case "Julie":
+                                    case "Jolie":
                                         ShowText(DM.levelUp_J, TextMode.ifFree);
 
                                         break;
@@ -411,7 +411,7 @@ public class Hero : MonoBehaviour
                                     ShowText(DM.firstTower_T, TextMode.ifFree);
 
                                     break;
-                                case "Julie":
+                                case "Jolie":
                                     ShowText(DM.firstTower_J, TextMode.ifFree);
 
                                     break;
@@ -432,7 +432,7 @@ public class Hero : MonoBehaviour
                                 case "Thob":
                                     DM.PlayRandom(DM.towerBuilt_T);
                                     break;
-                                case "Julie":
+                                case "Jolie":
                                     DM.PlayRandom(DM.towerBuilt_J);
                                     break;
                                 default:
@@ -489,7 +489,7 @@ public class Hero : MonoBehaviour
                             case "Thob":
                                 DM.PlayRandom(DM.towerFullRepair_T);
                                 break;
-                            case "Julie":
+                            case "Jolie":
                                 DM.PlayRandom(DM.towerFullRepair_J);
                                 break;
                             default:
@@ -569,7 +569,7 @@ public class Hero : MonoBehaviour
                                         ShowText(DM.firstUpgrade_T, TextMode.ifFree);
 
                                         break;
-                                    case "Julie":
+                                    case "Jolie":
                                         ShowText(DM.firstUpgrade_J, TextMode.ifFree);
 
                                         break;
@@ -590,7 +590,7 @@ public class Hero : MonoBehaviour
                                     case "Thob":
                                         DM.PlayRandom(DM.towerUpgrade_T);
                                         break;
-                                    case "Julie":
+                                    case "Jolie":
                                         DM.PlayRandom(DM.towerUpgrade_J);
                                         break;
                                     default:
@@ -617,6 +617,152 @@ public class Hero : MonoBehaviour
 
     }
 
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        health = Mathf.Clamp(health, 0, maxHealth);
+        healthBar.UpdateHealth(health);
+
+        //play damage sound
+
+        if (!firstHurt)
+        {
+            firstHurt = true;
+            switch (this.name)
+            {
+                case "Raol":
+                    ShowText(DM.firstHurt_R, TextMode.ifFree);
+
+                    break;
+                case "Balthasar":
+                    ShowText(DM.firstHurt_B, TextMode.ifFree);
+
+                    break;
+                case "Thob":
+                    ShowText(DM.firstHurt_T, TextMode.ifFree);
+
+                    break;
+                case "Jolie":
+                    ShowText(DM.firstHurt_J, TextMode.ifFree);
+
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (health <= 0)
+        {
+
+            CharacterDeath();
+
+        }
+    }
+
+    void CharacterDeath()
+    {
+        //pause game
+
+
+        switch (this.name)
+        {
+            case "Raol":
+                //play character death anim
+                //play character death sound
+                RTSC.raol_alive = false;
+
+                switch (RTSC.heroes.Count)
+                {
+                    case 4:
+                        ShowText(DM.firstDeath_R, TextMode.imm);
+                        break;
+                    case 3:
+                        ShowText(DM.secondDeath_R, TextMode.imm);
+                        break;
+                    case 2:
+                        ShowText(DM.thirdDeath_R, TextMode.imm);
+                        break;
+                    case 1:
+                        ShowText(DM.lastDeath_R, TextMode.imm);
+                        db.data.ending = EndingCode.Raol;
+                        db.raolUnlocked = true;
+                        break;
+                }
+                break;
+            case "Balthasar":
+                //play character death anim
+                //play character death sound
+                RTSC.bal_alive = false;
+
+                switch (RTSC.heroes.Count)
+                {
+                    case 4:
+                        ShowText(DM.firstDeath_B, TextMode.imm);
+                        break;
+                    case 3:
+                        ShowText(DM.secondDeath_B, TextMode.imm);
+                        break;
+                    case 2:
+                        ShowText(DM.thirdDeath_B, TextMode.imm);
+                        break;
+                    case 1:
+                        ShowText(DM.lastDeath_B, TextMode.imm);
+                        db.data.ending = EndingCode.Bal;
+                        db.balUnlocked = true;
+                        break;
+                }
+                break;
+            case "Thob":
+                //play character death anim
+                //play character death sound
+                RTSC.thob_alive = false;
+
+                switch (RTSC.heroes.Count)
+                {
+                    case 4:
+                        ShowText(DM.firstDeath_T, TextMode.imm);
+                        break;
+                    case 3:
+                        ShowText(DM.secondDeath_T, TextMode.imm);
+                        break;
+                    case 2:
+                        ShowText(DM.thirdDeath_T, TextMode.imm);
+                        break;
+                    case 1:
+                        ShowText(DM.lastDeath_T, TextMode.imm);
+                        db.data.ending = EndingCode.Thob;
+                        db.thobUnlocked = true;
+                        break;
+                }
+                break;
+            case "Jolie":
+                //play character death anim
+                //play character death sound
+                RTSC.jolie_alive = false;
+
+                switch (RTSC.heroes.Count)
+                {
+                    case 4:
+                        ShowText(DM.firstDeath_J, TextMode.imm);
+                        break;
+                    case 3:
+                        ShowText(DM.secondDeath_J, TextMode.imm);
+                        break;
+                    case 2:
+                        ShowText(DM.thirdDeath_J, TextMode.imm);
+                        break;
+                    case 1:
+                        ShowText(DM.lastDeath_J, TextMode.imm);
+                        db.data.ending = EndingCode.Jolie;
+                        db.jolieUnlocked = true;
+                        break;
+                }
+                break;
+           
+        }//switch depending on character that is dying
+    }
+
+
     void ShowText(List<string> storyText, TextMode mode)
     {
         StartCoroutine(diaBox.PlayText(storyText, mode));
@@ -641,7 +787,7 @@ public class Hero : MonoBehaviour
                     ShowText(DM.firstRuin_T, TextMode.ifFree);
 
                     break;
-                case "Julie":
+                case "Jolie":
                     ShowText(DM.firstRuin_J, TextMode.ifFree);
 
                     break;
