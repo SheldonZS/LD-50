@@ -48,10 +48,10 @@ public class TowerBase : MonoBehaviour
 
     private void Update()
     {
-        if (builder == null)
+        if (builder == null || operational == false)
             return;
 
-        if (cooldown <= 0 && operational)
+        if (cooldown <= 0)
             switch (builder.gameObject.name)
             {
                 case "Raol":
@@ -117,6 +117,7 @@ public class TowerBase : MonoBehaviour
 
         if (health <= 0)
         {
+            operational = false;
             if (builder != null)
                 builder.PlayRuinText();
             //else text when base is destroyed

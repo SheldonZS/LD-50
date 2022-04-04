@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: 6990c8e1f8717da40940f3d7213a067d
+guid: 442e9181ddc4fce43b6c08925f98bfbf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -161404412752061786
-    second: wi_walk_0
+      213: -6327488992416656739
+    second: LD2022_UI_buttons_0
   - first:
-      213: 5593827426886006041
-    second: wi_walk_1
+      213: -7443123057516546880
+    second: LD2022_UI_buttons_1
   - first:
-      213: -7345599810579374700
-    second: wi_walk_2
+      213: -928003462004578351
+    second: LD2022_UI_buttons_2
   - first:
-      213: 586949458455991639
-    second: wi_walk_3
+      213: 6061258474078759063
+    second: LD2022_UI_buttons_3
+  - first:
+      213: 2504494603761634899
+    second: LD2022_UI_buttons_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -100,18 +103,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -127,85 +118,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wi_walk_0
+      name: LD2022_UI_buttons_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 100
-        height: 100
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 11
+        y: 115
+        width: 99
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6aa9bb0ba8392cdf0800000000000000
-      internalID: -161404412752061786
+      spriteID: d929fce294e3038a0800000000000000
+      internalID: -6327488992416656739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wi_walk_1
+      name: LD2022_UI_buttons_1
       rect:
         serializedVersion: 2
-        x: 100
-        y: 0
-        width: 100
-        height: 100
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 130
+        y: 115
+        width: 99
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 915b06a486441ad40800000000000000
-      internalID: 5593827426886006041
+      spriteID: 0c4f439b307b4b890800000000000000
+      internalID: -7443123057516546880
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wi_walk_2
+      name: LD2022_UI_buttons_2
       rect:
         serializedVersion: 2
-        x: 200
-        y: 0
-        width: 100
-        height: 100
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 248
+        y: 114
+        width: 99
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49d5d3414ef2f0a90800000000000000
-      internalID: -7345599810579374700
+      spriteID: 1d762e0a4c11f13f0800000000000000
+      internalID: -928003462004578351
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wi_walk_3
+      name: LD2022_UI_buttons_3
       rect:
         serializedVersion: 2
-        x: 300
-        y: 0
-        width: 100
-        height: 100
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 11
+        y: 14
+        width: 152
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75590643c63452800800000000000000
-      internalID: 586949458455991639
+      spriteID: 7986a4fd77aed1450800000000000000
+      internalID: 6061258474078759063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LD2022_UI_buttons_4
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 14
+        width: 97
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35e481f9290c1c220800000000000000
+      internalID: 2504494603761634899
       vertices: []
       indices: 
       edges: []

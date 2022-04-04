@@ -196,6 +196,11 @@ public class RTSController : MonoBehaviour
     }
     public void BuildButton()
     {
+        if (command == Commands.build)
+        {
+            Reset();
+            return;
+        }
         command = Commands.build;
 
         buildButtonImage.overrideSprite = build[1];
@@ -205,6 +210,12 @@ public class RTSController : MonoBehaviour
 
     public void RepairButton()
     {
+        if (command == Commands.repair)
+        {
+            Reset();
+            return;
+        }
+
         command = Commands.repair;
 
         buildButtonImage.overrideSprite = build[0];
@@ -215,6 +226,11 @@ public class RTSController : MonoBehaviour
 
     public void UpgradeButton()
     {
+        if (command == Commands.upgrade)
+        {
+            Reset();
+            return;
+        }
         command = Commands.upgrade;
 
         buildButtonImage.overrideSprite = build[0];

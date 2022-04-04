@@ -44,6 +44,7 @@ public class Hero : MonoBehaviour
     private DialogueManager DM;
     private Text boneCountText;
     private SpriteRenderer boneIcon;
+    private float hurtTime = -99;
 
     public float bardBuildMultiplier = 1f;
     public float bardMoveMultiplier = 1f;
@@ -79,6 +80,8 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+            return;
         //
 
    
@@ -247,8 +250,9 @@ public class Hero : MonoBehaviour
             if (!manualMove)
                 ExecuteCommand();
         }
-        
 
+        if (Time.time < hurtTime + .167f)
+            animator.SetInteger("animation", (int)CharacterAnimation.hurt);
     }
 
     public void PickUpBones(int x)
@@ -289,6 +293,8 @@ public class Hero : MonoBehaviour
         switch (command.command)
         {
             case Commands.move:
+                animator.SetInteger("animation", (int)CharacterAnimation.move);
+
                 Vector2 movement = command.location - (Vector2)transform.localPosition;
                 float mag = movement.magnitude;
 
@@ -342,6 +348,8 @@ public class Hero : MonoBehaviour
                         return true;
                     }
 
+                    animator.SetInteger("animation", (int)CharacterAnimation.action);
+
                     building = true;
                     RTSC.UpdateButtons();
 
@@ -357,6 +365,8 @@ public class Hero : MonoBehaviour
                 }
                 else
                 {
+                    animator.SetInteger("animation", (int)CharacterAnimation.move);
+
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                     return false;
@@ -374,6 +384,8 @@ public class Hero : MonoBehaviour
 
                 if (collider.IsTouching(repairTower.GetComponent<BoxCollider2D>()))
                 {
+                    animator.SetInteger("animation", (int)CharacterAnimation.action);
+
                     float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * bardBuildMultiplier * Time.deltaTime + repairDecimal;
                     int repairInt = Mathf.FloorToInt(repairAmount);
                     repairTower.Repair(repairInt);
@@ -476,6 +488,8 @@ public class Hero : MonoBehaviour
                 }
                 else if (!building)
                 {
+                    animator.SetInteger("animation", (int)CharacterAnimation.move);
+
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                 }
@@ -493,6 +507,8 @@ public class Hero : MonoBehaviour
 
                 if (collider.IsTouching(repairTower.GetComponent<BoxCollider2D>()))
                 {
+                    animator.SetInteger("animation", (int)CharacterAnimation.action);
+
                     repairing = true;
                     RTSC.UpdateButtons();
 
@@ -531,6 +547,8 @@ public class Hero : MonoBehaviour
                 }
                 else
                 {
+                    animator.SetInteger("animation", (int)CharacterAnimation.move);
+
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                 }
@@ -548,6 +566,8 @@ public class Hero : MonoBehaviour
 
                 if (collider.IsTouching(repairTower.GetComponent<BoxCollider2D>()))
                 {
+                    animator.SetInteger("animation", (int)CharacterAnimation.action);
+
                     if (upgrading == false)
                     {
 
@@ -634,12 +654,16 @@ public class Hero : MonoBehaviour
                 }
                 else if (!upgrading)
                 {
+                    animator.SetInteger("animation", (int)CharacterAnimation.move);
+
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                 }
                 return false;
             case Commands.idle:
             default:
+                animator.SetInteger("animation", (int)CharacterAnimation.idle);
+
                 rb.velocity = Vector2.zero;
                 return false;
         }
@@ -686,11 +710,24 @@ public class Hero : MonoBehaviour
             CharacterDeath();
 
         }
+        else
+        {
+            animator.SetInteger("animation", (int)CharacterAnimation.hurt);
+            hurtTime = Time.time;
+        }
     }
 
     void CharacterDeath()
     {
         //pause game
+
+        animator.SetInteger("animation", (int)CharacterAnimation.dying);
+        DestroyImmediate(rb);
+        DestroyImmediate(collider);
+        RTSC.heroes.Remove(gameObject);
+
+        for (int i = 0; i < transform.childCount; i++)
+            Destroy(transform.GetChild(i).gameObject);
 
 
         switch (this.name)
