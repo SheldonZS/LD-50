@@ -42,6 +42,7 @@ public class CursorCollider : MonoBehaviour
                         if (hit.gameObject.tag == "Tower" || hit.gameObject.tag == "Monster" || hit.gameObject.tag == "Path" || hit.gameObject.tag == "Obstacle")
                         {
                             renderer.color = red;
+                            RTSC.buildErrorText.text = "Invalid Location: Obstructed by " + hit.gameObject.tag;
                             break;
                         }
                     }
@@ -54,9 +55,31 @@ public class CursorCollider : MonoBehaviour
 
                     TowerBase tower = RTSC.GetTowerAt(mouseGrid);
 
-                    if (tower == null || tower.builder.gameObject != RTSC.selected || tower.health <= 0 || tower.health >= tower.maxHealth)
+                    if (tower == null)
+                    {
                         renderer.color = red;
-                    else renderer.color = green;
+                    }
+                    else if (tower.builder.gameObject != RTSC.selected)
+                    {
+                        renderer.color = red;
+                    }
+                    else if (tower.health <= 0)
+                    {
+                        renderer.color = red;
+                        RTSC.repairErrorText.text = "Tower Already Ruined";
+
+                    }
+                    else if (tower.health >= tower.maxHealth)
+                    {
+                        renderer.color = red;
+                        RTSC.repairErrorText.text = "Tower Still Undamaged";
+                    }
+                    else
+                    {
+                        renderer.color = green;
+                        RTSC.UpdateButtons();
+                    }
+                     
                     break;
 
                 case Commands.upgrade:
@@ -67,9 +90,36 @@ public class CursorCollider : MonoBehaviour
 
                     tower = RTSC.GetTowerAt(mouseGrid);
 
-                    if (tower == null || tower.builder.gameObject != RTSC.selected || tower.health < tower.maxHealth / 2 || tower.operational == false)
+                    if (tower == null)
+                    {
                         renderer.color = red;
-                    else renderer.color = green;
+                        RTSC.upgradeErrorText.text = "Build Tower First";
+                    }
+                    else if (tower.builder.gameObject != RTSC.selected)
+                    {
+                        renderer.color = red;
+                    }
+                    else if (tower.health < tower.maxHealth / 2)
+                    {
+                        renderer.color = red;
+                        RTSC.upgradeErrorText.text = "Repair Tower to >50% Health";
+
+                    }
+                    else if (tower.operational == false)
+                    {
+                        renderer.color = red;
+                    }
+                    else if (tower.upgraded)
+                    {
+                        renderer.color = red;
+                        RTSC.upgradeErrorText.text = "Tower Already Upgraded";
+                    }
+                    else
+                    {
+                        renderer.color = green;
+                        RTSC.UpdateButtons();
+                    }
+
                     break;
 
                 case Commands.move:

@@ -12,10 +12,12 @@ public class RTSController : MonoBehaviour
     public Sprite[] build;
     public Sprite[] repair;
     public Sprite[] upgrade;
-    private Image buildButton;
-    private Image repairButton;
-    private Image upgradeButton;
+    private Image buildButtonImage;
+    private Image repairButtonImage;
+    private Image upgradeButtonImage;
     private Text bonesText;
+    public Text repairErrorText, repairCostText, buildErrorText, buildCostText, upgradeErrorText, upgradeCostText;
+    private Button buildButton, repairButton, upgradeButton;
 
     public Camera camera { get; private set; }
     //[HideInInspector] 
@@ -51,24 +53,39 @@ public class RTSController : MonoBehaviour
         camera = Camera.main;
 
         gridAnchor = GameObject.Find("Grid Anchor").transform;
-        buildButton = GameObject.Find("Build").GetComponent<Image>();
-        repairButton = GameObject.Find("Repair").GetComponent<Image>();
-        upgradeButton = GameObject.Find("Upgrade").GetComponent<Image>();
+        buildButtonImage = GameObject.Find("Build").GetComponent<Image>();
+        repairButtonImage = GameObject.Find("Repair").GetComponent<Image>();
+        upgradeButtonImage = GameObject.Find("Upgrade").GetComponent<Image>();
         dialogueBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
         DM = GameObject.Find("DialogueManager").GetComponent <DialogueManager>();
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
         bonesText = GameObject.Find("BonesText").GetComponent<Text>();
+        repairErrorText = GameObject.Find("repairErrorText").GetComponent<Text>();
+        repairCostText = GameObject.Find("repairCostText").GetComponent<Text>();
+        buildErrorText = GameObject.Find("buildErrorText").GetComponent<Text>();
+        buildCostText = GameObject.Find("buildCostText").GetComponent<Text>();
+        upgradeErrorText = GameObject.Find("upgradeErrorText").GetComponent<Text>();
+        upgradeCostText = GameObject.Find("upgradeCostText").GetComponent<Text>();
+        buildButton = GameObject.Find("Build").GetComponent<Button>();
+        repairButton = GameObject.Find("Repair").GetComponent<Button>();
+        upgradeButton = GameObject.Find("Upgrade").GetComponent<Button>();
+        //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
+    }
 
-    //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
-}
-
-private void Start()
+    private void Start()
     {
         raol_alive = true;
         bal_alive = true;
         thob_alive = true;
         jolie_alive = true;
+
+        bones = 200;
+        ResetButtons();
     }
+
+
+
+
     public bool GridContains(Vector2 location, string tag)
     {
         Collider2D[] hits = Physics2D.OverlapBoxAll(gridAnchor.TransformPoint(RoundToGrid(location, 0.5f)), Vector2.one * 0.9f, 0);
@@ -132,9 +149,11 @@ private void Start()
                     {
                         selected = hit.collider.gameObject;
 
+                        UpdateButtons();
+
                         if (db.tutorialMode == 1 && selected.name == "Raol")
                         {
-                            StartCoroutine(dialogueBox.PlayText(DM.tutorial1, true));
+                            StartCoroutine(dialogueBox.PlayText(DM.tutorial1, TextMode.imm));
                             db.tutorialMode++;
                         }
                         Reset();
@@ -174,26 +193,26 @@ private void Start()
     public void Reset()
     {
         command = Commands.move;
-        buildButton.overrideSprite = build[0];
-        repairButton.overrideSprite = repair[0];
-        upgradeButton.overrideSprite = upgrade[0];
+        buildButtonImage.overrideSprite = build[0];
+        repairButtonImage.overrideSprite = repair[0];
+        upgradeButtonImage.overrideSprite = upgrade[0];
     }
     public void BuildButton()
     {
         command = Commands.build;
 
-        buildButton.overrideSprite = build[1];
-        repairButton.overrideSprite = repair[0];
-        upgradeButton.overrideSprite = upgrade[0];
+        buildButtonImage.overrideSprite = build[1];
+        repairButtonImage.overrideSprite = repair[0];
+        upgradeButtonImage.overrideSprite = upgrade[0];
     }
 
     public void RepairButton()
     {
         command = Commands.repair;
 
-        buildButton.overrideSprite = build[0];
-        repairButton.overrideSprite = repair[1];
-        upgradeButton.overrideSprite = upgrade[0];
+        buildButtonImage.overrideSprite = build[0];
+        repairButtonImage.overrideSprite = repair[1];
+        upgradeButtonImage.overrideSprite = upgrade[0];
     }
 
 
@@ -201,9 +220,9 @@ private void Start()
     {
         command = Commands.upgrade;
 
-        buildButton.overrideSprite = build[0];
-        repairButton.overrideSprite = repair[0];
-        upgradeButton.overrideSprite = upgrade[1];
+        buildButtonImage.overrideSprite = build[0];
+        repairButtonImage.overrideSprite = repair[0];
+        upgradeButtonImage.overrideSprite = upgrade[1];
     }
 
     public void Say(string text)
@@ -214,17 +233,107 @@ private void Start()
     
     public void Say(Hero hero, string text)
     {
-        if (dialogueBox != null)
-        StartCoroutine(AnimateText(hero.gameObject.name + ": " + text));
+        if (dialogueBox != null) ;
+        //StartCoroutine(AnimateText(hero.gameObject.name + ": " + text));
     }
 
     public IEnumerator AnimateText(string text)
     {
-        yield return dialogueBox.PlayText(new List<string>() { text }, true);
+        yield return dialogueBox.PlayText(new List<string>() { text }, TextMode.queue);
         yield return dialogueBox.CloseWindow();
     }
 
+    public void UpdateButtons()
+    {
+        ResetButtons();
 
+        if (selected.tag != "Player") return;
+
+        Hero hero = selected.GetComponent<Hero>();
+
+        int heroBuildCost = hero.towers[0].GetComponent<TowerBase>().buildCost;
+        buildCostText.text = "Build Cost: " + heroBuildCost;
+
+        if (hero.building)
+        {
+            buildErrorText.text = "Building In Progress";
+            buildButton.enabled = false;
+        }
+        else if (heroBuildCost <= bones)
+        {
+            buildErrorText.text = "Click to Build";
+            buildButton.enabled = true;
+        }
+        else
+        {
+            buildErrorText.text = "Insufficient Bones";
+            buildButton.enabled = false;
+
+        }
+
+
+        if (hero.repairing)
+        {
+            repairErrorText.text = "Repairs In Progress";
+            repairButton.enabled = false;
+
+        }
+        else
+        {
+            repairErrorText.text = "Click to Repair";
+            repairButton.enabled = true;
+
+        }
+
+        //repairCostText.text = "Repair Cost: " + (hero.towers[0].GetComponent<TowerBase>().repairCost);
+        if (hero.level >= 2)
+        {
+            upgradeButton.enabled = true;
+
+
+            int heroUpgradeCost = hero.towers[0].GetComponent<TowerBase>().upgradeCost;
+
+            if (hero.upgrading)
+            {
+                upgradeErrorText.text = "Upgrade in Progress";
+                upgradeButton.enabled = false;
+
+            }
+            else if (heroUpgradeCost <= bones)
+            {
+                upgradeErrorText.text = "Click to Upgrade";
+                upgradeCostText.text = "Upgrade Cost: " + heroUpgradeCost;
+                upgradeButton.enabled = true;
+            }
+            else
+            {
+                upgradeErrorText.text = "Insufficient Bones";
+                upgradeButton.enabled = false;
+
+
+            }
+
+        }
+        else
+        {
+            upgradeErrorText.text = "Hero Level Too Low";
+
+        }
+    }
+
+    public void ResetButtons()
+    {
+        buildErrorText.text = "Select Hero";
+        repairErrorText.text = "Select Hero";
+        upgradeErrorText.text = "Select Hero";
+        buildCostText.text = "Build";
+        repairCostText.text = "Repair";
+        upgradeCostText.text = "Upgrade";
+
+        buildButton.enabled = false;
+        repairButton.enabled = false;
+        upgradeButton.enabled = false;
+    }
 }
 
 [System.Serializable]
