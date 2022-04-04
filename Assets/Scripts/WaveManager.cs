@@ -102,13 +102,13 @@ public class WaveManager : MonoBehaviour
             {
                 float rand = Random.Range(0f, 1f);
                 if (rand < .7f)
-                    SpawnMonster(RTSC, Random.Range(0, spawners.Length), blue, 2 + .2f * currentWave, 5 * currentWave, 10, 1, 50, MonsterMove.path, MonsterAttack.attackAll);
+                    SpawnMonster(RTSC, Random.Range(0, spawners.Length), blue, 2 + .2f * currentWave, 7 * currentWave, 10, 1, 50, MonsterMove.path, MonsterAttack.attackAll);
                 else if (rand < .8f)
-                    SpawnMonster(RTSC, Random.Range(0, spawners.Length), purple, 2 + .2f * currentWave, 5 * currentWave, 10, 1, 50, MonsterMove.moveToNearestTower, MonsterAttack.attackTowers);
+                    SpawnMonster(RTSC, Random.Range(0, spawners.Length), purple, 2 + .2f * currentWave, 7 * currentWave, 10, 1, 50, MonsterMove.moveToNearestTower, MonsterAttack.attackTowers);
                 else if (rand < .9f)
-                    SpawnMonster(RTSC, Random.Range(0, spawners.Length), red, 2 + .2f * currentWave, 5 * currentWave, 10, 1, 50, MonsterMove.moveToNearestPlayer, MonsterAttack.attackPlayers);
+                    SpawnMonster(RTSC, Random.Range(0, spawners.Length), red, 2 + .2f * currentWave, 7 * currentWave, 10, 1, 50, MonsterMove.moveToNearestPlayer, MonsterAttack.attackPlayers);
                 else
-                    SpawnMonster(RTSC, Random.Range(0, spawners.Length), blue, 2 + .2f * currentWave, 5 * currentWave, 10, 1, 50, MonsterMove.wander, MonsterAttack.attackAll);
+                    SpawnMonster(RTSC, Random.Range(0, spawners.Length), blue, 2 + .2f * currentWave, 7 * currentWave, 10, 1, 50, MonsterMove.wander, MonsterAttack.attackAll);
 
                 if (spawnedThisWave >= 5 * currentWave)
                     waveFinished = true;

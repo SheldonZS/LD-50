@@ -150,7 +150,7 @@ public class DialogueManager : MonoBehaviour
         db.tutorialMode = 5;
 
         InitializeAllStories();
-        //StartCoroutine(diaBox.PlayText(intro, TextMode.imm));
+       // StartCoroutine(diaBox.PlayText(intro, TextMode.imm));
 
     }
 
