@@ -7,6 +7,7 @@ public class DialogueManager : MonoBehaviour
 
     private DialogueBox diaBox;
     private DataBucket db;
+    private RTSController RTSC;
 
     List<string> testWords = new List<string>();
 
@@ -139,6 +140,8 @@ public class DialogueManager : MonoBehaviour
     {
         diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
+        RTSC = GameObject.Find("RTS Controller").GetComponent<RTSController>();
+
     }
 
     // Start is called before the first frame update
@@ -159,7 +162,7 @@ public class DialogueManager : MonoBehaviour
     }
     
     //play randomized text
-    void PlayRandom (List<string> possibleStories)
+    public void PlayRandom (List<string> possibleStories)
     {
         int chosenIndex = Random.Range(0, possibleStories.Count - 1);
         List<string> chosenStory = new List<string>();
@@ -167,8 +170,62 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(diaBox.PlayText(chosenStory, true));
     }
 
+    public void PlayRandomAlive(List<string> possibleStories)
+    {
+        int chosenIndex = Random.Range(0, possibleStories.Count - 1);
+
+        bool storyFound = false;
+
+        for (int j = 0; j < possibleStories.Count; j++)
+        {
+            switch (possibleStories[chosenIndex].Split(':')[0])
+            {
+                case "Raol":
+                    if (RTSC.raol_alive)
+                        storyFound = true;
+                    break;
+                case "Balthasar":
+                    if (RTSC.bal_alive)
+                        storyFound = true;
+
+                    break;
+                case "Thob":
+                    if (RTSC.thob_alive)
+                        storyFound = true;
+
+                    break;
+                case "Jolie":
+                    if (RTSC.jolie_alive)
+                        storyFound = true;
+
+                    break;
+                default:
+                    break;
+            }
+
+            if (storyFound)
+                break;
+
+            if (chosenIndex > possibleStories.Count - 1)
+            {
+                chosenIndex = 0;
+            }
+            else
+            {
+                chosenIndex++;
+
+            }
+        }
+        List<string> chosenStory = new List<string>();
+
+        chosenStory.Add(possibleStories[chosenIndex]);
+        StartCoroutine(diaBox.PlayText(chosenStory, true));
+
+
+    }
+
     //play a random text and remove it so it is only played once per game
-    void PlayThenRemove(List<string> possibleStories)
+    public void PlayThenRemove(List<string> possibleStories)
     {
         int chosenIndex = Random.Range(0, possibleStories.Count-1);
         List <string> chosenStory = new List<string>();
@@ -181,7 +238,7 @@ public class DialogueManager : MonoBehaviour
     void InitializeAllStories()
     {
         //these first conversations are assumed to only play when all characters are alive near the beginning of the game
-        /*
+        
         intro.Add("Thob: Ah, the joys of retirement. Another day to work on my twenty-one movement lute sonata. Surrounded by friends.");
         intro.Add("Jolie: Zzz...");
         intro.Add("Thob: On the other hand, a nap does sound tempting...");
@@ -196,7 +253,7 @@ public class DialogueManager : MonoBehaviour
         intro.Add("Balthasar: Marvelous!");
         intro.Add("Thob: No, Balthasar, that's bad. We must do something about this. Jolie? Jolie, wake up!");
         intro.Add("Jolie: Zzz...to defend...just...add towers...zzz...");
-        */
+        
         intro.Add("Tutorial: Select Raol, the hero in the top left corner of the retirement home.");
         intro.Add("incrementTutorial");
 
@@ -439,11 +496,21 @@ public class DialogueManager : MonoBehaviour
         bonePickUp_R.Add("Raol: Those bones must smell terrible, but I've lost my sense of smell.");
         bonePickUp_R.Add("Raol: Better take these to get processed.");
         bonePickUp_R.Add("Raol: These bones won't process themselves.");
+        bonePickUp_R.Add("Raol: I’ll be sure to put aside some of these for you, Kol Kol.");
+        bonePickUp_R.Add("Raol: I wish I had all those bones I buried in my backyard now.");
+        bonePickUp_R.Add("Raol: Mother Moon, a humble offering to you...");
+        
 
         bonePickUp_B.Add("Balthasar: Curious that our enemies would dissipate, only to drop precisely what we need to defeat them.");
         bonePickUp_B.Add("Balthasar: These raw materials must be processed in the retirement home's serendipitously placed bone-processing machine.");
         bonePickUp_B.Add("Balthasar: I confess myself astonished that these bones don't explode when I pick them up. Most things do.");
+        bonePickUp_B.Add("Balthasar: Bones are made up of a mineral phase, hydroxyapatite, an organic phase and water. How curious!");
+        bonePickUp_B.Add("Balthasar: This reminds me of that time I was transmogrified into a skeleton myself.");
+        bonePickUp_B.Add("Balthasar: It is most vexing how precious these osseous remains are to us, considering that calcium is not even a precious mineral.");
 
+        bonePickUp_T.Add("Thob: I wonder if reapers have a wishing bone. I could really use one right now!");
+        bonePickUp_T.Add("Thob: There are many bones like this, but this one is mine.");
+        bonePickUp_T.Add("Thob: I bet one could make a fine instrument out of these bones.");
         bonePickUp_T.Add("Thob: Loot!");
         bonePickUp_T.Add("Thob: Treasure!");
         bonePickUp_T.Add("Thob: Shiny! Okay, not that shiny, but still precious!");
@@ -451,47 +518,77 @@ public class DialogueManager : MonoBehaviour
         bonePickUp_J.Add("Jolie: Great. Another heavy bone to lug around.");
         bonePickUp_J.Add("Jolie: How am I supposed to carry these and move my wheelchair at the same time?");
         bonePickUp_J.Add("Jolie: Transporting bones reminds me of my army days when I carried around firewood and people yelled at me.");
+        bonePickUp_J.Add("Jolie: I wish these bones were me. But here I am, collecting bones.");
+        bonePickUp_J.Add("Jolie: Hey reaper, I have a bone to pick with you. Ha ha.");
+        bonePickUp_J.Add("Jolie: Funny how I wish those were my bones. Funny bone. Ha ha.");
 
         towerBuilt_R.Add("Raol: Mother Moon, I dedicate this shrine to you.");
         towerBuilt_R.Add("Raol: You can never have enough shrines to Mother Moon.");
         towerBuilt_R.Add("Raol: Every arrow shot comes closer to lunar perfection.");
+        towerBuilt_R.Add("Raol: Fly arrow, straight and true... Just like in my youth.");
+        towerBuilt_R.Add("Raol: A real alpha male knows how to build a tower all by himself.");
+        towerBuilt_R.Add("Raol: A real alpha male doesn't need to read the assembly instructions.");
 
         towerBuilt_B.Add("Balthasar: Behold this architectural splendor!");
         towerBuilt_B.Add("Balthasar: Ludvig, feel free to roost at the top.");
         towerBuilt_B.Add("Balthasar: Be not perturbed, it's perfectly safe. I think.");
+        towerBuilt_B.Add("Balthasar: Sometimes I wonder if my perception of sound architecture is fundamentally flawed. Oh well!");
+        towerBuilt_B.Add("Balthasar: Behold the nigh non-Euclidean architecture of my tower!");
 
         towerBuilt_T.Add("Thob: Perfect.");
         towerBuilt_T.Add("Thob: Dwarven-forged.");
         towerBuilt_T.Add("Thob: And they said I was only good with a lute.");
+        towerBuilt_T.Add("Thob: A prelude to an architectural masterpiece, I dare say.");
+        towerBuilt_T.Add("Thob: All this building makes a dwarf thirsty. I wonder if we have anymore ale back inside...");
 
         towerBuilt_J.Add("Jolie: Can I stop building yet?");
         towerBuilt_J.Add("Jolie: Did we really need another one of these?");
         towerBuilt_J.Add("Jolie: I'd like to go to bed now.");
-        
+        towerBuilt_J.Add("Jolie: I thought coming to the retirement home meant no more work.");
+        towerBuilt_J.Add("Jolie: Why yes, I am a Die-IY person. It’s a pun on DIY person, I came up with it by myself.");
+
         towerUpgrade_R.Add("Raol: A moon as full as my heart.");
         towerUpgrade_R.Add("Raol: Let's see what the gods think about this.");
         towerUpgrade_R.Add("Raol: And I did all that without needing to \"look it up inside the internet.\"");
+        towerUpgrade_R.Add("Raol: Mother Moon, watch over us!");
+        towerUpgrade_R.Add("Raol: I may still wane, but Mother Moon waxes!");
 
         towerUpgrade_B.Add("Balthasar: I added natural roosting spaces that should attract nocturnal creatures.");
         towerUpgrade_B.Add("Balthasar: Finally, somewhere worthy to cache my tank ammunition, since I seem to have misplaced my tank.");
         towerUpgrade_B.Add("Balthasar: The exterior may seem overly convoluted, but I promise it is architecturally sound.");
+        towerUpgrade_B.Add("Balthasar: Unlimited POWER!");
+        towerUpgrade_B.Add("Balthasar: How did I do it? It’s the power of the arcane arts. There is no necessity for further elucidation.");
 
         towerUpgrade_T.Add("Thob: Such shiny gems!");
         towerUpgrade_T.Add("Thob: Another dwarven masterpiece.");
         towerUpgrade_T.Add("Thob: Who knew I had inherited my grandfather's mastery of stonecraft?");
+        towerUpgrade_T.Add("Thob: Dwarven architecture is the greatest architecture in the world!");
+        towerUpgrade_T.Add("Thob: Now this is a mighty tower worthy of a song!");
 
         towerUpgrade_J.Add("Jolie: Surely it's good enough now.");
         towerUpgrade_J.Add("Jolie: Now it can swing in a wider arc. Happy?");
         towerUpgrade_J.Add("Jolie: Zzz...did I build something?");
+        towerUpgrade_J.Add("Jolie: It's no longer a...bare-bones fortification. Gods, even my sense of humor died before me.");
+        towerUpgrade_J.Add("Jolie: Hauling these dumb stones takes a lot. Almost like...tomb stones. Ha ha.");
 
         towerRepair_J.Add("Jolie: Am I done repairing yet?");
         towerRepair_J.Add("Jolie: Figure. They always forget to allocate resources for maintenance.");
-        towerRepair_J.Add("Jolie: At least in the army was working for a reason. Or was I?");
+        towerRepair_J.Add("Jolie: At least in the army, I was working for a reason. Or was I?");
+        towerRepair_J.Add("Jolie: Finally I lay my sword to rest... Only to pick up a hammer.");
+        towerRepair_J.Add("Jolie: To be honest, I’m more used to breaking things with a hammer.");
 
         towerRepair_R.Add("Raol: I...will...repair...until...the...moon...shines!");
-        towerRepair_B.Add("Raol: I wonder what Kol Kol would think of me now.");
-        towerRepair_B.Add("Raol: I wonder what Kol Kol would think of me now.");
+        towerRepair_R.Add("Raol: I wonder what Kol Kol would think of me now.");
+        towerRepair_R.Add("Raol: There are two ways to do this: my way and the wrong way.");
+        towerRepair_R.Add("Raol: If these parts were loose enough to fall out, they’ll also go back in if I hammer hard enough!");
+        towerRepair_R.Add("Raol: I made it myself, so ain’t nobody gonna tell me how to fix it!");
 
+
+        towerRepair_B.Add("Balthasar: With a wave of my finger and a flick of my wand, I hope it won’t explode, and make the harm undone!");
+        towerRepair_B.Add("Balthasar:The structural integrity of this construction must be reinforced post-haste!");
+
+        towerRepair_T.Add("Thob: Hi ho, hi ho, it’s off to work we go!");
+        towerRepair_T.Add("Thob: This would be much easier if there were six more dwarves. They could work while I sing for them!");
         towerRepair_T.Add("Thob: No one will notice that the gem I embed here belongs to them, right?");
         towerRepair_T.Add("Thob: If a tree falls alone in the forest, I'm sad I didn't get to see it go.");
         towerRepair_T.Add("Thob: All you got to do is hammer to a rhythm.");
@@ -499,28 +596,49 @@ public class DialogueManager : MonoBehaviour
         towerFullRepair_J.Add("Jolie: Zzz...oh, is it done?");
         towerFullRepair_J.Add("Jolie: Why did I do this?");
         towerFullRepair_J.Add("Jolie: Huzzah. It is finished.");
+        towerFullRepair_J.Add("Jolie: Ugh. I’m so done with this.");
+        towerFullRepair_J.Add("Jolie: Mrs. Cooper reporting in, repairs completed. Finally.");
 
         towerFullRepair_R.Add("Raol: And keep your filthy hands off this shrine.");
         towerFullRepair_R.Add("Raol: There. That should keep them busy for a bit.");
         towerFullRepair_R.Add("Raol: My people know how to shove arrows where the moon don't shine.");
+        towerFullRepair_R.Add("Raol: See? Better than new. Alpha males don't need instruction booklets.");
+        towerFullRepair_R.Add("Raol: All done! Couldn’t have done it better myself.");
 
         towerFullRepair_B.Add("Balthasar: As chaotic as new!");
         towerFullRepair_B.Add("Balthasar: More complex than its previous iteration!");
         towerFullRepair_B.Add("Balthasar: Excellent craftmanship, Balthasar. Why, my deepest gratitude for your compliments, Balthasar.");
+        towerFullRepair_B.Add("Balthasar: I wonder how tall I could go with the next addition...");
+        towerFullRepair_B.Add("Balthasar: I could do better, but alas, I am constrained by the technological advancements of our era.");
 
         towerFullRepair_T.Add("Thob: Now I'm ready for some ale!");
         towerFullRepair_T.Add("Thob: I've lived three centuries. May this tower last even longer!");
         towerFullRepair_T.Add("Thob: It's got that brand new shiny gleam again.");
+        towerFullRepair_T.Add("Thob: This reminds me of a song that says broken things made whole again are all the more beautiful.");
+        towerFullRepair_T.Add("Thob: You know how they say a piece of art is never truly finished? It can always be improved upon--especially with more gems!");
 
         waveStarted.Add("Raol: Mother Moon! They just keep coming!");
         waveStarted.Add("Balthasar: Our enemies are inexhaustible.");
         waveStarted.Add("Thob: I was hoping for an opportunity to catch my breath and compose a verse.");
         waveStarted.Add("Jolie: Zzz...what, there's more already?");
+        waveStarted.Add("Raol: The dark moon hangs over us... Mother Moon preserve us.");
+        waveStarted.Add("Raol: Old age has caught up with me. The hunter has become the hunted.");
+        waveStarted.Add("Balthasar: The tide of our foes seems unrelenting, just like telemarketing!");
+        waveStarted.Add("Balthasar: Maybe this will convince the head nurse of my proposal to install new safety measures to the retirement home.");
+        waveStarted.Add("Thob: A one, and a two, and a one, two, three, four!");
+        waveStarted.Add("Thob: Last time I had a crowd that wanted to get a hold of me this bad was over a century ago! Sadly.");
+        waveStarted.Add("Jolie: I remember fighting an endless horde once. Back then, I didn’t even need to draw my sword.");
+        waveStarted.Add("Jolie: They seem endless. Just like my days waiting for the sweet embrace of death.");
 
         waveDefeated.Add("Raol: That's the last of them for now.");
         waveDefeated.Add("Jolie: Let's take advantage of the time between waves to nap.");
         waveDefeated.Add("Balthasar: Indubitably, the Reaper will send forth more formidable creatures in the next wave.");
         waveDefeated.Add("Thob: Drinks, anyone?");
+        waveDefeated.Add("Raol: If only I had the time to track down where our enemies come from...");
+        waveDefeated.Add("Raol: Mother Moon still watches over us, stay strong.");
+        waveDefeated.Add("Jolie: Don’t bother waking me up for the next round.");
+        waveDefeated.Add("Jolie: Even the army had more meaningful work to offer me than this nonsense.");
+        waveDefeated.Add("Balthasar: Marvelous! This means we have time for me to regale you with another recollection of mine, and I know just the one for this occasion...");
 
         returnBase_R.Add("Raol: Mother Moon, I cannot run as fast as I used to.");
         returnBase_B.Add("Balthasar: I shall endeavor to examine bone-processing contraption while I am present.");

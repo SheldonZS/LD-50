@@ -112,13 +112,15 @@ public class DialogueBox : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator PlayText(List<string> story, bool auto)
+    public IEnumerator PlayText(List<string> story, bool delayable)
     {
-        if (displayingText)
+        if (displayingText && delayable)
         {
             storyQueue.Add(story);
             yield break;
         }
+
+
         string[] words;
 
         for (int i = 0; i < story.Count; i++)
@@ -344,7 +346,7 @@ public class DialogueBox : MonoBehaviour
                 }
 
                 //at the end of a line of dialogue
-                if (auto && speakerAlive)
+                if (speakerAlive)
                 {
                     yield return new WaitForSeconds(autoPauseAtLineEndTime);
                 }
