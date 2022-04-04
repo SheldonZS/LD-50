@@ -29,7 +29,7 @@ public class DialogueBox : MonoBehaviour
 
     public float charactersPerSecond = 50;
     public float scrollTime = .2f;
-    public float autoPauseAtLineEndTime = 1f;
+    public float autoPauseAtLineEndTime = .5f;
 
     private List<Text> textBoxes;
     private List<List<string>> storyQueue;
