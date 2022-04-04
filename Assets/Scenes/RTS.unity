@@ -367,6 +367,29 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: towers.Array.data[0]
+      value: 
+      objectReference: {fileID: 8834848687929935486, guid: 739e634086556f54fa5eb89364f24363,
+        type: 3}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: attackPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: attackPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 5367939558161253185, guid: 9b775cb5c53a49a4da3e35fcfbb1b087,
+        type: 3}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: attackPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 2024571604131817616, guid: 24137e06ca2c78d4f9b8241e7fa8c000,
+        type: 3}
     - target: {fileID: 4038786752953339034, guid: 8651f22933af0db48bcf39703e54ac6c,
         type: 3}
       propertyPath: m_IsActive
@@ -2800,7 +2823,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1103378307
 PrefabInstance:
@@ -5876,7 +5899,7 @@ PrefabInstance:
     - target: {fileID: 6447048961695060163, guid: 546bff12490108f42aacb414bea4f876,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6447048961695060163, guid: 546bff12490108f42aacb414bea4f876,
         type: 3}

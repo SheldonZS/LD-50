@@ -161,16 +161,23 @@ public class TowerBase : MonoBehaviour
             return;
 
         ProjectileController bolt = Instantiate(builder.attackPrefabs[0], RTSController.instance.gridAnchor).GetComponent<ProjectileController>();
+        
+        if(upgraded)
+        {
+            bolt.GetComponent<Collider2D>().enabled = false;
+            bolt.SetEndEffect(builder.attackPrefabs[1]);
+        }
         bolt.transform.localPosition = transform.localPosition + Vector3.up * 0.5f;
 
         Vector2 direction = target.transform.localPosition - transform.localPosition;
 
         bolt.transform.eulerAngles = Vector3.back * DirectionToAngle(direction);
-        bolt.SetProjectile(transform.localPosition, direction, 5f, range, damage, true);
+
+        if(!upgraded)
+            bolt.SetProjectile(transform.localPosition, direction, 5f, range, damage, true);
+        else bolt.SetProjectile(transform.localPosition, direction, 5f, (target.transform.localPosition - transform.localPosition).magnitude, 0, true);
 
         cooldown = attackCooldown;
-
-
     }
 
     //Bard Towers
