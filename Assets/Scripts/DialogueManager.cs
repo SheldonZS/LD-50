@@ -376,10 +376,6 @@ public class DialogueManager : MonoBehaviour
         firstCharEnemy.Add("Raol: It's an enemy smart enough to leave the path to chase its prey.");
         firstCharEnemy.Add("Thob: It's coming straight for us! Hide in the retirement home!");
         firstCharEnemy.Add("Jolie: Hello, new enemy. Please fly over here and strike me down.");
-        
-
-
- 
 
         home75.Add("Raol: We can't keep letting these reapers slip through to damage our home.");
         home75.Add("Jolie: The bone processing machine in the home is making weird whirring noises. It's too loud.");

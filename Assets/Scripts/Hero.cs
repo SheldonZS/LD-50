@@ -34,6 +34,8 @@ public class Hero : MonoBehaviour
     public bool building;
     public bool repairing;
 
+    private bool firstBuild, firstUpgrade, firstRuin;
+
     private int bonesCarried = 0;
 
     private DataBucket db;
@@ -292,22 +294,22 @@ public class Hero : MonoBehaviour
                 {
                     if (RTSC.GridContains(command.location, "Monster"))
                     {
-                        RTSC.Say(this, "Monsters Here");
+                        //RTSC.Say(this, "Monsters Here");
                         return true;
                     }
                     else if (RTSC.GridContains(command.location, "Tower"))
                     {
-                        RTSC.Say(this, "Already a tower here");
+                        //RTSC.Say(this, "Already a tower here");
                         return true;
                     }
                     else if (RTSC.GridContains(command.location, "Path"))
                     {
-                        RTSC.Say(this, "Path Here");
+                       // RTSC.Say(this, "Path Here");
                         return true;
                     }
                     else if (RTSC.GridContains(command.location, "Obstacle"))
                     {
-                        RTSC.Say(this, "Obstacle Here");
+                       // RTSC.Say(this, "Obstacle Here");
                         return true;
                     }
 
@@ -336,7 +338,7 @@ public class Hero : MonoBehaviour
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
-                    RTSC.Say(this, "No tower here");
+                    //RTSC.Say(this, "No tower here");
                     repairDecimal = 0;
                     return true;
                 }
@@ -359,6 +361,53 @@ public class Hero : MonoBehaviour
                             ShowText(DM.tutorial3, TextMode.imm);
                             db.tutorialMode++;
                         }
+
+                        //if not upgraded before, play special text. otherwise, pick random text
+                        if (!firstUpgrade)
+                        {
+                            firstUpgrade = true;
+                            switch (this.name)
+                            {
+                                case "Raol":
+
+                                    break;
+                                case "Balthasar":
+                                    ShowText(DM.firstTower_B, TextMode.ifFree);
+
+                                    break;
+                                case "Thob":
+                                    ShowText(DM.firstTower_T, TextMode.ifFree);
+
+                                    break;
+                                case "Julie":
+                                    ShowText(DM.firstTower_J, TextMode.ifFree);
+
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            switch (this.name)
+                            {
+                                case "Raol":
+                                    DM.PlayRandom(DM.towerBuilt_R);
+                                    break;
+                                case "Balthasar":
+                                    DM.PlayRandom(DM.towerBuilt_B);
+                                    break;
+                                case "Thob":
+                                    DM.PlayRandom(DM.towerBuilt_T);
+                                    break;
+                                case "Julie":
+                                    DM.PlayRandom(DM.towerBuilt_J);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
                         return true;
                     }
 
@@ -376,7 +425,7 @@ public class Hero : MonoBehaviour
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
-                    RTSC.Say(this, "No tower here");
+                   // RTSC.Say(this, "No tower here");
                     repairDecimal = 0;
                     return true;
                 }
@@ -392,11 +441,28 @@ public class Hero : MonoBehaviour
 
                     if (repairTower.health >= repairTower.maxHealth)
                     {
-                        RTSC.Say(this, "Job's done!");
+                       // RTSC.Say(this, "Job's done!");
                         repairDecimal = 0;
                         repairing = false;
                         RTSC.UpdateButtons();
 
+                        switch (this.name)
+                        {
+                            case "Raol":
+                                DM.PlayRandom(DM.towerFullRepair_R);
+                                break;
+                            case "Balthasar":
+                                DM.PlayRandom(DM.towerFullRepair_B);
+                                break;
+                            case "Thob":
+                                DM.PlayRandom(DM.towerFullRepair_T);
+                                break;
+                            case "Julie":
+                                DM.PlayRandom(DM.towerFullRepair_J);
+                                break;
+                            default:
+                                break;
+                        }
                         return true;
                     }
 
@@ -414,7 +480,7 @@ public class Hero : MonoBehaviour
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
-                    RTSC.Say(this, "No tower here");
+                    //RTSC.Say(this, "No tower here");
                     upgrading = false;
                     return true;
                 }
@@ -426,13 +492,13 @@ public class Hero : MonoBehaviour
 
                         if (repairTower.health < repairTower.maxHealth * 0.5f)
                         {
-                            RTSC.Say(this, "This tower is too badly damaged to upgrade");
+                            //RTSC.Say(this, "This tower is too badly damaged to upgrade");
                             return true;
                         }
                         
                         if (repairTower.operational == false)
                         {
-                            RTSC.Say(this, "Finish building this before upgrading");
+                            //RTSC.Say(this, "Finish building this before upgrading");
                             return true;
                         }
 
@@ -449,9 +515,55 @@ public class Hero : MonoBehaviour
                         if (Time.time >= upgradeStartTime + repairTower.upgradeTime)
                         {
                             repairTower.Upgrade();
-                            RTSC.Say(this, "Job's done!");
+                            //RTSC.Say(this, "Job's done!");
                             upgrading = false;
                             RTSC.UpdateButtons();
+
+                            if (!firstUpgrade)
+                            {
+                                firstUpgrade = true;
+                                switch (this.name)
+                                {
+                                    case "Raol":
+                                        ShowText(DM.firstUpgrade_R, TextMode.ifFree);
+
+                                        break;
+                                    case "Balthasar":
+                                        ShowText(DM.firstUpgrade_B, TextMode.ifFree);
+
+                                        break;
+                                    case "Thob":
+                                        ShowText(DM.firstUpgrade_T, TextMode.ifFree);
+
+                                        break;
+                                    case "Julie":
+                                        ShowText(DM.firstUpgrade_J, TextMode.ifFree);
+
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                switch (this.name)
+                                {
+                                    case "Raol":
+                                        DM.PlayRandom(DM.towerUpgrade_R);
+                                        break;
+                                    case "Balthasar":
+                                        DM.PlayRandom(DM.towerUpgrade_B);
+                                        break;
+                                    case "Thob":
+                                        DM.PlayRandom(DM.towerUpgrade_T);
+                                        break;
+                                    case "Julie":
+                                        DM.PlayRandom(DM.towerUpgrade_J);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
 
                             return true;
                         }

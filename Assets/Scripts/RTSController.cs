@@ -79,7 +79,7 @@ public class RTSController : MonoBehaviour
         thob_alive = true;
         jolie_alive = true;
 
-
+        bones = 200;
         ResetButtons();
     }
 
