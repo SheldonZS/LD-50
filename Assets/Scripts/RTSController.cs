@@ -32,7 +32,7 @@ public class RTSController : MonoBehaviour
     public DialogueManager DM { get; private set; }
     public DataBucket db { get; private set; }
     //public CursorCollider mouseOver { get; private set; }
-    public WaveManager wave;
+    public WaveManager wave { get; private set; }
 
     public bool raol_alive = true;
     public bool bal_alive = true;
@@ -80,7 +80,7 @@ public class RTSController : MonoBehaviour
         jolie_alive = true;
         base_intact = true;
 
-        bones = 200;
+        bones = db.debugMode? 9999 : 200;
         ResetButtons();
 
         TowerBase home = homeBase.GetComponent<TowerBase>();

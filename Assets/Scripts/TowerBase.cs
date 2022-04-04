@@ -109,7 +109,7 @@ public class TowerBase : MonoBehaviour
 
         foreach (TowerDamage state in (upgraded ? upgradedDamageImages : damageImages))
         {
-            Debug.Log("Checking if health (" + health + ") >= " + state.minHealth);
+            //Debug.Log("Checking if health (" + health + ") >= " + state.minHealth);
             
             if (health >= state.minHealth)
             {
@@ -121,6 +121,9 @@ public class TowerBase : MonoBehaviour
 
         if (health <= 0)
         {
+            gameObject.tag = "Obstacle";
+            gameObject.layer = 0;
+
             operational = false;
             if (builder != null)
             {
@@ -131,8 +134,6 @@ public class TowerBase : MonoBehaviour
             else
             {
                 RTSController.instance.base_intact = false;
-                gameObject.tag = "Obstacle";
-                gameObject.layer = 0;
                 //text when base is destroyed
             }
         }

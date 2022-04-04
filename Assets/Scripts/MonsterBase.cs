@@ -33,6 +33,7 @@ public class MonsterBase : MonoBehaviour
 
     private float cooldown;
     private Color baseColor;
+    private SpriteRenderer renderer;
 
     public void SetStats(Color color, float moveSpeed, int HP, int attack, float cooldown, int bones, MonsterMove moveType, MonsterAttack AttackType)
     {
@@ -58,12 +59,16 @@ public class MonsterBase : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
-
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (rb.velocity.x > 0)
+            renderer.flipX = false;
+        else if (rb.velocity.y < 0)
+            renderer.flipX = true;
         if(cooldown > 0)
         {
             cooldown -= Time.deltaTime;
@@ -262,10 +267,6 @@ public class MonsterBase : MonoBehaviour
         }
 
         animator.SetInteger("animation", (int)CharacterAnimation.dying);
-        if (RTSC.gridAnchor.GetComponentsInChildren<MonsterBase>().Length == 1)
-        {
-            RTSC.wave.WaveDefeated();
-        }
     }
 
     public void DestroySelf()

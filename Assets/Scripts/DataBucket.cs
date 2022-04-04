@@ -11,6 +11,7 @@ public struct GameData
 public class DataBucket : MonoBehaviour
 {
     public bool debugMode, raolUnlocked, thobUnlocked, balUnlocked, jolieUnlocked;
+    public bool skipTutorial;
 
     public static DataBucket instance = null;
 
