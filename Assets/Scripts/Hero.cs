@@ -198,7 +198,7 @@ public class Hero : MonoBehaviour
                 Vector2 movement = command.location - (Vector2)transform.localPosition;
                 float mag = movement.magnitude;
 
-                if (mag <= moveSpeed * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) * 2)
+                if (mag <= moveSpeed * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) || Vector2.Angle(rb.velocity, movement) > 90)
                 {
                     transform.localPosition = command.location;
                     rb.velocity = Vector2.zero;
@@ -328,6 +328,7 @@ public class Hero : MonoBehaviour
                     {
                         if (Time.time >= upgradeStartTime + repairTower.upgradeTime)
                         {
+                            repairTower.Upgrade();
                             RTSC.Say(this, "Job's done!");
                             upgrading = false;
                             return true;
