@@ -316,14 +316,14 @@ MonoBehaviour:
   buildCost: 100
   buildTime: 10
   range: 4
-  damage: 50
-  attackCooldown: 1
+  damage: 10
+  attackCooldown: 0.5
   upgradeMaxHealth: 200
   upgradeCost: 100
   upgradeTime: 10
   upgradedRange: 4
-  upgradedDamage: 75
-  upgradedAttackCooldown: 1
+  upgradedDamage: 15
+  upgradedAttackCooldown: 0.5
   builder: {fileID: 0}
   damageImages:
   - minHealth: 0

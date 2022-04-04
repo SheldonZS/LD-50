@@ -24,9 +24,6 @@ public class RTSController : MonoBehaviour
     public GameObject selected = null;
     public List<GameObject> heroes;
 
-    public GameObject[] monsters;
-    public SpawnPoint[] spawnPoints;
-
     public Collider2D homeBase;
     public Transform gridAnchor { get; private set; }
     public Commands command { get; private set; }
@@ -35,6 +32,7 @@ public class RTSController : MonoBehaviour
     public DialogueManager DM { get; private set; }
     public DataBucket db { get; private set; }
     //public CursorCollider mouseOver { get; private set; }
+    private WaveManager wave;
 
     public bool raol_alive;
     public bool bal_alive;
@@ -69,6 +67,7 @@ public class RTSController : MonoBehaviour
         buildButton = GameObject.Find("Build").GetComponent<Button>();
         repairButton = GameObject.Find("Repair").GetComponent<Button>();
         upgradeButton = GameObject.Find("Upgrade").GetComponent<Button>();
+        wave = GetComponent<WaveManager>();
         //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
     }
 
@@ -121,12 +120,6 @@ public class RTSController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            int spawner = Random.Range(0, spawnPoints.Length);
-            MonsterBase monster = Instantiate(monsters[0], gridAnchor).GetComponent<MonsterBase>();
-            monster.SetSpawn(spawnPoints[spawner]);
-        }
         bonesText.text = bones.ToString();
 
         if (selected == null)
