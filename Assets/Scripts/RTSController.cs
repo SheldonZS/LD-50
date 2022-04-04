@@ -25,6 +25,7 @@ public class RTSController : MonoBehaviour
     public GameObject[] monsters;
     public SpawnPoint[] spawnPoints;
 
+    public Collider2D homeBase;
     public Transform gridAnchor { get; private set; }
     public Commands command { get; private set; }
 
