@@ -129,31 +129,16 @@ public class TowerBase : MonoBehaviour
         if (target == null)
             return;
 
-        Debug.Log("Firing at " + target.gameObject.name);
-
         ProjectileController arrow = Instantiate(builder.attackPrefabs[0], RTSController.instance.gridAnchor).GetComponent<ProjectileController>();
-        arrow.transform.localPosition = transform.localPosition;
+        arrow.transform.localPosition = transform.localPosition + Vector3.up * 0.5f;
 
         Vector2 direction = target.transform.localPosition - transform.localPosition;
 
-        float atan = 0;
-        if(direction.x != 0)
-        {
-            atan = Mathf.Atan(direction.y / direction.x);
-            if (direction.y < 0)
-                atan += Mathf.PI;
-        }
-        else
-        {
-            if (direction.y < 0)
-                atan = Mathf.PI;
-        }
-
-        arrow.transform.eulerAngles = Vector3.back * (atan * 180 / Mathf.PI);
+        arrow.transform.eulerAngles = Vector3.back * DirectionToAngle(direction);
+        arrow.SetProjectile(transform.localPosition, direction, 10f, range, damage, upgraded ? true : false);
 
         cooldown = attackCooldown;
 
-        arrow.SetProjectile(transform.localPosition, direction, 5f, range, damage, upgraded ? true : false);
     }
     //Wizard Towers
     public void BalthasarTower()
@@ -170,6 +155,25 @@ public class TowerBase : MonoBehaviour
     public void JolieTower()
     {
 
+    }
+
+    public float DirectionToAngle(Vector2 direction)
+    {
+        float atan = 0;
+        if (direction.y != 0)
+        {
+            atan = Mathf.Atan(direction.x / direction.y) * 180 / Mathf.PI;
+            if (direction.y < 0)
+                atan += 180;
+        }
+        else
+        {
+            if (direction.x < 0)
+                atan = -90;
+            else atan = 90;
+        }
+
+        return atan;
     }
     public GameObject GetClosestMonster(float radius)
     {
