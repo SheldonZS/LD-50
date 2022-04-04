@@ -8,7 +8,7 @@ public class BoneCollectible : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collision with " + collision.gameObject.name);
+        //Debug.Log("Collision with " + collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
         {
             collision.GetComponent<Hero>().PickUpBones(bones);

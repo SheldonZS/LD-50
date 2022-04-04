@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: db43f5fdbd3a61642a8d8b12d673b75c
+guid: 8790e5c1f9273de48a7d26aa9c52f85c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3316745083922413979
-    second: LD2022_Tower_1_intact_0
+      213: 6479635772691714227
+    second: dustcloud_0
   - first:
-      213: 820155602512045726
-    second: LD2022_Tower_1_intact_1
+      213: 1835642269655420628
+    second: dustcloud_1
   - first:
-      213: -5940545664301288693
-    second: LD2022_Tower_1_intact_2
+      213: 1600154696738818924
+    second: dustcloud_2
   - first:
-      213: 3544135635718592821
-    second: LD2022_Tower_1_intact_3
+      213: -2607878986325521909
+    second: dustcloud_3
+  - first:
+      213: -5753518020863345758
+    second: dustcloud_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -44,7 +47,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -55,7 +58,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -100,7 +103,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -115,85 +118,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LD2022_Tower_1_intact_0
+      name: dustcloud_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 115.25
-        height: 158
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b99f7b9b412770e20800000000000000
-      internalID: 3316745083922413979
+      spriteID: 3b01439976a4ce950800000000000000
+      internalID: 6479635772691714227
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LD2022_Tower_1_intact_1
+      name: dustcloud_1
       rect:
         serializedVersion: 2
-        x: 115
+        x: 100
         y: 0
-        width: 115.25
-        height: 158
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e96e644dc27c16b00800000000000000
-      internalID: 820155602512045726
+      spriteID: 4dec0892be2897910800000000000000
+      internalID: 1835642269655420628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LD2022_Tower_1_intact_2
+      name: dustcloud_2
       rect:
         serializedVersion: 2
-        x: 230
+        x: 200
         y: 0
-        width: 115.25
-        height: 158
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b03b5535131fe8da0800000000000000
-      internalID: -5940545664301288693
+      spriteID: c6b4accf734e43610800000000000000
+      internalID: 1600154696738818924
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LD2022_Tower_1_intact_3
+      name: dustcloud_3
       rect:
         serializedVersion: 2
-        x: 345
+        x: 300
         y: 0
-        width: 115.25
-        height: 158
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5395fc2459c4f2130800000000000000
-      internalID: 3544135635718592821
+      spriteID: b0a8cda01e3fecbd0800000000000000
+      internalID: -2607878986325521909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dustcloud_4
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2abb1ade7d56720b0800000000000000
+      internalID: -5753518020863345758
       vertices: []
       indices: 
       edges: []

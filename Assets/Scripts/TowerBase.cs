@@ -83,7 +83,16 @@ public class TowerBase : MonoBehaviour
         TakeDamage(-damage);
 
         if (health >= maxHealth * 0.95)
+        {
             operational = true;
+
+            if (builder.gameObject.name == "Thob")
+            {
+                GetComponentInChildren<Animator>().SetBool("operational", true);
+                GetComponentInChildren<CircleCollider2D>().enabled = true;
+
+            }
+        }
     }
     public void TakeDamage(int damage)
     {
@@ -114,7 +123,10 @@ public class TowerBase : MonoBehaviour
         range = upgradedRange;
         damage = upgradedDamage;
         attackCooldown = upgradedAttackCooldown;
-}
+
+        if (builder.gameObject.name == "Thob")
+            GetComponentInChildren<Animator>().SetBool("upgraded", true);
+    }
 
     public void Destroy()
     {
@@ -147,7 +159,7 @@ public class TowerBase : MonoBehaviour
     }
 
     //Bard Towers
-    public void ThobTower()
+    public virtual void ThobTower()
     {
 
     }
