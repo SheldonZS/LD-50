@@ -32,6 +32,7 @@ public class Hero : MonoBehaviour
     private float upgradeStartTime;
 
     public bool building;
+    public bool repairing;
 
     private int bonesCarried = 0;
 
@@ -94,6 +95,8 @@ public class Hero : MonoBehaviour
             {
                 RTSC.bones += bonesCarried;
                 bonesCarried = 0;
+                RTSC.UpdateButtons();
+
             }
 
             highlight.SetBool("Selected", true);
@@ -309,6 +312,8 @@ public class Hero : MonoBehaviour
                     }
 
                     building = true;
+                    RTSC.UpdateButtons();
+
                     TowerBase newTower = Instantiate(towers[0], RTSC.gridAnchor).GetComponent<TowerBase>();
                     newTower.transform.localPosition = command.location;
                     newTower.builder = this;
@@ -347,6 +352,8 @@ public class Hero : MonoBehaviour
                         
                         repairDecimal = 0;
                         building = false;
+                        RTSC.UpdateButtons();
+
                         if (db.tutorialMode == 3)
                         {
                             ShowText(DM.tutorial3, TextMode.imm);
@@ -376,6 +383,9 @@ public class Hero : MonoBehaviour
 
                 if (collider.IsTouching(repairTower.GetComponent<BoxCollider2D>()))
                 {
+                    repairing = true;
+                    RTSC.UpdateButtons();
+
                     float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * bardBuildMultiplier * Time.deltaTime + repairDecimal;
                     int repairInt = Mathf.FloorToInt(repairAmount);
                     repairTower.Repair(repairInt);
@@ -384,6 +394,9 @@ public class Hero : MonoBehaviour
                     {
                         RTSC.Say(this, "Job's done!");
                         repairDecimal = 0;
+                        repairing = false;
+                        RTSC.UpdateButtons();
+
                         return true;
                     }
 
@@ -424,6 +437,8 @@ public class Hero : MonoBehaviour
                         }
 
                         upgrading = true;
+                        RTSC.UpdateButtons();
+
                         upgradeStartTime = Time.time;
 
                         RTSC.Say(this, "Starting upgrade...");
@@ -436,6 +451,8 @@ public class Hero : MonoBehaviour
                             repairTower.Upgrade();
                             RTSC.Say(this, "Job's done!");
                             upgrading = false;
+                            RTSC.UpdateButtons();
+
                             return true;
                         }
                     }

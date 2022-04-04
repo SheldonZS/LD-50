@@ -699,8 +699,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -34.3173}
-  m_SizeDelta: {x: 160, y: 85.8323}
+  m_AnchoredPosition: {x: -0.000012875, y: -34.3173}
+  m_SizeDelta: {x: 164.4919, y: 85.8323}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &221515955
 MonoBehaviour:
@@ -724,7 +724,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b74845dc88c22b3429e67647b0b0644d, type: 3}
-    m_FontSize: 30
+    m_FontSize: 23
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -734,8 +734,8 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: Select Hero
+    m_LineSpacing: 0.85
+  m_Text: 'Invalid Location: Obstructed by Path'
 --- !u!222 &221515956
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1362,6 +1362,12 @@ MonoBehaviour:
   upgrade:
   - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 21300000, guid: b716da50e4f5c194482892371f746fb3, type: 3}
+  repairErrorText: {fileID: 0}
+  repairCostText: {fileID: 0}
+  buildErrorText: {fileID: 0}
+  buildCostText: {fileID: 0}
+  upgradeErrorText: {fileID: 0}
+  upgradeCostText: {fileID: 0}
   selected: {fileID: 0}
   heroes:
   - {fileID: 2952219095722347358}
@@ -4131,8 +4137,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -34.3173}
-  m_SizeDelta: {x: 160, y: 85.8323}
+  m_AnchoredPosition: {x: -0.88500977, y: -34.31729}
+  m_SizeDelta: {x: 168.9177, y: 85.8323}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1379661992
 MonoBehaviour:
@@ -4156,7 +4162,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b74845dc88c22b3429e67647b0b0644d, type: 3}
-    m_FontSize: 30
+    m_FontSize: 23
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -4166,8 +4172,8 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: Select Hero
+    m_LineSpacing: 0.85
+  m_Text: 'Invalid Location: Obstructed by Path'
 --- !u!222 &1379661993
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4517,8 +4523,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -34.3173}
-  m_SizeDelta: {x: 160, y: 85.8323}
+  m_AnchoredPosition: {x: -0.4094, y: -34.3173}
+  m_SizeDelta: {x: 171.5732, y: 85.8323}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1580358736
 MonoBehaviour:
@@ -4542,7 +4548,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b74845dc88c22b3429e67647b0b0644d, type: 3}
-    m_FontSize: 30
+    m_FontSize: 23
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -4552,8 +4558,8 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: Select Hero
+    m_LineSpacing: 0.85
+  m_Text: 'Invalid Location: Obstructed by Path'
 --- !u!222 &1580358737
 CanvasRenderer:
   m_ObjectHideFlags: 0

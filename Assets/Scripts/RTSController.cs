@@ -16,7 +16,7 @@ public class RTSController : MonoBehaviour
     private Image repairButtonImage;
     private Image upgradeButtonImage;
     private Text bonesText;
-    private Text repairErrorText, repairCostText, buildErrorText, buildCostText, upgradeErrorText, upgradeCostText;
+    public Text repairErrorText, repairCostText, buildErrorText, buildCostText, upgradeErrorText, upgradeCostText;
     private Button buildButton, repairButton, upgradeButton;
 
     public Camera camera { get; private set; }
@@ -149,7 +149,7 @@ public class RTSController : MonoBehaviour
                     {
                         selected = hit.collider.gameObject;
 
-                        UpdateButtonsOnSelect();
+                        UpdateButtons();
 
                         if (db.tutorialMode == 1 && selected.name == "Raol")
                         {
@@ -243,20 +243,75 @@ public class RTSController : MonoBehaviour
         yield return dialogueBox.CloseWindow();
     }
 
-    public void UpdateButtonsOnSelect()
+    public void UpdateButtons()
     {
+        ResetButtons();
+
+        if (selected.tag != "Player") return;
+
         Hero hero = selected.GetComponent<Hero>();
-        buildButton.enabled = true;
-        repairButton.enabled = true;
-        buildErrorText.text = "Select Location";
-        repairErrorText.text = "Select Location";
-        buildCostText.text = "Build Cost: " + (hero.towers[0].GetComponent<TowerBase>().buildCost);
+
+        int heroBuildCost = hero.towers[0].GetComponent<TowerBase>().buildCost;
+        buildCostText.text = "Build Cost: " + heroBuildCost;
+
+        if (hero.building)
+        {
+            buildErrorText.text = "Building In Progress";
+            buildButton.enabled = false;
+        }
+        else if (heroBuildCost <= bones)
+        {
+            buildErrorText.text = "Click to Build";
+            buildButton.enabled = true;
+        }
+        else
+        {
+            buildErrorText.text = "Insufficient Bones";
+            buildButton.enabled = false;
+
+        }
+
+
+        if (hero.repairing)
+        {
+            repairErrorText.text = "Repairs In Progress";
+            repairButton.enabled = false;
+
+        }
+        else
+        {
+            repairErrorText.text = "Click to Repair";
+            repairButton.enabled = true;
+
+        }
+
         //repairCostText.text = "Repair Cost: " + (hero.towers[0].GetComponent<TowerBase>().repairCost);
         if (hero.level >= 2)
         {
             upgradeButton.enabled = true;
-            upgradeErrorText.text = "Select Location";
-            upgradeCostText.text = "Upgrade Cost: " + (hero.towers[0].GetComponent<TowerBase>().upgradeCost);
+
+
+            int heroUpgradeCost = hero.towers[0].GetComponent<TowerBase>().upgradeCost;
+
+            if (hero.upgrading)
+            {
+                upgradeErrorText.text = "Upgrade in Progress";
+                upgradeButton.enabled = false;
+
+            }
+            else if (heroUpgradeCost <= bones)
+            {
+                upgradeErrorText.text = "Click to Upgrade";
+                upgradeCostText.text = "Upgrade Cost: " + heroUpgradeCost;
+                upgradeButton.enabled = true;
+            }
+            else
+            {
+                upgradeErrorText.text = "Insufficient Bones";
+                upgradeButton.enabled = false;
+
+
+            }
 
         }
         else
@@ -275,7 +330,7 @@ public class RTSController : MonoBehaviour
         repairCostText.text = "Repair";
         upgradeCostText.text = "Upgrade";
 
-                buildButton.enabled = false;
+        buildButton.enabled = false;
         repairButton.enabled = false;
         upgradeButton.enabled = false;
     }
