@@ -8,6 +8,7 @@ public class MonsterBase : MonoBehaviour
     public int moveSpeed;
     public int maxHealth;
     public int health;
+    public int bonesDropped;
     public MonsterMove moveAI;
     public MonsterAttack attackAI;
 

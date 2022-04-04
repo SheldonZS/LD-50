@@ -1230,6 +1230,7 @@ MonoBehaviour:
     - {x: 13, y: 3}
     - {x: 13, y: 7}
     - {x: 14, y: 7}
+  homeBase: {fileID: 1266331565}
   raol_alive: 0
   bal_alive: 0
   thob_alive: 0

@@ -27,6 +27,8 @@ public class Hero : MonoBehaviour
     public bool upgrading;
     private float upgradeStartTime;
 
+    private int bonesCarried = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +52,7 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = Vector2.zero;
+        //
 
         if (commands.Count == 0) commands.Add(new HeroCommand(Commands.idle));
         HeroCommand currentCommand = commands[0];
@@ -62,6 +64,12 @@ public class Hero : MonoBehaviour
             ExecuteCommand();
 
             return;
+        }
+
+        if (collider.IsTouching(RTSC.homeBase))
+        {
+            RTSC.bones += bonesCarried;
+            bonesCarried = 0;
         }
 
         highlight.SetBool("Selected", true);
@@ -182,6 +190,11 @@ public class Hero : MonoBehaviour
 
     }
 
+    public void PickUpBones(int x)
+    {
+        bonesCarried += x;
+    }
+
     private void ExecuteCommand()
     {
         if (commands.Count == 0)
@@ -212,6 +225,7 @@ public class Hero : MonoBehaviour
 
             case Commands.build:
                 //check if player is touching the tower build location
+                rb.velocity = Vector2.zero;
                 Collider2D[] hits = Physics2D.OverlapBoxAll(RTSC.gridAnchor.TransformPoint(RTSC.RoundToGrid(command.location, 0.5f)), Vector2.one * 0.9f, 0);
 
                 bool inPosition = false;
@@ -263,6 +277,7 @@ public class Hero : MonoBehaviour
                     return false;
                 }
             case Commands.repair:
+                rb.velocity = Vector2.zero;
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
@@ -293,6 +308,7 @@ public class Hero : MonoBehaviour
                 }
                 return false;
             case Commands.upgrade:
+                rb.velocity = Vector2.zero;
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
