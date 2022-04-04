@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 5151297805328693991}
   - component: {fileID: 8173459338497529248}
   m_Layer: 9
-  m_Name: RaolTower
+  m_Name: JolieTower
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,23 +327,24 @@ MonoBehaviour:
   builder: {fileID: 0}
   damageImages:
   - minHealth: 95
-    image: {fileID: 263135857212486781, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+    image: {fileID: 5024376811370027983, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
   - minHealth: 51
-    image: {fileID: 236122221054292178, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+    image: {fileID: 855832076035226090, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
   - minHealth: 1
-    image: {fileID: 3480185646984318995, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+    image: {fileID: 9100900288090821560, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
   - minHealth: 0
-    image: {fileID: 7606340367659942654, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+    image: {fileID: 2725746435068494316, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
   upgradedDamageImages:
   - minHealth: 190
-    image: {fileID: -7365898490547292432, guid: 5ccadf4a3e656dc41aee0436751aedfb,
-      type: 3}
+    image: {fileID: 8313702678090894896, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
   - minHealth: 101
-    image: {fileID: 879081120659860460, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+    image: {fileID: 7310743561754579693, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
   - minHealth: 1
-    image: {fileID: 1992903314356554096, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+    image: {fileID: -1338249511572885996, guid: 5ccadf4a3e656dc41aee0436751aedfb,
+      type: 3}
   - minHealth: 0
-    image: {fileID: 2660667655041499009, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+    image: {fileID: -4341944793867378837, guid: 5ccadf4a3e656dc41aee0436751aedfb,
+      type: 3}
   turret: {fileID: 0}
 --- !u!61 &-3544528945124626178
 BoxCollider2D:
@@ -362,7 +363,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.1525, y: 1.58}
+    oldSize: {x: 1.1875, y: 2}
     newSize: {x: 1.1525, y: 1.58}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -432,7 +433,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3316745083922413979, guid: db43f5fdbd3a61642a8d8b12d673b75c,
+  m_Sprite: {fileID: 5024376811370027983, guid: 5ccadf4a3e656dc41aee0436751aedfb,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

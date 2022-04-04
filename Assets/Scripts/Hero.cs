@@ -15,6 +15,7 @@ public class Hero : MonoBehaviour
     public float moveSpeed = 200f;
     public float buildSpeedMultiplier = 1f;
 
+    public GameObject dustcloud;
     public GameObject[] towers;
     public GameObject[] attackPrefabs;
 
@@ -364,6 +365,9 @@ public class Hero : MonoBehaviour
                     newTower.transform.localPosition = command.location;
                     newTower.builder = this;
                     newTower.SetHealth(1);
+
+                    GameObject dustEffect = Instantiate(dustcloud, newTower.transform);
+                    dustEffect.transform.localPosition = Vector3.zero + Vector3.back;
 
                     commands[0] = new HeroCommand(Commands.buildToMax, command.location, newTower.gameObject);
 

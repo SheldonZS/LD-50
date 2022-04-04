@@ -326,9 +326,25 @@ MonoBehaviour:
   upgradedAttackCooldown: 1
   builder: {fileID: 0}
   damageImages:
+  - minHealth: 95
+    image: {fileID: 3915932150349583612, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+  - minHealth: 51
+    image: {fileID: -6217465905092064868, guid: 5ccadf4a3e656dc41aee0436751aedfb,
+      type: 3}
+  - minHealth: 1
+    image: {fileID: -8372229121423883950, guid: 5ccadf4a3e656dc41aee0436751aedfb,
+      type: 3}
   - minHealth: 0
-    image: {fileID: 820155602512045726, guid: db43f5fdbd3a61642a8d8b12d673b75c, type: 3}
-  upgradedDamageImages: []
+    image: {fileID: 4316210739663726392, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+  upgradedDamageImages:
+  - minHealth: 190
+    image: {fileID: -134779662870523963, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+  - minHealth: 101
+    image: {fileID: 6380320874286691739, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+  - minHealth: 1
+    image: {fileID: -325799496493114, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
+  - minHealth: 0
+    image: {fileID: 4897502467060870059, guid: 5ccadf4a3e656dc41aee0436751aedfb, type: 3}
   turret: {fileID: 0}
 --- !u!61 &-3544528945124626178
 BoxCollider2D:

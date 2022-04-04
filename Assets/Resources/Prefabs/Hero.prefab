@@ -572,10 +572,12 @@ MonoBehaviour:
   maxExp: 5
   moveSpeed: 3
   buildSpeedMultiplier: 1
+  dustcloud: {fileID: 8744764171007823869, guid: c296b99974b19c544843ef6723850e1d,
+    type: 3}
   towers:
   - {fileID: 8834848687929935486, guid: dfff810b1187b3c4ba21a89939357216, type: 3}
   attackPrefabs:
-  - {fileID: 838433271400327066, guid: b620bbdf4885c58489c32a0d1e164044, type: 3}
+  - {fileID: 5367939558161253185, guid: bcc1c625c3e71284daaf5cf64c68d562, type: 3}
   upgrading: 0
   building: 0
   repairing: 0

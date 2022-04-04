@@ -80,7 +80,7 @@ public class RTSController : MonoBehaviour
         jolie_alive = true;
         base_intact = true;
 
-        bones = 200;
+        bones = db.debugMode? 9999 : 200;
         ResetButtons();
 
         TowerBase home = homeBase.GetComponent<TowerBase>();
