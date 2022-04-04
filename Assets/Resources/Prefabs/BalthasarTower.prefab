@@ -313,8 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  buildCost: 100
-  buildTime: 1
+  buildCost: 175
+  buildTime: 10
   range: 4
   damage: 50
   attackCooldown: 1
@@ -328,6 +328,7 @@ MonoBehaviour:
   damageImages:
   - minHealth: 0
     image: {fileID: 820155602512045726, guid: db43f5fdbd3a61642a8d8b12d673b75c, type: 3}
+  upgradedDamageImages: []
   turret: {fileID: 0}
 --- !u!61 &-3544528945124626178
 BoxCollider2D:

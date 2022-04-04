@@ -383,6 +383,8 @@ public class Hero : MonoBehaviour
                         
                         repairDecimal = 0;
                         building = false;
+                        RTSC.bones -= repairTower.buildCost;
+                        UpdateBoneUI();
                         RTSC.UpdateButtons();
                         exp++;
                         exp = Mathf.Clamp(exp, 0, maxExp);
@@ -579,7 +581,8 @@ public class Hero : MonoBehaviour
                             //RTSC.Say(this, "Job's done!");
                             upgrading = false;
                             RTSC.UpdateButtons();
-                            
+                            RTSC.bones -= repairTower.upgradeCost;
+                            UpdateBoneUI();
                             //if not upgraded before, play special text. otherwise, pick random
                             if (!firstUpgrade)
                             {

@@ -331,6 +331,8 @@ MonoBehaviour:
 
     Marppuli
 
+    Margie Noonan
+
 '
 --- !u!222 &450701250
 CanvasRenderer:
@@ -462,6 +464,10 @@ MonoBehaviour:
     wavesSurvived: 0
   selection: 0
   tutorialMode: 0
+  raolColor: {r: 0, g: 0, b: 0, a: 0}
+  balthasarColor: {r: 0, g: 0, b: 0, a: 0}
+  thobColor: {r: 0, g: 0, b: 0, a: 0}
+  jolieColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &539172187
 Transform:
   m_ObjectHideFlags: 0
@@ -527,15 +533,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 75f9a0bfce3e980488a0a38f984a609a, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -775,8 +781,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: -20, y: -20}
+  m_AnchoredPosition: {x: 4.580017, y: -16.26001}
+  m_SizeDelta: {x: -68.78, y: -52.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1777962716
 MonoBehaviour:
@@ -813,8 +819,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Reapers & Retirees\nLD 50: Delay the Inevitable\n\nProject Lead/Writer:
     \nProgrammer: \nLead Artist:\nArtist\nComposer/SFX/French Horn/Recorder\nQA/Additional
-    Writing\n\n\nFonts: Thank you to Impallari Type and Tepid Monkey Fonts for free
-    personal use of of the New Rocker and Benegraphic fonts."
+    Writing\nGhostly Sounds\n\n\nFonts: Thank you to Impallari Type and Tepid Monkey
+    Fonts for free personal use of of the New Rocker and Benegraphic fonts."
 --- !u!222 &1777962717
 CanvasRenderer:
   m_ObjectHideFlags: 0

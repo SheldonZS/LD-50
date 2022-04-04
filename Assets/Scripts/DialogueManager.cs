@@ -438,8 +438,8 @@ public class DialogueManager : MonoBehaviour
 
         //the following death scenes should still work even if any single one of the speakers (in addition to the dying) is missing
         secondDeath_R.Add("Raol: Mother Moon! I...I cannot continue. Kol Kol...don't worry, I'm coming to find you.");
-        secondDeath_R.Add("Balthasar: Who is Kol Kol?");
-        secondDeath_R.Add("Thob: Is Kol Kol someone he cared about deeply? A lover?");
+        secondDeath_R.Add("Balthasar: Who is Kol Kol? A lover?");
+        secondDeath_R.Add("Thob: Is he talking about a friend?");
         secondDeath_R.Add("Balthasar: I find it difficult to imagine someone with such historically antagonistic behavior in an intimate scenario.");
         secondDeath_R.Add("Jolie: I once heard Raol ask the nurses if they would \"come back later for a price.\" It turned out he just wanted to pay them to leave him alone.");
         secondDeath_R.Add("Thob: Raol, you shall be missed. Even if you were pretty prickly.");
