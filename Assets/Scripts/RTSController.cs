@@ -32,7 +32,7 @@ public class RTSController : MonoBehaviour
     public DialogueManager DM { get; private set; }
     public DataBucket db { get; private set; }
     //public CursorCollider mouseOver { get; private set; }
-    private WaveManager wave;
+    public WaveManager wave;
 
     public bool raol_alive;
     public bool bal_alive;
@@ -87,7 +87,10 @@ public class RTSController : MonoBehaviour
     }
 
 
+    public void WaveDefeated()
+    {
 
+    }
 
     public bool GridContains(Vector2 location, string tag)
     {

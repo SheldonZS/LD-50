@@ -25,6 +25,8 @@ public class DialogueBox : MonoBehaviour
     private float lineHeight;
     private float spaceWidth;
 
+    public float waveDelayAfterDialogue = 8f;
+
     private GameObject FFButton;
     private GameObject slowButton;
 
@@ -142,7 +144,7 @@ public class DialogueBox : MonoBehaviour
     {
         Coroutine storyRoutine = null;
          
-        if (displayingText && mode == TextMode.queue)
+        if (displayingText)
         {
             if (mode == TextMode.queue)
             {
@@ -237,7 +239,12 @@ public class DialogueBox : MonoBehaviour
             }
             else if (words[index] == "endgame")
             {
+                db.data.wavesSurvived = wm.currentWave-1;
                 SceneController.onClickEnding();
+            }
+            else if(words[index] == "startWave")
+            {
+                wm.StartNextWave(waveDelayAfterDialogue);
             }
             else if (words[index].Split(':')[0] == "unpause")
             {
@@ -470,7 +477,7 @@ public class DialogueBox : MonoBehaviour
 
         if (storyQueue.Count > 0)
         {
-            StartCoroutine(PlayText(storyQueue[0], TextMode.ifFree));
+            StartCoroutine(PlayText(storyQueue[0], TextMode.imm));
             storyQueue.RemoveAt(0);
         }
     }

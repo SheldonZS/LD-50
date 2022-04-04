@@ -169,7 +169,7 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(diaBox.PlayText(chosenStory, TextMode.ifFree));
     }
 
-    public void PlayRandomAlive(List<string> possibleStories)
+    public void PlayRandomAlive(List<string> possibleStories, TextMode mode)
     {
         int chosenIndex = Random.Range(0, possibleStories.Count - 1);
 
@@ -218,7 +218,7 @@ public class DialogueManager : MonoBehaviour
         List<string> chosenStory = new List<string>();
 
         chosenStory.Add(possibleStories[chosenIndex]);
-        StartCoroutine(diaBox.PlayText(chosenStory, TextMode.ifFree));
+        StartCoroutine(diaBox.PlayText(chosenStory, mode));
 
 
     }
@@ -268,7 +268,7 @@ public class DialogueManager : MonoBehaviour
         tutorial3.Add("Thob: We're about to be attacked by the Reaper. We built one tower, but is it enough?");
         tutorial3.Add("Jolie: Why not just let the Reaper come? I could use some forever sleep.");
         tutorial3.Add("Balthasar: The Reaper is really quite amicable. We go way back.");
-        tutorial3.Add("Thob: I can't die yet, I've only finished fifteen movements!");
+        tutorial3.Add("Thob: I can't die yet, I've only written fifteen movements of my sonata!");
         tutorial3.Add("Raol: It's too late. They're coming.");
         tutorial3.Add("Jolie: Really? Multiple Reapers?");
         tutorial3.Add("endTutorial");
@@ -280,24 +280,40 @@ public class DialogueManager : MonoBehaviour
         howBonesWork.Add("Raol: Is that why you were hoarding building bones even before today, Balthasar?");
         howBonesWork.Add("Balthasar: Veritably, I prefer the lustrous incandescence they take on after application of beeswax.");
         howBonesWork.Add("Tutorial: Heroes collect bones by walking over them. Take the bones back to the retirement home to make them available for building.");
+        howBonesWork.Add("startWave");
 
         //end of second wave
         howBonesWork2.Add("Jolie: How do the building bones get so quickly from the home to the building site?");
         howBonesWork2.Add("Balthasar: The enigma surrounding the retirement home's bone-processing mechanism is tantalizingly impenetrable.");
         howBonesWork2.Add("Thob: All hail the Mighty Bone Processor of Confusingly Convenient Teleportation!");
         howBonesWork2.Add("Shortcuts: Press Tab to cycle through heroes. While hero is selected, press B to Build, R to Repair, or U to Upgrade. May the heroes live forever. Good luck.");
+        howBonesWork2.Add("startWave");
 
         //end of third wave
         enemiesOnPath.Add("Thob: How come the reapers don't stray from the path?");
         enemiesOnPath.Add("Balthasar: I hypothesize the reapers lack sufficient intelligence to maximize efficient target prioritization.");
         enemiesOnPath.Add("Jolie: The reapers are like me. They prefer a smooth surface to travel.");
         enemiesOnPath.Add("Raol: Don't let the reapers hear us speculate why they stay on the path. They might start to adapt.");
+        enemiesOnPath.Add("startWave");
 
         //end of fourth wave
         cannotRepairHome.Add("Thob: If only we could repair our retirement home too. If it falls, we won't be able to process new bones.");
         cannotRepairHome.Add("Jolie: Does anyone know how to repair the retirement home?");
         cannotRepairHome.Add("Balthasar: Much to my consternation, my vast stores of knowledge contain no instruction manual regarding the reparation of bone processing contraptions.");
         cannotRepairHome.Add("Raol: So, we can't repair the retirement home because we only know how to repair what we ourselves built.");
+        cannotRepairHome.Add("startWave");
+
+        //start of fourth wave
+        firstTowerEnemy.Add("Raol: That reaper looks different from the others we've seen.");
+        firstTowerEnemy.Add("Thob: The purple reaper is going for the towers!");
+        firstTowerEnemy.Add("Balthasar: Fret not, we shall simply repair the damaged towers with our excess bone collection.");
+        firstTowerEnemy.Add("Jolie: We need to repair towers before the reapers ruin them completely, or we'll use up even more bones rebuilding from scratch.");
+
+        //start of fifth wave
+        firstCharEnemy.Add("Balthasar: That crimson reaper possesses aerial capabilities!");
+        firstCharEnemy.Add("Raol: It's an enemy smart enough to leave the path to chase its prey.");
+        firstCharEnemy.Add("Thob: It's coming straight for us! Hide in the retirement home!");
+        firstCharEnemy.Add("Jolie: Hello, new enemy. Please fly over here and strike me down.");
 
         //the following conversations need to make sense even if any or all of the speakers (except for the initial speaker) are dead
 
@@ -365,15 +381,7 @@ public class DialogueManager : MonoBehaviour
         
         //the remaining conversations need to make sense even if any number of speakers are already dead
 
-        firstTowerEnemy.Add("Raol: That reaper looks different from the others we've seen.");
-        firstTowerEnemy.Add("Thob: The blue reaper is going for the towers!");
-        firstTowerEnemy.Add("Balthasar: Fret not, we shall simply repair the damaged towers with our excess bone collection.");
-        firstTowerEnemy.Add("Jolie: We need to repair towers before the reapers ruin them completely, or we'll use up even more bones rebuilding from scratch.");
 
-        firstCharEnemy.Add("Balthasar: That crimson reaper possesses aerial capabilities!");
-        firstCharEnemy.Add("Raol: It's an enemy smart enough to leave the path to chase its prey.");
-        firstCharEnemy.Add("Thob: It's coming straight for us! Hide in the retirement home!");
-        firstCharEnemy.Add("Jolie: Hello, new enemy. Please fly over here and strike me down.");
 
         home75.Add("Raol: We can't keep letting these reapers slip through to damage our home.");
         home75.Add("Jolie: The bone processing machine in the home is making weird whirring noises. It's too loud.");

@@ -402,7 +402,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 840.6984, y: 746.2307}
+  m_SizeDelta: {x: 827.92, y: 746.2307}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &843600612
 MonoBehaviour:
@@ -849,7 +849,7 @@ PrefabInstance:
     - target: {fileID: 1700075702636611100, guid: 0105f55e97be0ca4c8c368d93aa01655,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -94.2979
+      value: -62.2347
       objectReference: {fileID: 0}
     - target: {fileID: 1700075702636611100, guid: 0105f55e97be0ca4c8c368d93aa01655,
         type: 3}
@@ -859,12 +859,12 @@ PrefabInstance:
     - target: {fileID: 1700075702636611100, guid: 0105f55e97be0ca4c8c368d93aa01655,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.33899
+      value: 34.897
       objectReference: {fileID: 0}
     - target: {fileID: 1700075702636611100, guid: 0105f55e97be0ca4c8c368d93aa01655,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -49.9588
+      value: -43.402
       objectReference: {fileID: 0}
     - target: {fileID: 1700075702665072574, guid: 0105f55e97be0ca4c8c368d93aa01655,
         type: 3}
@@ -881,10 +881,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1700075703951564417, guid: 0105f55e97be0ca4c8c368d93aa01655,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 827.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700075703951564417, guid: 0105f55e97be0ca4c8c368d93aa01655,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0015258789
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700075703951564417, guid: 0105f55e97be0ca4c8c368d93aa01655,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3162602239451062783, guid: 0105f55e97be0ca4c8c368d93aa01655,
         type: 3}
       propertyPath: margins
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0105f55e97be0ca4c8c368d93aa01655, type: 3}

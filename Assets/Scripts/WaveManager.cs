@@ -13,16 +13,25 @@ public class WaveManager : MonoBehaviour
 
     private float waveStartTime;
     private int spawnedThisWave;
+    private float delayAfterWaveEnd = 8f;
 
     public int currentWave { get; private set; }    //contains the wave currently active or the number of waves cleared
     public bool waveFinished { get; private set; }
     private Transform gridAnchor;
     private RTSController RTSC;
+    private DialogueBox diaBox;
+    private DialogueManager DM;
 
+    private void Awake()
+    {
+        RTSC = GetComponentInParent<RTSController>();
+        diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
+        DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
+
+    }
     // Start is called before the first frame update
     void Start()
     {
-        RTSC = GetComponentInParent<RTSController>();
         gridAnchor = GameObject.Find("Grid Anchor").transform;
         waveFinished = true;
     }
@@ -114,6 +123,21 @@ public class WaveManager : MonoBehaviour
         waveFinished = false;
         currentWave++;
         spawnedThisWave = 0;
+
+        switch (currentWave)
+        {
+            case 1:
+                break;
+            case 4:
+                diaBox.PlayText(DM.firstTowerEnemy, TextMode.queue);
+                break;
+            case 5:
+                diaBox.PlayText(DM.firstCharEnemy, TextMode.queue);
+                break;
+            default:
+                DM.PlayRandomAlive(DM.waveStarted, TextMode.queue);
+                break;
+        }
     }
 
     public void SpawnMonster(RTSController rtsc, int spawner, Color color, float moveSpeed, int HP, int attack, float cooldown, int bones, MonsterMove moveType, MonsterAttack AttackType)
@@ -122,5 +146,31 @@ public class WaveManager : MonoBehaviour
         monster.SetSpawn(rtsc, spawners[spawner]);
         monster.SetStats(color, moveSpeed, HP, attack, cooldown, bones, moveType, AttackType);
         spawnedThisWave++;
+    }
+
+
+    public void WaveDefeated()
+    {
+        switch (currentWave)
+        {
+            case 1:
+                diaBox.PlayText(DM.howBonesWork, TextMode.queue);
+                break;
+            case 2:
+                diaBox.PlayText(DM.howBonesWork2, TextMode.queue);
+                break;
+
+            case 3:
+                diaBox.PlayText(DM.enemiesOnPath, TextMode.queue);
+                break;
+            case 4:
+                diaBox.PlayText(DM.cannotRepairHome, TextMode.queue);
+                break;
+            default:
+                DM.PlayRandomAlive(DM.waveDefeated, TextMode.queue);
+                StartNextWave(delayAfterWaveEnd);
+                break;
+        }
+
     }
 }

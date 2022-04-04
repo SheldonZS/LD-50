@@ -248,11 +248,15 @@ public class MonsterBase : MonoBehaviour
         }
 
         animator.SetInteger("animation", (int)CharacterAnimation.dying);
-
+        if (RTSC.gridAnchor.GetComponentsInChildren<MonsterBase>().Length == 1)
+        {
+            RTSC.wave.WaveDefeated();
+        }
     }
 
     public void DestroySelf()
     {
+
         Destroy(gameObject);
     }
 
