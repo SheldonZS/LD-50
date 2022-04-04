@@ -134,7 +134,7 @@ private void Start()
 
                         if (db.tutorialMode == 1 && selected.name == "Raol")
                         {
-                            StartCoroutine(dialogueBox.PlayText(DM.tutorial1, true));
+                            StartCoroutine(dialogueBox.PlayText(DM.tutorial1, TextMode.imm));
                             db.tutorialMode++;
                         }
                         Reset();
@@ -220,7 +220,7 @@ private void Start()
 
     public IEnumerator AnimateText(string text)
     {
-        yield return dialogueBox.PlayText(new List<string>() { text }, true);
+        yield return dialogueBox.PlayText(new List<string>() { text }, TextMode.queue);
         yield return dialogueBox.CloseWindow();
     }
 

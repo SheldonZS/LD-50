@@ -102,7 +102,7 @@ public class Hero : MonoBehaviour
                 {
                     if (db.tutorialMode == 2)
                     {
-                        ShowText(DM.tutorial2);
+                        ShowText(DM.tutorial2, TextMode.imm);
                         db.tutorialMode++;
                     }
                     commands.Clear();
@@ -125,7 +125,7 @@ public class Hero : MonoBehaviour
             {
                 if (db.tutorialMode == 2)
                 {
-                    ShowText(DM.tutorial2);
+                    ShowText(DM.tutorial2, TextMode.imm);
                     db.tutorialMode++;
                 }
                 Vector2 clickPos = RTSC.MouseToGrid();
@@ -345,7 +345,7 @@ public class Hero : MonoBehaviour
                         building = false;
                         if (db.tutorialMode == 3)
                         {
-                            ShowText(DM.tutorial3);
+                            ShowText(DM.tutorial3, TextMode.imm);
                             db.tutorialMode++;
                         }
                         return true;
@@ -451,9 +451,9 @@ public class Hero : MonoBehaviour
 
     }
 
-    void ShowText(List<string> storyText)
+    void ShowText(List<string> storyText, TextMode mode)
     {
-        StartCoroutine(diaBox.PlayText(storyText, true));
+        StartCoroutine(diaBox.PlayText(storyText, mode));
     }
 }
 

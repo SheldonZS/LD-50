@@ -68,7 +68,7 @@ public class EndingManager : MonoBehaviour
             default:
                 break;
         }
-        StartCoroutine(diaBox.PlayText(endStory,true));   
+        StartCoroutine(diaBox.PlayText(endStory, TextMode.imm));   
  
     }
 

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
+
 public class DialogueBox : MonoBehaviour
 {
     private Image background;
@@ -31,8 +33,10 @@ public class DialogueBox : MonoBehaviour
 
     private List<Text> textBoxes;
     private List<List<string>> storyQueue;
+    private List<Coroutine> storiesInPlay;
 
     public bool displayingText;
+
 
     private void Awake()
     {
@@ -57,6 +61,7 @@ public class DialogueBox : MonoBehaviour
 
         textBoxes = new List<Text>();
         storyQueue = new List<List<string>>();
+        storiesInPlay = new List<Coroutine>();
 
         FFButton = GameObject.Find("Fast Forward");
         slowButton = GameObject.Find("Slow");
@@ -112,14 +117,40 @@ public class DialogueBox : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator PlayText(List<string> story, bool delayable)
+    void ClearAllStories()
     {
-        if (displayingText && delayable)
+        foreach (Coroutine story in storiesInPlay)
+        {
+            StopCoroutine(story);
+        }
+    }
+
+    public IEnumerator PlayText(List<string> story, TextMode mode)
+    {
+        Coroutine storyRoutine = null;
+         
+        if (displayingText && mode == TextMode.queue)
         {
             storyQueue.Add(story);
             yield break;
         }
 
+        if (mode == TextMode.imm)
+        {
+            ClearAllStories();
+            storyRoutine = StartCoroutine(ActuallyPlayText(story));
+        }
+        else
+        {
+            storyRoutine = StartCoroutine(ActuallyPlayText(story));
+        }
+        storiesInPlay.Add(storyRoutine);
+
+
+    }
+
+    public IEnumerator ActuallyPlayText(List<string> story)
+    {
 
         string[] words;
 
@@ -167,7 +198,7 @@ public class DialogueBox : MonoBehaviour
                     default:
                         break;
                 }
-            
+
             }
             //unique commands
             if (words[index] == "startEnding")
@@ -208,16 +239,16 @@ public class DialogueBox : MonoBehaviour
                 switch (words[index].Split(':')[0])
                 {
                     case "Raol":
-                            currentTextField.color = new Color(219f / 255f, 133f / 255f, 30f / 255f, 255f);
+                        currentTextField.color = new Color(219f / 255f, 133f / 255f, 30f / 255f, 255f);
                         break;
                     case "Balthasar":
-                            currentTextField.color = new Color(105f / 255f, 165f / 255f, 209f / 255f, 255f);
+                        currentTextField.color = new Color(105f / 255f, 165f / 255f, 209f / 255f, 255f);
                         break;
                     case "Thob":
-                            currentTextField.color = new Color(148f / 255f, 73f / 255f, 191f / 255f, 255f);
+                        currentTextField.color = new Color(148f / 255f, 73f / 255f, 191f / 255f, 255f);
                         break;
                     case "Jolie":
-                            currentTextField.color = new Color(179f / 255f, 40f / 255f, 40f / 255f, 255f);
+                        currentTextField.color = new Color(179f / 255f, 40f / 255f, 40f / 255f, 255f);
                         break;
                     default:
                         break;
@@ -351,22 +382,21 @@ public class DialogueBox : MonoBehaviour
                     yield return new WaitForSeconds(autoPauseAtLineEndTime);
                 }
             }
-   
+
 
             speakerAlive = true;
 
         }//displaying multiple lines of dialogue
-        
+
         displayingText = false;
 
         yield return null;
 
         if (storyQueue.Count > 0)
         {
-            StartCoroutine(PlayText(storyQueue[0], true));
+            StartCoroutine(PlayText(storyQueue[0], TextMode.ifFree));
             storyQueue.RemoveAt(0);
         }
-
     }
 
     public IEnumerator ScrollText()
@@ -492,3 +522,5 @@ public class DialogueBox : MonoBehaviour
     }
 
 }
+public enum TextMode { imm, ifFree, queue };
+

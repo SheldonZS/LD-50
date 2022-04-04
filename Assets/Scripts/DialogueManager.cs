@@ -150,15 +150,18 @@ public class DialogueManager : MonoBehaviour
         db.tutorialMode = 5;
 
         InitializeAllStories();
-        StartCoroutine(diaBox.PlayText(testWords, true));
-        StartCoroutine(diaBox.PlayText(intro, true));
+        StartCoroutine(diaBox.PlayText(intro, TextMode.imm));
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(diaBox.PlayText(firstRuin_T, TextMode.imm));
+
+        }
     }
     
     //play randomized text
@@ -167,7 +170,7 @@ public class DialogueManager : MonoBehaviour
         int chosenIndex = Random.Range(0, possibleStories.Count - 1);
         List<string> chosenStory = new List<string>();
         chosenStory.Add(possibleStories[chosenIndex]);
-        StartCoroutine(diaBox.PlayText(chosenStory, true));
+        StartCoroutine(diaBox.PlayText(chosenStory, TextMode.ifFree));
     }
 
     public void PlayRandomAlive(List<string> possibleStories)
@@ -219,7 +222,7 @@ public class DialogueManager : MonoBehaviour
         List<string> chosenStory = new List<string>();
 
         chosenStory.Add(possibleStories[chosenIndex]);
-        StartCoroutine(diaBox.PlayText(chosenStory, true));
+        StartCoroutine(diaBox.PlayText(chosenStory, TextMode.ifFree));
 
 
     }
@@ -231,7 +234,7 @@ public class DialogueManager : MonoBehaviour
         List <string> chosenStory = new List<string>();
         chosenStory.Add(possibleStories[chosenIndex]);
         possibleStories.RemoveAt(chosenIndex);
-        StartCoroutine(diaBox.PlayText(chosenStory, true));
+        StartCoroutine(diaBox.PlayText(chosenStory, TextMode.ifFree));
 
     }
 
