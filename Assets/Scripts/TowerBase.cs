@@ -107,6 +107,11 @@ public class TowerBase : MonoBehaviour
 
         health = Mathf.Clamp(health, 0, maxHealth);
         healthBar.UpdateHealth(health);
+
+        if (health <= 0)
+        {
+            builder.PlayRuinText();
+        }
     }
 
     public void Upgrade()

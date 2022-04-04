@@ -34,7 +34,7 @@ public class Hero : MonoBehaviour
     public bool building;
     public bool repairing;
 
-    private bool firstBuild, firstUpgrade, firstRuin;
+    private bool firstBuild, firstUpgrade, firstRuin, leveledUp;
 
     private int bonesCarried = 0;
 
@@ -355,6 +355,38 @@ public class Hero : MonoBehaviour
                         repairDecimal = 0;
                         building = false;
                         RTSC.UpdateButtons();
+                        exp++;
+                        exp = Mathf.Clamp(exp, 0, maxExp);
+                        //update exp bar
+                        if (exp == 5)
+                        {
+                            level = 2;
+                            if (!leveledUp)
+                            {
+                                leveledUp = true;
+                                switch (this.name)
+                                {
+                                    case "Raol":
+                                        ShowText(DM.levelUp_R, TextMode.ifFree);
+
+                                        break;
+                                    case "Balthasar":
+                                        ShowText(DM.levelUp_B, TextMode.ifFree);
+
+                                        break;
+                                    case "Thob":
+                                        ShowText(DM.levelUp_T, TextMode.ifFree);
+
+                                        break;
+                                    case "Julie":
+                                        ShowText(DM.levelUp_J, TextMode.ifFree);
+
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
 
                         if (db.tutorialMode == 3)
                         {
@@ -362,10 +394,10 @@ public class Hero : MonoBehaviour
                             db.tutorialMode++;
                         }
 
-                        //if not upgraded before, play special text. otherwise, pick random text
-                        if (!firstUpgrade)
+                        //if not built before, play special text. otherwise, pick random text
+                        if (!firstBuild)
                         {
-                            firstUpgrade = true;
+                            firstBuild = true;
                             switch (this.name)
                             {
                                 case "Raol":
@@ -518,7 +550,8 @@ public class Hero : MonoBehaviour
                             //RTSC.Say(this, "Job's done!");
                             upgrading = false;
                             RTSC.UpdateButtons();
-
+                            
+                            //if not upgraded before, play special text. otherwise, pick random
                             if (!firstUpgrade)
                             {
                                 firstUpgrade = true;
@@ -587,6 +620,35 @@ public class Hero : MonoBehaviour
     void ShowText(List<string> storyText, TextMode mode)
     {
         StartCoroutine(diaBox.PlayText(storyText, mode));
+    }
+
+    public void PlayRuinText()
+    {
+        if (!firstRuin)
+        {
+            firstRuin = true;
+            switch (this.name)
+            {
+                case "Raol":
+                    ShowText(DM.firstRuin_R, TextMode.ifFree);
+
+                    break;
+                case "Balthasar":
+                    ShowText(DM.firstRuin_B, TextMode.ifFree);
+
+                    break;
+                case "Thob":
+                    ShowText(DM.firstRuin_T, TextMode.ifFree);
+
+                    break;
+                case "Julie":
+                    ShowText(DM.firstRuin_J, TextMode.ifFree);
+
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
 

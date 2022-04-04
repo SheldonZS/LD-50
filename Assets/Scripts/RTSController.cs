@@ -233,8 +233,8 @@ public class RTSController : MonoBehaviour
     
     public void Say(Hero hero, string text)
     {
-        if (dialogueBox != null)
-        StartCoroutine(AnimateText(hero.gameObject.name + ": " + text));
+        if (dialogueBox != null) ;
+        //StartCoroutine(AnimateText(hero.gameObject.name + ": " + text));
     }
 
     public IEnumerator AnimateText(string text)
