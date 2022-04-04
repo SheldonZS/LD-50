@@ -32,7 +32,7 @@ public class DialogueBox : MonoBehaviour
     public float charactersPerSecond = 50;
     public float scrollTime = .2f;
     public float autoPauseAtLineEndTime = .5f;
-    public float blinkTime = .5f;
+    public float blinkTime = .15f;
 
     private List<Text> textBoxes;
     private List<List<string>> storyQueue;
@@ -88,7 +88,7 @@ public class DialogueBox : MonoBehaviour
 
         background.enabled = true;
         textMask.enabled = true;
-
+        ResetBlinks();
     }
 
     public IEnumerator OpenWindow()
@@ -420,11 +420,16 @@ public class DialogueBox : MonoBehaviour
 
 
                 }
+                if (blinkCoroutine != null)
+                {
+                    StopCoroutine(blinkCoroutine);
+
+                }
+                ResetBlinks();
 
                 //at the end of a line of dialogue
                 if (speakerAlive)
                 {
-                    StopCoroutine(blinkCoroutine);
 
                     yield return new WaitForSeconds(autoPauseAtLineEndTime);
 
@@ -569,34 +574,63 @@ public class DialogueBox : MonoBehaviour
         scrollTime = 5f / charactersPerSecond;
     }
 
+    void ResetBlinks()
+    {
+        foreach (GameObject hero in RTSC.heroes)
+        {
+            hero.transform.GetChild(4).GetComponent<SpriteRenderer>().enabled = false;
+        }
+    }
     IEnumerator HighlightBlink(Hero hero)
     {
         SpriteRenderer highlight = hero.transform.GetChild(4).GetComponent<SpriteRenderer>();
+        highlight.enabled = true;
         Color heroColor;
 
         switch (hero.name)
         {
-            case "Raul":
+            case "Raol":
                 heroColor = db.raolColor;
+                while (true)
+                {
+                    highlight.color = new Color(heroColor.r, heroColor.g, heroColor.b, 255);
+                    yield return new WaitForSeconds(blinkTime);
+                    highlight.color = new Color(heroColor.r, heroColor.g, heroColor.b, 0);
+                    yield return new WaitForSeconds(blinkTime);
+                }
                 break;
             case "Balthasar":
                 heroColor = db.balthasarColor;
+                while (true)
+                {
+                    highlight.color = new Color(heroColor.r, heroColor.g, heroColor.b, 255);
+                    yield return new WaitForSeconds(blinkTime);
+                    highlight.color = new Color(heroColor.r, heroColor.g, heroColor.b, 0);
+                    yield return new WaitForSeconds(blinkTime);
+                }
                 break;
             case "Thob":
                 heroColor = db.thobColor;
+                while (true)
+                {
+                    highlight.color = new Color(heroColor.r, heroColor.g, heroColor.b, 255);
+                    yield return new WaitForSeconds(blinkTime);
+                    highlight.color = new Color(heroColor.r, heroColor.g, heroColor.b, 0);
+                    yield return new WaitForSeconds(blinkTime);
+                }
                 break;
             case "Jolie":
                 heroColor = db.jolieColor;
+                while (true)
+                {
+                    highlight.color = new Color(heroColor.r, heroColor.g, heroColor.b, 255);
+                    yield return new WaitForSeconds(blinkTime);
+                    highlight.color = new Color(heroColor.r, heroColor.g, heroColor.b, 0);
+                    yield return new WaitForSeconds(blinkTime);
+                }
                 break;
         }
-        while (true)
-        {
-            Color temp = highlight.color;
-            highlight.color = new Color(temp.r, temp.g, temp.b, 255);
-            yield return new WaitForSeconds(blinkTime);
-            highlight.color = new Color(temp.r, temp.g, temp.b, 0);
-            yield return new WaitForSeconds(blinkTime);
-        }
+
         
     }
 
