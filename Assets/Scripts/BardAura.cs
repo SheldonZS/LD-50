@@ -17,7 +17,7 @@ public class BardAura : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log(other.gameObject.name + " entered bard aura");
+        Debug.Log(other.gameObject.name + " entered bard aura");
 
         if (other.gameObject.tag == "Monster")
         {
@@ -26,8 +26,8 @@ public class BardAura : MonoBehaviour
         }
         else if (other.gameObject.tag == "Player" && tower.upgraded == true)
         {
-            //other.GetComponent<Hero>().bardBuildMultiplier = hasteBuildMultiplier;
-            //other.GetComponent<Hero>().bardMoveMultiplier = hasteMoveMultiplier;
+            other.GetComponent<Hero>().bardBuildMultiplier = hasteBuildMultiplier;
+            other.GetComponent<Hero>().bardMoveMultiplier = hasteMoveMultiplier;
         }
     }
     private void OnTriggerStay2D(Collider2D other)
@@ -39,8 +39,8 @@ public class BardAura : MonoBehaviour
         }
         else if (other.gameObject.tag == "Player" && tower.upgraded == true)
         {
-            //other.GetComponent<Hero>().bardBuildMultiplier = hasteBuildMultiplier;
-            //other.GetComponent<Hero>().bardMoveMultiplier = hasteMoveMultiplier;
+            other.GetComponent<Hero>().bardBuildMultiplier = hasteBuildMultiplier;
+            other.GetComponent<Hero>().bardMoveMultiplier = hasteMoveMultiplier;
         }
     }
     
@@ -53,8 +53,8 @@ public class BardAura : MonoBehaviour
         }
         else if (other.gameObject.tag == "Player" && tower.upgraded == true)
         {
-            //other.GetComponent<Hero>().bardBuildMultiplier = 1f;
-            //other.GetComponent<Hero>().bardMoveMultiplier = 1f;
+            other.GetComponent<Hero>().bardBuildMultiplier = 1f;
+            other.GetComponent<Hero>().bardMoveMultiplier = 1f;
         }
     }
 
@@ -71,8 +71,8 @@ public class BardAura : MonoBehaviour
             }
             else if (other.gameObject.tag == "Player" && tower.upgraded == true)
             {
-                //other.GetComponent<Hero>().bardBuildMultiplier = 1f;
-                //other.GetComponent<Hero>().bardMoveMultiplier = 1f;
+                other.GetComponent<Hero>().bardBuildMultiplier = 1f;
+                other.GetComponent<Hero>().bardMoveMultiplier = 1f;
             }
         }
     }

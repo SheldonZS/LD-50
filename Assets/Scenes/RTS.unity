@@ -2662,6 +2662,146 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1029442112}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1069144754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1069144756}
+  - component: {fileID: 1069144755}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1069144755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069144754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b05ff3d9b081a4fb0754fd785a91ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intro: []
+  tutorial1: []
+  tutorial2: []
+  tutorial3: []
+  firstRuin_R: []
+  firstRuin_B: []
+  firstRuin_T: []
+  firstRuin_J: []
+  firstTower_R: []
+  firstTower_B: []
+  firstTower_T: []
+  firstTower_J: []
+  firstUpgrade_R: []
+  firstUpgrade_B: []
+  firstUpgrade_T: []
+  firstUpgrade_J: []
+  firstTowerEnemy: []
+  firstCharEnemy: []
+  enemiesOnPath: []
+  howBonesWork: []
+  howBonesWork2: []
+  cannotRepairHome: []
+  firstHurt_R: []
+  firstHurt_B: []
+  firstHurt_T: []
+  firstHurt_J: []
+  firstUpgradeFail_R: []
+  firstUpgradeFail_B: []
+  firstUpgradeFail_T: []
+  firstUpgradeFail_J: []
+  home75: []
+  home50: []
+  home25: []
+  homeRuined: []
+  firstDeath_R: []
+  firstDeath_B: []
+  firstDeath_T: []
+  firstDeath_J: []
+  secondDeath_R: []
+  secondDeath_B: []
+  secondDeath_T: []
+  secondDeath_J: []
+  thirdDeath_R: []
+  thirdDeath_B: []
+  thirdDeath_T: []
+  thirdDeath_J: []
+  lastDeath_R: []
+  lastDeath_B: []
+  lastDeath_T: []
+  lastDeath_J: []
+  bonePickUp_R: []
+  bonePickUp_B: []
+  bonePickUp_T: []
+  bonePickUp_J: []
+  towerBuilt_R: []
+  towerBuilt_B: []
+  towerBuilt_T: []
+  towerBuilt_J: []
+  towerUpgrade_R: []
+  towerUpgrade_B: []
+  towerUpgrade_T: []
+  towerUpgrade_J: []
+  towerRepair_J: []
+  towerRepair_R: []
+  towerRepair_B: []
+  towerRepair_T: []
+  towerFullRepair_J: []
+  towerFullRepair_R: []
+  towerFullRepair_B: []
+  towerFullRepair_T: []
+  enemyDestroyed: []
+  waveStarted: []
+  waveDefeated: []
+  returnBase_R: []
+  returnBase_B: []
+  returnBase_T: []
+  returnBase_J: []
+  departBase_R: []
+  departBase_B: []
+  departBase_T: []
+  departBase_J: []
+  enterAura_R: []
+  enterAura_B: []
+  enterAura_T: []
+  enterAura_J: []
+  exitAura_R: []
+  exitAura_B: []
+  exitAura_T: []
+  exitAura_J: []
+  levelUp_R: []
+  levelUp_B: []
+  levelUp_T: []
+  levelUp_J: []
+  filler_R: []
+  filler_B: []
+  filler_T: []
+  filler_J: []
+--- !u!4 &1069144756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069144754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.7149189, y: 1.136747, z: -1.1795123}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1103378307
 PrefabInstance:
   m_ObjectHideFlags: 0
