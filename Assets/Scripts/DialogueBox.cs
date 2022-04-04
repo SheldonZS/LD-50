@@ -34,7 +34,7 @@ public class DialogueBox : MonoBehaviour
     public float autoPauseAtLineEndTime = .5f;
     public float blinkTime = .15f;
 
-    private List<Text> textBoxes;
+    public List<Text> textBoxes;
     private List<List<string>> storyQueue;
     private List<Coroutine> storiesInPlay;
 
@@ -48,11 +48,6 @@ public class DialogueBox : MonoBehaviour
         testText = GameObject.Find("TestText").GetComponent<Text>();
         SceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
-        raol = GameObject.Find("Raol").GetComponent<Hero>();
-        balthasar = GameObject.Find("Balthasar").GetComponent<Hero>();
-        thob = GameObject.Find("Thob").GetComponent<Hero>();
-        jolie = GameObject.Find("Jolie").GetComponent<Hero>();
-
 
         if (SceneManager.GetActiveScene().name == "Ending")
         {
@@ -61,6 +56,10 @@ public class DialogueBox : MonoBehaviour
         else
         {
             RTSC = GameObject.Find("RTS Controller").GetComponent<RTSController>();
+            raol = GameObject.Find("Raol").GetComponent<Hero>();
+            balthasar = GameObject.Find("Balthasar").GetComponent<Hero>();
+            thob = GameObject.Find("Thob").GetComponent<Hero>();
+            jolie = GameObject.Find("Jolie").GetComponent<Hero>();
         }
     }
 
@@ -88,7 +87,8 @@ public class DialogueBox : MonoBehaviour
 
         background.enabled = true;
         textMask.enabled = true;
-        ResetBlinks();
+        if (SceneManager.GetActiveScene().name != "Ending")
+            ResetBlinks();
     }
 
     public IEnumerator OpenWindow()
@@ -126,7 +126,7 @@ public class DialogueBox : MonoBehaviour
         yield return null;
     }
 
-    void ClearAllStories()
+    public void ClearAllStories()
     {
         foreach (Coroutine story in storiesInPlay)
         {
@@ -160,13 +160,10 @@ public class DialogueBox : MonoBehaviour
 
     public IEnumerator ActuallyPlayText(List<string> story)
     {
-
         string[] words;
-
         for (int i = 0; i < story.Count; i++)
         {
             words = story[i].Split(' ');
-
             displayingText = true;
 
             if (words.Length <= 0 || words[0].TrimStart(null) == "")
@@ -277,21 +274,25 @@ public class DialogueBox : MonoBehaviour
                 {
                     case "Raol":
                         currentTextField.color = db.raolColor;
-                        blinkCoroutine = StartCoroutine(HighlightBlink(raol));
+                        if (SceneManager.GetActiveScene().name != "Ending")
+                            blinkCoroutine = StartCoroutine(HighlightBlink(raol));
                         break;
                     case "Balthasar":
                         currentTextField.color = db.balthasarColor;
-                        blinkCoroutine = StartCoroutine(HighlightBlink(balthasar));
+                        if (SceneManager.GetActiveScene().name != "Ending")
+                            blinkCoroutine = StartCoroutine(HighlightBlink(balthasar));
 
                         break;
                     case "Thob":
                         currentTextField.color = db.thobColor;
-                        blinkCoroutine = StartCoroutine(HighlightBlink(thob));
+                        if (SceneManager.GetActiveScene().name != "Ending")
+                            blinkCoroutine = StartCoroutine(HighlightBlink(thob));
 
                         break;
                     case "Jolie":
                         currentTextField.color = db.jolieColor;
-                        blinkCoroutine = StartCoroutine(HighlightBlink(jolie));
+                        if (SceneManager.GetActiveScene().name != "Ending")
+                            blinkCoroutine = StartCoroutine(HighlightBlink(jolie));
 
                         break;
                     default:
@@ -382,7 +383,7 @@ public class DialogueBox : MonoBehaviour
 
                                 if (currentLineY < minY)
                                 {
-                                    Debug.Log("Scroll text played");
+                                    //Debug.Log("Scroll text played");
                                     yield return ScrollText();
                                     currentLineY += lineHeight;
                                 }
@@ -425,7 +426,8 @@ public class DialogueBox : MonoBehaviour
                     StopCoroutine(blinkCoroutine);
 
                 }
-                ResetBlinks();
+                if (SceneManager.GetActiveScene().name != "Ending")
+                    ResetBlinks();
 
                 //at the end of a line of dialogue
                 if (speakerAlive)
