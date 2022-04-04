@@ -9,6 +9,8 @@ public class ProjectileController : MonoBehaviour
     private float maxRange;
     private int damage;
 
+    private bool alreadyHit = false;
+
 
     public void SetProjectile(Vector2 from, Vector2 direction, float speed, float range, int dam, bool pierce = false)
     {
@@ -30,10 +32,18 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Monster")
+        if (piercing || alreadyHit == false)
         {
-            collision.gameObject.GetComponent<MonsterBase>().TakeDamage(damage);
-            if (!piercing) Destroy(gameObject);
+            if (collision.gameObject.tag == "Monster")
+            {
+                collision.gameObject.GetComponent<MonsterBase>().TakeDamage(damage);
+
+                if (!piercing)
+                {
+                    Destroy(gameObject);
+                    alreadyHit = true;
+                }
+            }
         }
     }
 }

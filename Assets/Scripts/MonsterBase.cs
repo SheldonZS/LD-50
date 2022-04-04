@@ -34,7 +34,7 @@ public class MonsterBase : MonoBehaviour
             Vector2 movement = path[waypoint] - (Vector2)transform.localPosition;
             float mag = movement.magnitude;
 
-            if (mag <= moveSpeed * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) * 2)
+            if (mag <= moveSpeed * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) || Vector2.Angle(rb.velocity, movement) > 90)
             {
                 transform.localPosition = new Vector3(path[waypoint].x, path[waypoint].y);
                 rb.velocity = Vector2.zero;
