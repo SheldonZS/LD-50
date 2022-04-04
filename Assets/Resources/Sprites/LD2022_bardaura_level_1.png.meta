@@ -1,19 +1,13 @@
 fileFormatVersion: 2
-guid: db43f5fdbd3a61642a8d8b12d673b75c
+guid: 49e4af06ec412594e8589332382b8de3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3316745083922413979
-    second: LD2022_Tower_1_intact_0
+      213: 2640708825228645831
+    second: LD2022_bardaura_level_1_0
   - first:
-      213: 820155602512045726
-    second: LD2022_Tower_1_intact_1
-  - first:
-      213: -5940545664301288693
-    second: LD2022_Tower_1_intact_2
-  - first:
-      213: 3544135635718592821
-    second: LD2022_Tower_1_intact_3
+      213: -4001545532603131954
+    second: LD2022_bardaura_level_1_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -44,7 +38,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -55,7 +49,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -115,85 +109,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LD2022_Tower_1_intact_0
+      name: LD2022_bardaura_level_1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 115.25
-        height: 158
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 4
+        y: 4
+        width: 497
+        height: 496
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b99f7b9b412770e20800000000000000
-      internalID: 3316745083922413979
+      spriteID: 7c51efa7faea5a420800000000000000
+      internalID: 2640708825228645831
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LD2022_Tower_1_intact_1
+      name: LD2022_bardaura_level_1_1
       rect:
         serializedVersion: 2
-        x: 115
-        y: 0
-        width: 115.25
-        height: 158
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 503
+        y: 4
+        width: 497
+        height: 496
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e96e644dc27c16b00800000000000000
-      internalID: 820155602512045726
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LD2022_Tower_1_intact_2
-      rect:
-        serializedVersion: 2
-        x: 230
-        y: 0
-        width: 115.25
-        height: 158
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b03b5535131fe8da0800000000000000
-      internalID: -5940545664301288693
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LD2022_Tower_1_intact_3
-      rect:
-        serializedVersion: 2
-        x: 345
-        y: 0
-        width: 115.25
-        height: 158
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5395fc2459c4f2130800000000000000
-      internalID: 3544135635718592821
+      spriteID: ec793a80a87a778c0800000000000000
+      internalID: -4001545532603131954
       vertices: []
       indices: 
       edges: []

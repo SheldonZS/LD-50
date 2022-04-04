@@ -3116,6 +3116,12 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: towers.Array.data[0]
+      value: 
+      objectReference: {fileID: 6539180115670582115, guid: 3b8abbc13e255564fb9599564a4c5bfa,
+        type: 3}
     - target: {fileID: 4038786752953339034, guid: 8651f22933af0db48bcf39703e54ac6c,
         type: 3}
       propertyPath: m_IsActive
