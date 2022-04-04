@@ -17,6 +17,7 @@ public class DialogueBox : MonoBehaviour
     private SceneController SceneController;
     private WaveManager wm;
     private Hero raol, balthasar, thob, jolie;
+    private AudioSource wordPop;
 
     public Color normalText, choiceText, highlightedChoiceText, selectedChoiceText, disabledChoiceText;
     public int margins = 5;
@@ -51,6 +52,7 @@ public class DialogueBox : MonoBehaviour
         testText = GameObject.Find("TestText").GetComponent<Text>();
         SceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
+        wordPop = GameObject.Find("TextWindow").GetComponent<AudioSource>();
 
         if (SceneManager.GetActiveScene().name == "Ending")
         {
@@ -174,6 +176,9 @@ public class DialogueBox : MonoBehaviour
 
     public IEnumerator ActuallyPlayText(List<string> story)
     {
+        //wordPop.Play();
+
+
         string[] words;
         for (int i = 0; i < story.Count; i++)
         {
@@ -472,6 +477,7 @@ public class DialogueBox : MonoBehaviour
         }//displaying multiple lines of dialogue
 
         displayingText = false;
+        wordPop.Stop();
 
         yield return null;
 

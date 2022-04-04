@@ -608,8 +608,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tracks:
-  - song: {fileID: 0}
-    title: 
+  - song: {fileID: 8300000, guid: 2b4eeef6a8af1684db54691e141ceea8, type: 3}
+    title: Menu Loop
+    description: 
+    loop: 0
+    loopStart: 0
+    loopEnd: 0
+  - song: {fileID: 8300000, guid: 7188fcc2e59eb61468768ea6ac9b13b4, type: 3}
+    title: Game Loop
+    description: 
+    loop: 0
+    loopStart: 0
+    loopEnd: 0
+  - song: {fileID: 8300000, guid: 73ddb825837c030438e96749a0575169, type: 3}
+    title: Game Over Loop
     description: 
     loop: 0
     loopStart: 0

@@ -1257,7 +1257,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: DataBucket
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5593929382964670036, guid: 1163800086d830442965acabb443142a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1163800086d830442965acabb443142a, type: 3}
 --- !u!224 &1626392332 stripped
 RectTransform:

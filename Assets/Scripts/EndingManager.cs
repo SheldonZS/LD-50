@@ -162,7 +162,7 @@ public class EndingManager : MonoBehaviour
     }
     public IEnumerator RevealEnding()
     {
-        //bgm.PlayOneShot("Resources/BGM/");
+        bgm.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_GameOver"));
         for (float i = 0; i <= 1; i += Time.deltaTime)
         {
             // set color with i as alpha
@@ -179,7 +179,7 @@ public class EndingManager : MonoBehaviour
         endStory_R.Add("Reaper: If not, I'll put in a good word for you, and she owes me a favor.");
         endStory_R.Add("Raol: ...why are you helping me?");
         endStory_R.Add("Reaper: Look, I need a bit of help myself. That's why I summoned you all here, to ask you to embark on a new quest.");
-        endStory_R.Add("Balthasar: It appears my cognition that my old associate merely wished to speak to us not unwarranted");
+        endStory_R.Add("Balthasar: It appears my cognition that my old associate merely wished to speak to us was not unwarranted.");
         endStory_R.Add("Reaper: It's a quest that can only be done in the afterlife. And only the four of you are qualified. Would you please consider it?");
         endStory_R.Add("Thob: It depends...");
         endStory_R.Add("Reaper: Yes, there is treasure.");

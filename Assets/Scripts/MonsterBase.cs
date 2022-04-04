@@ -29,6 +29,7 @@ public class MonsterBase : MonoBehaviour
     private Animator animator;
     private HealthBar healthBar;
     private RTSController RTSC;
+    private AudioSource SFX;
 
     private float cooldown;
     private Color baseColor;
@@ -56,6 +57,8 @@ public class MonsterBase : MonoBehaviour
         waypoint = 0;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -213,8 +216,11 @@ public class MonsterBase : MonoBehaviour
     {
         health = Mathf.Max(health - i, 0);
         healthBar.UpdateHealth(health);
+
         if (health <= 0)
         {
+            SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_EnemyHit" + Random.Range(1,3)));
+
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             Die();
@@ -223,6 +229,7 @@ public class MonsterBase : MonoBehaviour
         else
         {
             //animator.SetInteger("animation", (int)CharacterAnimation.hurt);
+            SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_Enemy Death"));
             Hurt();
         }
 

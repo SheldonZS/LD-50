@@ -46,9 +46,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
+  raolUnlocked: 0
+  thobUnlocked: 0
+  balUnlocked: 0
+  jolieUnlocked: 0
   data:
     ending: 0
+    wavesSurvived: 0
   selection: 0
+  tutorialMode: 0
+  raolColor: {r: 0, g: 0, b: 0, a: 0}
+  balthasarColor: {r: 0, g: 0, b: 0, a: 0}
+  thobColor: {r: 0, g: 0, b: 0, a: 0}
+  jolieColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8530887044911837682
 GameObject:
   m_ObjectHideFlags: 0

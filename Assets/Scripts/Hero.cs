@@ -25,6 +25,7 @@ public class Hero : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D collider;
     private RTSController RTSC;
+    private AudioSource SFX;
 
     private float repairDecimal;
     private TowerBase repairTower;
@@ -58,6 +59,7 @@ public class Hero : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
 
         RTSC = GetComponentInParent<RTSController>();
+        SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
 
         commands = new List<HeroCommand>();
         health = maxHealth;
@@ -109,7 +111,7 @@ public class Hero : MonoBehaviour
                 bonesCarried = 0;
                 RTSC.UpdateButtons();
                 UpdateBoneUI();
-
+                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BonesReturn"));
 
             }
 
@@ -259,6 +261,7 @@ public class Hero : MonoBehaviour
     {
         bonesCarried += x;
         UpdateBoneUI();
+        SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BonesPickUp"));
 
         switch (this.name)
         {
@@ -353,6 +356,8 @@ public class Hero : MonoBehaviour
                     building = true;
                     RTSC.UpdateButtons();
 
+                    SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BuildingInProgress"));
+
                     TowerBase newTower = Instantiate(towers[0], RTSC.gridAnchor).GetComponent<TowerBase>();
                     newTower.transform.localPosition = command.location;
                     newTower.builder = this;
@@ -436,7 +441,23 @@ public class Hero : MonoBehaviour
                             ShowText(DM.tutorial3, TextMode.imm);
                             db.tutorialMode++;
                         }
-
+                        switch (this.name)
+                        {
+                            case "Raol":
+                                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_RangerTowerComplete"));
+                                break;
+                            case "Balthasar":
+                                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_WizardTowerComplete"));
+                                break;
+                            case "Thob":
+                                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BardTowerComplete"));
+                                break;
+                            case "Jolie":
+                                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_FighterTowerComplete"));
+                                break;
+                            default:
+                                break;
+                        }
                         //if not built before, play special text. otherwise, pick random text
                         if (!firstBuild)
                         {
@@ -512,6 +533,8 @@ public class Hero : MonoBehaviour
                     animator.SetInteger("animation", (int)CharacterAnimation.action);
 
                     repairing = true;
+                    SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BuildingInProgress"));
+
                     RTSC.UpdateButtons();
 
                     float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * bardBuildMultiplier * Time.deltaTime + repairDecimal;
@@ -586,6 +609,8 @@ public class Hero : MonoBehaviour
                         }
 
                         upgrading = true;
+                        SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BuildingInProgress"));
+
                         RTSC.UpdateButtons();
 
                         upgradeStartTime = Time.time;
@@ -680,7 +705,23 @@ public class Hero : MonoBehaviour
         health = Mathf.Clamp(health, 0, maxHealth);
         healthBar.UpdateHealth(health);
 
-        //play damage sound
+        switch (this.name)
+        {
+            case "Raol":
+                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_RangerHit"));
+                break;
+            case "Balthasar":
+                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_WizardHit"));
+                break;
+            case "Thob":
+                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BardHit"));
+                break;
+            case "Jolie":
+                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_FighterHit"));
+                break;
+            default:
+                break;
+        }
 
         if (!firstHurt)
         {
