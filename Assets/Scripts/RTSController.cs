@@ -261,7 +261,11 @@ public class RTSController : MonoBehaviour
         }
         else if (heroBuildCost <= bones)
         {
-            buildErrorText.text = "Click to Build";
+            if (selected.name == "Thob")
+            {
+                buildErrorText.text = "Aura Slows Monsters & Speeds Heroes";
+            }
+
             buildButton.enabled = true;
         }
         else

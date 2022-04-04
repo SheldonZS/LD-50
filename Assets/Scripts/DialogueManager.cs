@@ -283,11 +283,13 @@ public class DialogueManager : MonoBehaviour
         howBonesWork.Add("Jolie: We'll have to retrieve bones and bring them back to the retirement home before we can use them to build...even the thought of this is exhausting.");
         howBonesWork.Add("Raol: Is that why you were hoarding building bones even before today, Balthasar?");
         howBonesWork.Add("Balthasar: Veritably, I prefer the lustrous incandescence they take on after application of beeswax.");
+        howBonesWork.Add("Tutorial: Heroes collect bones by walking over them. Take the bones back to the retirement home to make them available for building.");
 
         //end of second wave
         howBonesWork2.Add("Jolie: How do the building bones get so quickly from the home to the building site?");
         howBonesWork2.Add("Balthasar: The enigma surrounding the retirement home's bone-processing mechanism is tantalizingly impenetrable.");
         howBonesWork2.Add("Thob: All hail the Mighty Bone Processor of Confusingly Convenient Teleportation!");
+        howBonesWork2.Add("Shortcuts: Press Tab to cycle through heroes. While hero is selected, press B to Build, R to Repair, or U to Upgrade. May the heroes live forever. Good luck.");
 
         //end of third wave
         enemiesOnPath.Add("Thob: How come the reapers don't stray from the path?");
