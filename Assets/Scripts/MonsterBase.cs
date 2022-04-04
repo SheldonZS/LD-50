@@ -8,6 +8,13 @@ public class MonsterBase : MonoBehaviour
     public int moveSpeed;
     public int maxHealth;
     public int health;
+    public int attackDamage;
+    public float attackCooldown;
+
+    //[NonSerialized]
+    public float bardMoveMultiplier = 1f;
+    //[NonSerialized]
+    public float bardCooldownMultiplier = 1f;
 
     public int bonesDropped;
     public GameObject bonesPrefab;
@@ -21,6 +28,10 @@ public class MonsterBase : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private HealthBar healthBar;
+
+    private float cooldown;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +49,7 @@ public class MonsterBase : MonoBehaviour
             Vector2 movement = path[waypoint] - (Vector2)transform.localPosition;
             float mag = movement.magnitude;
 
-            if (mag <= moveSpeed * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) || Vector2.Angle(rb.velocity, movement) > 90)
+            if (mag <= moveSpeed * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) * bardMoveMultiplier || Vector2.Angle(rb.velocity, movement) > 90)
             {
                 transform.localPosition = new Vector3(path[waypoint].x, path[waypoint].y);
                 rb.velocity = Vector2.zero;
@@ -46,7 +57,7 @@ public class MonsterBase : MonoBehaviour
             }
             else
             {
-                rb.velocity = movement.normalized * moveSpeed;
+                rb.velocity = movement.normalized * moveSpeed * bardMoveMultiplier;
             }
         }
     }
