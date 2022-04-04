@@ -5,11 +5,12 @@ using UnityEngine;
 public struct GameData
 {
     public EndingCode ending;
+    public int wavesSurvived;
 }
 
 public class DataBucket : MonoBehaviour
 {
-    public bool debugMode;
+    public bool debugMode, raolUnlocked, thobUnlocked, balUnlocked, jolieUnlocked, tutorialMode;
 
     public static DataBucket instance = null;
 
