@@ -66,7 +66,7 @@ public class Hero : MonoBehaviour
 
    
 
-        if ((db.tutorialMode >=2 && this.name == "Raol") || db.tutorialMode >= 3)
+        if ((db.tutorialMode >=2 && this.name == "Raol") || db.tutorialMode >= 4)
         {
 
             if (commands.Count == 0) commands.Add(new HeroCommand(Commands.idle));
@@ -340,7 +340,11 @@ public class Hero : MonoBehaviour
                         
                         repairDecimal = 0;
                         building = false;
-                        ShowText(DM.tutorial3);
+                        if (db.tutorialMode == 3)
+                        {
+                            ShowText(DM.tutorial3);
+                            db.tutorialMode++;
+                        }
                         return true;
                     }
 
