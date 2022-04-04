@@ -27,6 +27,8 @@ public class Hero : MonoBehaviour
     public bool upgrading;
     private float upgradeStartTime;
 
+    public bool building;
+
     private int bonesCarried = 0;
 
     private DataBucket db;
@@ -93,29 +95,34 @@ public class Hero : MonoBehaviour
             (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) ||
             Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow)))
             {
-                if (db. tutorialMode == 2)
+                if (!building)
                 {
-                    StartCoroutine(diaBox.PlayText(DM.tutorial2, true));
-                    db.tutorialMode++;
+                    if (db.tutorialMode == 2)
+                    {
+                        ShowText(DM.tutorial2);
+                        db.tutorialMode++;
+                    }
+                    commands.Clear();
+                    commands.Add(new HeroCommand(Commands.idle));
+
+                    Vector2 direction = Vector2.zero;
+
+                    if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) direction.y += 1;
+                    if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) direction.x -= 1;
+                    if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) direction.y -= 1;
+                    if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) direction.x += 1;
+
+                    rb.velocity = direction.normalized * moveSpeed;
+                    manualMove = true;
                 }
-                commands.Clear();
-                commands.Add(new HeroCommand(Commands.idle));
 
-                Vector2 direction = Vector2.zero;
-
-                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) direction.y += 1;
-                if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) direction.x -= 1;
-                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) direction.y -= 1;
-                if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) direction.x += 1;
-
-                rb.velocity = direction.normalized * moveSpeed;
-                manualMove = true;
+                
             }
-            else if (Input.GetMouseButtonDown(1))
+            else if (Input.GetMouseButtonDown(1) && !building)
             {
                 if (db.tutorialMode == 2)
                 {
-                    StartCoroutine(diaBox.PlayText(DM.tutorial2, true));
+                    ShowText(DM.tutorial2);
                     db.tutorialMode++;
                 }
                 Vector2 clickPos = RTSC.MouseToGrid();
@@ -293,6 +300,8 @@ public class Hero : MonoBehaviour
                         RTSC.Say(this, "Obstacle Here");
                         return true;
                     }
+
+                    building = true;
                     TowerBase newTower = Instantiate(towers[0], RTSC.gridAnchor).GetComponent<TowerBase>();
                     newTower.transform.localPosition = command.location;
                     newTower.builder = this;
@@ -309,6 +318,7 @@ public class Hero : MonoBehaviour
                     rb.velocity = direction.normalized * moveSpeed;
                     return false;
                 }
+
             case Commands.buildToMax:
                 rb.velocity = Vector2.zero;
                 repairTower = command.tower.GetComponent<TowerBase>();
@@ -327,19 +337,22 @@ public class Hero : MonoBehaviour
 
                     if (repairTower.health >= repairTower.maxHealth)
                     {
-                        RTSC.Say(this, "Job's done!");
+                        
                         repairDecimal = 0;
+                        building = false;
+                        ShowText(DM.tutorial3);
                         return true;
                     }
 
                     repairDecimal = repairAmount - repairInt;
                 }
-                else
+                else if (!building)
                 {
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed;
                 }
                 return false;
+
             case Commands.repair:
                 rb.velocity = Vector2.zero;
                 repairTower = command.tower.GetComponent<TowerBase>();
@@ -371,6 +384,7 @@ public class Hero : MonoBehaviour
                     rb.velocity = direction.normalized * moveSpeed;
                 }
                 return false;
+
             case Commands.upgrade:
                 rb.velocity = Vector2.zero;
                 repairTower = command.tower.GetComponent<TowerBase>();
@@ -428,6 +442,11 @@ public class Hero : MonoBehaviour
                 return false;
         }
 
+    }
+
+    void ShowText(List<string> storyText)
+    {
+        StartCoroutine(diaBox.PlayText(storyText, true));
     }
 }
 

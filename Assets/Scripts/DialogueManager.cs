@@ -14,9 +14,9 @@ public class DialogueManager : MonoBehaviour
 
 
     public List<string> intro = new List<string>();
-    public List<string> tutorial = new List<string>();
     public List<string> tutorial1 = new List<string>();
     public List<string> tutorial2 = new List<string>();
+    public List<string> tutorial3 = new List<string>();
     public List<string> firstRuin_R = new List<string>();
     public List<string> firstRuin_B = new List<string>();
     public List<string> firstRuin_T = new List<string>();
@@ -200,32 +200,46 @@ public class DialogueManager : MonoBehaviour
         intro.Add("Tutorial: Select Raol, the hero in the top left corner of the retirement home.");
         intro.Add("incrementTutorial");
 
-        tutorial.Add("Thob: Do you think one tower is enough? Jolie, wake up. We need your military expertise.");
-        tutorial.Add("Jolie: Nnnh...fine, fine, I'm awake. What do you want?");
-        tutorial.Add("Thob: We're about to be attacked by the Reaper. We built one tower, but is it enough?");
-        tutorial.Add("Jolie: Why not just let the Reaper come? I could use some forever sleep.");
-        tutorial.Add("Balthasar: The Reaper is really quite amicable. We go way back.");
-        tutorial.Add("Thob: I can't die yet, I've only finished fifteen movements!");
-        tutorial.Add("Raol: It's too late. They're coming.");
-        tutorial.Add("Jolie: Really? Multiple Reapers?");
+
 
         tutorial1.Add("Use WASD, the arrow keys, or the mouse right-click to move the selected hero.");
+
         tutorial2.Add("Select the \"Build\" button in lower right corner. Click somewhere on the map in a valid (green) location to build Raol's first tower.");
 
+        tutorial3.Add("Raol: There we are. The first of many dedications to Mother Moon.");
+        tutorial3.Add("Thob: Do you think one tower is enough? Jolie, wake up. We need your military expertise.");
+        tutorial3.Add("Jolie: Nnnh...fine, fine, I'm awake. What do you want?");
+        tutorial3.Add("Thob: We're about to be attacked by the Reaper. We built one tower, but is it enough?");
+        tutorial3.Add("Jolie: Why not just let the Reaper come? I could use some forever sleep.");
+        tutorial3.Add("Balthasar: The Reaper is really quite amicable. We go way back.");
+        tutorial3.Add("Thob: I can't die yet, I've only finished fifteen movements!");
+        tutorial3.Add("Raol: It's too late. They're coming.");
+        tutorial3.Add("Jolie: Really? Multiple Reapers?");
+        tutorial3.Add("endTutorial");
+
+        //end of first wave
         howBonesWork.Add("Balthasar: These freshly fallen osseus materials are precisely what we need to manufacture additional defensive structures.");
         howBonesWork.Add("Thob: But we still need to put them in that giant processing machine in the retirement home to transform them into actual building supplies.");
         howBonesWork.Add("Jolie: We'll have to retrieve bones and bring them back to the retirement home before we can use them to build...even the thought of this is exhausting.");
         howBonesWork.Add("Raol: Is that why you were hoarding building bones even before today, Balthasar?");
         howBonesWork.Add("Balthasar: Veritably, I prefer the lustrous incandescence they take on after application of beeswax.");
 
+        //end of second wave
         howBonesWork2.Add("Jolie: How do the building bones get so quickly from the home to the building site?");
         howBonesWork2.Add("Balthasar: The enigma surrounding the retirement home's bone-processing mechanism is tantalizingly impenetrable.");
         howBonesWork2.Add("Thob: All hail the Mighty Bone Processor of Confusingly Convenient Teleportation!");
-        
-        //first towers
-        firstTower_R.Add("Raol: There we are. The first of many dedications to Mother Moon.");
-        firstTower_R.Add("Thob: Who is this Mother Moon you keep going on about?");
-        firstTower_R.Add("Balthasar: Might I suggest you simply gaze in an aerial direction? That is, after the crepuscular hours?");
+
+        //end of third wave
+        enemiesOnPath.Add("Thob: How come the reapers don't stray from the path?");
+        enemiesOnPath.Add("Balthasar: I hypothesize the reapers lack sufficient intelligence to maximize efficient target prioritization.");
+        enemiesOnPath.Add("Jolie: The reapers are like me. They prefer a smooth surface to travel.");
+        enemiesOnPath.Add("Raol: Don't let the reapers hear us speculate why they stay on the path. They might start to adapt.");
+
+        //end of fourth wave
+        cannotRepairHome.Add("Thob: If only we could repair our retirement home too. If it falls, we won't be able to process new bones.");
+        cannotRepairHome.Add("Jolie: Does anyone know how to repair the retirement home?");
+        cannotRepairHome.Add("Balthasar: Much to my consternation, my vast stores of knowledge contain no instruction manual regarding the reparation of bone processing contraptions.");
+        cannotRepairHome.Add("Raol: So, we can't repair the retirement home because we only know how to repair what we ourselves built.");
 
         //the following conversations need to make sense even if any or all of the speakers (except for the initial speaker) are dead
 
@@ -302,16 +316,10 @@ public class DialogueManager : MonoBehaviour
         firstCharEnemy.Add("Raol: It's an enemy smart enough to leave the path to chase its prey.");
         firstCharEnemy.Add("Thob: It's coming straight for us! Hide in the retirement home!");
         firstCharEnemy.Add("Jolie: Hello, new enemy. Please fly over here and strike me down.");
+        
 
-        cannotRepairHome.Add("Thob: If only we could repair our retirement home too. If it falls, we won't be able to process new bones.");
-        cannotRepairHome.Add("Jolie: Does anyone know how to repair the retirement home?");
-        cannotRepairHome.Add("Balthasar: Much to my consternation, my vast stores of knowledge contain no instruction manual regarding the reparation of bone processing contraptions.");
-        cannotRepairHome.Add("Raol: So, we can't repair the retirement home because we only know how to repair what we ourselves built.");
 
-        enemiesOnPath.Add("Thob: How come the reapers don't stray from the path?");
-        enemiesOnPath.Add("Balthasar: I hypothesize the reapers lack sufficient intelligence to maximize efficient target prioritization.");
-        enemiesOnPath.Add("Jolie: The reapers are like me. They prefer a smooth surface to travel.");
-        enemiesOnPath.Add("Raol: Don't let the reapers hear us speculate why they stay on the path. They might start to adapt.");
+ 
 
         home75.Add("Raol: We can't keep letting these reapers slip through to damage our home.");
         home75.Add("Jolie: The bone processing machine in the home is making weird whirring noises. It's too loud.");

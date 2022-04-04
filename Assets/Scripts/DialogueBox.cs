@@ -177,6 +177,11 @@ public class DialogueBox : MonoBehaviour
             {
                 db.tutorialMode++;
             }
+            else if (words[index] == "endTutorial")
+            {
+                db.tutorialMode++;
+                //start calling waves
+            }
             else if (speakerAlive) //creates a new line (clone)
             {
                 if (textBoxes.Count > 0)
