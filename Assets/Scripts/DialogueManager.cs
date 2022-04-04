@@ -586,6 +586,9 @@ public class DialogueManager : MonoBehaviour
 
         towerRepair_B.Add("Balthasar: With a wave of my finger and a flick of my wand, I hope it won’t explode, and make the harm undone!");
         towerRepair_B.Add("Balthasar:The structural integrity of this construction must be reinforced post-haste!");
+        towerRepair_B.Add("Preventative maintenance is always superior to starting from nothing. I ought to know that by now.");
+        towerRepair_B.Add(" Arise, my hammer! Descend, my hammer! Arise! This is much more fun when I speak the movements out loud.");
+        towerRepair_B.Add("If I install a bone-processing machine in my tower, might it be able to automate its repairs?");
 
         towerRepair_T.Add("Thob: Hi ho, hi ho, it’s off to work we go!");
         towerRepair_T.Add("Thob: This would be much easier if there were six more dwarves. They could work while I sing for them!");

@@ -98,7 +98,7 @@ public class Hero : MonoBehaviour
             (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) ||
             Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow)))
             {
-                if (!building)
+                if (!building && !upgrading)
                 {
                     if (db.tutorialMode == 2)
                     {
@@ -121,7 +121,7 @@ public class Hero : MonoBehaviour
 
                 
             }
-            else if (Input.GetMouseButtonDown(1) && !building)
+            else if (Input.GetMouseButtonDown(1) && !building && !upgrading)
             {
                 if (db.tutorialMode == 2)
                 {
@@ -437,7 +437,7 @@ public class Hero : MonoBehaviour
                     }
 
                 }
-                else
+                else if (!upgrading)
                 {
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
