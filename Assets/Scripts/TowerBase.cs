@@ -193,7 +193,7 @@ public class TowerBase : MonoBehaviour
     //Fighters Towers
     public void JolieTower()
     {
-
+        RaolTower();
     }
 
     public float DirectionToAngle(Vector2 direction)

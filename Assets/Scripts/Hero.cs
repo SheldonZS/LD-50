@@ -861,3 +861,4 @@ public class HeroCommand
 }
 
 public enum Commands { idle, move, build, repair, upgrade, buildToMax}
+public enum CharacterAnimation { idle, move, action, hurt, dying} //action used for Heros building or monsters attacking

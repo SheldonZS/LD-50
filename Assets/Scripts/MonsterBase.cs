@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterBase : MonoBehaviour
 {
-    public int moveSpeed;
+    public float moveSpeed;
     public int maxHealth;
     public int health;
     public int attackDamage;
@@ -25,13 +23,30 @@ public class MonsterBase : MonoBehaviour
     public Vector2Int[] path;
 
     private int waypoint;
+    private Transform tracking;
+
     private Rigidbody2D rb;
     private Animator animator;
     private HealthBar healthBar;
+    private RTSController RTSC;
 
     private float cooldown;
 
+    public void SetStats(Color color, float moveSpeed, int HP, int attack, float cooldown, int bones, MonsterMove moveType, MonsterAttack AttackType)
+    {
+        GetComponent<SpriteRenderer>().color = color;
+        this.moveSpeed = moveSpeed;
+        health = HP;
+        maxHealth = HP;
+        attackDamage = attack;
+        attackCooldown = cooldown;
+        bonesDropped = bones;
+        moveAI = moveType;
+        attackAI = AttackType;
 
+        healthBar = GetComponentInChildren<HealthBar>();
+        healthBar.UpdateHealth(health, maxHealth);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -44,38 +59,154 @@ public class MonsterBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (waypoint < path.Length)
+        if(cooldown > 0)
         {
-            Vector2 movement = path[waypoint] - (Vector2)transform.localPosition;
-            float mag = movement.magnitude;
+            cooldown -= Time.deltaTime;
+            return;
+        }
 
-            if (mag <= moveSpeed * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) * bardMoveMultiplier || Vector2.Angle(rb.velocity, movement) > 90)
+        Collider2D[] inRange = Physics2D.OverlapCircleAll(transform.position + Vector3.up * .5f, 1f);
+
+        bool attacking = false;
+        
+        foreach (Collider2D target in inRange)
+        {
+            if (target.gameObject.tag == "Player" && (attackAI == MonsterAttack.attackPlayers || attackAI == MonsterAttack.attackAll))
             {
-                transform.localPosition = new Vector3(path[waypoint].x, path[waypoint].y);
-                rb.velocity = Vector2.zero;
-                waypoint++;
+                attacking = true;
+                target.gameObject.GetComponent<Hero>().TakeDamage(attackDamage);
+                break;
             }
-            else
+
+            if (target.gameObject.tag == "Tower" && (attackAI == MonsterAttack.attackTowers || attackAI == MonsterAttack.attackAll))
             {
-                rb.velocity = movement.normalized * moveSpeed * bardMoveMultiplier;
+                attacking = true;
+                target.gameObject.GetComponent<TowerBase>().TakeDamage(attackDamage);
+                break;
+            }
+
+            if (target.gameObject == RTSC.homeBase)
+            {
+                attacking = true;
+                target.gameObject.GetComponent<TowerBase>().TakeDamage(attackDamage);
+                break;
+            }
+        }
+
+        if (attacking)
+        {
+            rb.velocity = Vector2.zero;
+            animator.SetInteger("state", (int)CharacterAnimation.action);
+            cooldown = attackCooldown;
+        }
+        else
+        {
+            switch (moveAI)
+            {
+                case MonsterMove.path:
+                    if (waypoint < path.Length)
+                    {
+                        Vector2 movement = path[waypoint] - (Vector2)transform.localPosition;
+                        float mag = movement.magnitude;
+
+                        if (mag <= moveSpeed * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) * bardMoveMultiplier || Vector2.Angle(rb.velocity, movement) > 90)
+                        {
+                            transform.localPosition = new Vector3(path[waypoint].x, path[waypoint].y);
+                            rb.velocity = Vector2.zero;
+                            waypoint++;
+                        }
+                        else
+                        {
+                            rb.velocity = movement.normalized * moveSpeed * bardMoveMultiplier;
+                        }
+                    }
+                    break;
+                case MonsterMove.moveToHome:
+                    rb.velocity = (RTSC.homeBase.transform.localPosition - transform.localPosition).normalized * moveSpeed * bardMoveMultiplier;
+                    break;
+                case MonsterMove.moveToNearestTower:
+                    if (tracking != null)
+                    {
+                        rb.velocity = (tracking.localPosition - transform.localPosition).normalized * moveSpeed * bardMoveMultiplier;
+                    }
+                    else
+                    {
+                        if (rb.velocity.magnitude >= moveSpeed *.9f * bardMoveMultiplier)
+                            break;
+
+                        float distance = float.PositiveInfinity;
+                        TowerBase[] towers = transform.parent.GetComponentsInChildren<TowerBase>();
+
+                        foreach (TowerBase tower in towers)
+                        {
+                            if (tower.gameObject != RTSC.homeBase)
+                            {
+                                float towerDistance = (tower.transform.localPosition - transform.localPosition).magnitude;
+                                if (towerDistance < distance)
+                                {
+                                    tracking = tower.transform;
+                                    distance = towerDistance;
+                                }
+                            }
+                        }
+
+                        if (tracking == null && RTSC.homeBase != null)
+                            tracking = RTSC.homeBase.transform;
+
+                        if (tracking != null)
+                            rb.velocity = (tracking.localPosition - transform.localPosition).normalized * moveSpeed * bardMoveMultiplier;
+                        else
+                            rb.velocity = RandomDirection() * moveSpeed * bardMoveMultiplier;
+                    }
+                   
+                    break;
+                case MonsterMove.moveToNearestPlayer:
+                    if (tracking != null)
+                    {
+                        rb.velocity = (tracking.localPosition - transform.localPosition).normalized * moveSpeed * bardMoveMultiplier;
+                    }
+                    else
+                    {
+                        float distance = float.PositiveInfinity;
+
+                        foreach (GameObject hero in RTSC.heroes)
+                        {
+                            float targetDistance = (hero.transform.localPosition - transform.localPosition).magnitude;
+                            if (targetDistance < distance)
+                            {
+                                distance = targetDistance;
+                                tracking = hero.transform;
+                            }
+                        }
+
+                        if (tracking != null)
+                            rb.velocity = (tracking.localPosition - transform.localPosition).normalized * moveSpeed * bardMoveMultiplier;
+                        else
+                            rb.velocity = RandomDirection() * moveSpeed * bardMoveMultiplier;
+                    }
+                    break;
+                case MonsterMove.wander:
+                default:
+                    if (rb.velocity.magnitude < moveSpeed * .9f * bardMoveMultiplier)
+                        rb.velocity = RandomDirection() * moveSpeed * bardMoveMultiplier;
+                    break;
+
             }
         }
     }
 
-    public void SetSpawn(SpawnPoint spawn)
+    public void SetSpawn(RTSController rtsc, SpawnPoint spawn)
     {
+        RTSC = rtsc;
         transform.localPosition = new Vector3(spawn.location.x, spawn.location.y);
         path = (Vector2Int[]) spawn.path.Clone();
-        health = maxHealth;
 
-        healthBar = GetComponentInChildren<HealthBar>();
-        healthBar.UpdateHealth(health, maxHealth);
     }
 
 
     public void TakeDamage(int i)
     {
-        health -= i;
+        health = Mathf.Max(health - i, 0);
         healthBar.UpdateHealth(health);
         if (health <= 0)
         {
@@ -93,9 +224,10 @@ public class MonsterBase : MonoBehaviour
 
     public IEnumerator Hurt()
     {
+        Color color = GetComponent<SpriteRenderer>().color;
         GetComponent<SpriteRenderer>().color = Color.red;
-        yield return null;
-        GetComponent<SpriteRenderer>().color = Color.white;
+        yield return new WaitForSeconds(.1f);
+        GetComponent<SpriteRenderer>().color = color;
     }
     public IEnumerator Die()
     {
@@ -118,6 +250,12 @@ public class MonsterBase : MonoBehaviour
        
     }
 
+    public Vector2 RandomDirection()
+    {
+
+        float theta = Random.Range(0, Mathf.PI * 2);
+        return new Vector2(Mathf.Sin(theta), Mathf.Cos(theta));
+    }
 }
 
 public enum MonsterMove { path, moveToNearestTower, moveToNearestPlayer, moveToHome, wander}
