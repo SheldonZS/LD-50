@@ -889,6 +889,11 @@ public class Hero : MonoBehaviour
             }
         }
     }
+
+    public void DestoySelf()
+    {
+        Destroy(gameObject);
+    }
 }
 
 [System.Serializable]

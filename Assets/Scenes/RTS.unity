@@ -5099,8 +5099,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6653499738708659768, guid: 1163800086d830442965acabb443142a,
         type: 3}
+      propertyPath: debugMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653499738708659768, guid: 1163800086d830442965acabb443142a,
+        type: 3}
       propertyPath: tutorialMode
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6653499738708659769, guid: 1163800086d830442965acabb443142a,
         type: 3}

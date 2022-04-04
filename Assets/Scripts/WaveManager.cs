@@ -39,6 +39,9 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q) && DataBucket.instance.debugMode)
+            StartNextWave();
+
         if (currentWave == 0)
             return;
 
@@ -53,9 +56,6 @@ public class WaveManager : MonoBehaviour
             monster.SetSpawn(spawners[rand]);
         }
         */
-
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //    StartNextWave();
 
         if (waveFinished)
             return;

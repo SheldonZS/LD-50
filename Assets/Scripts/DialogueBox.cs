@@ -252,21 +252,21 @@ public class DialogueBox : MonoBehaviour
                 {
                     case "raol":
                         RTSC.raol_alive = false;
-                        Destroy(GameObject.Find("Raol"));
+                        //Destroy(GameObject.Find("Raol"));
                         break;
                     case "bal":
                         RTSC.bal_alive = false;
-                        Destroy(GameObject.Find("Balthasar"));
+                        //Destroy(GameObject.Find("Balthasar"));
 
                         break;
                     case "thob":
                         RTSC.thob_alive = false;
-                        Destroy(GameObject.Find("Thob"));
+                        //Destroy(GameObject.Find("Thob"));
 
                         break;
                     case "jolie":
                         RTSC.jolie_alive = false;
-                        Destroy(GameObject.Find("Jolie"));
+                        //Destroy(GameObject.Find("Jolie"));
 
                         break;
                 }
