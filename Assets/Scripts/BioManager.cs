@@ -52,7 +52,7 @@ public class BioManager : MonoBehaviour
         switch (character)
         {
             case "raol":
-                bioText.color = new Color(219f / 255f, 133f / 255f, 30f / 255f, 255f);
+                bioText.color = db.raolColor;
                 bioText.text = "Name: Raol Eon" +
                     "\nAge: 92" +
                     "\nRace/Class: Shifter Ranger" +
@@ -65,7 +65,7 @@ public class BioManager : MonoBehaviour
                     bioText.text += "\n\nInevitable Fate: Attempting to rescue his feathery friend, who eventually has to rescue him instead.";
                 break;
             case "balthasar":
-                bioText.color = new Color(105f / 255f, 165f / 255f, 209f / 255f, 255f);
+                bioText.color = db.balthasarColor;
                 bioText.text = "Name: Balthasar Wildstone" +
                     "\nAge: 193" +
                     "\nRace/Class: Half-Elf Mage" +
@@ -78,7 +78,7 @@ public class BioManager : MonoBehaviour
                     bioText.text += "\n\nInevitable Fate: Expanding his collection of nonsensical memorabilia while spreading unforeseen chaos along the way. Lamenting he never found his set of underwear, which absconded without him. Nobody wanted to know.";
                 break;
             case "thob":
-                bioText.color = new Color(148f / 255f, 73f / 255f, 191f / 255f, 255f);
+                bioText.color = db.thobColor;
                 bioText.text = "Name: Thob Thunartilat" +
                     "\nAge: 344" +
                     "\nRace/Class: Dwarf Bard" +
@@ -91,7 +91,7 @@ public class BioManager : MonoBehaviour
                     bioText.text += "\n\nInevitable Fate: Selling the interplanar rights to his 21-movement flute sonata, assuming he can contact a living publisher.";
                 break;
             case "jolie":
-                bioText.color = new Color(179f / 255f, 40f / 255f, 40f / 255f, 255f);
+                bioText.color = db.jolieColor;
                 bioText.text = "Name: Jolie Cooper" +
                    "\nAge: 86" +
                    "\nRace/Class: Human Fighter" +

@@ -15,6 +15,7 @@ public class DialogueBox : MonoBehaviour
     private EndingManager endingManager;
     private DataBucket db;
     private SceneController SceneController;
+    private Hero raol, balthasar, thob, jolie;
 
     public Color normalText, choiceText, highlightedChoiceText, selectedChoiceText, disabledChoiceText;
     public int margins = 5;
@@ -31,13 +32,14 @@ public class DialogueBox : MonoBehaviour
     public float charactersPerSecond = 50;
     public float scrollTime = .2f;
     public float autoPauseAtLineEndTime = .5f;
+    public float blinkTime = .5f;
 
     private List<Text> textBoxes;
     private List<List<string>> storyQueue;
     private List<Coroutine> storiesInPlay;
 
     public bool displayingText;
-
+    private Coroutine blinkCoroutine;
 
     private void Awake()
     {
@@ -46,6 +48,12 @@ public class DialogueBox : MonoBehaviour
         testText = GameObject.Find("TestText").GetComponent<Text>();
         SceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
+        raol = GameObject.Find("Raol").GetComponent<Hero>();
+        balthasar = GameObject.Find("Balthasar").GetComponent<Hero>();
+        thob = GameObject.Find("Thob").GetComponent<Hero>();
+        jolie = GameObject.Find("Jolie").GetComponent<Hero>();
+
+
         if (SceneManager.GetActiveScene().name == "Ending")
         {
             endingManager = GameObject.Find("EndingManager").GetComponent<EndingManager>();
@@ -80,7 +88,6 @@ public class DialogueBox : MonoBehaviour
 
         background.enabled = true;
         textMask.enabled = true;
-
 
     }
 
@@ -264,24 +271,33 @@ public class DialogueBox : MonoBehaviour
                 textBoxes.Add(currentTextField);
                 currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
 
+
                 //change color based on speaker
                 switch (words[index].Split(':')[0])
                 {
                     case "Raol":
-                        currentTextField.color = new Color(219f / 255f, 133f / 255f, 30f / 255f, 255f);
+                        currentTextField.color = db.raolColor;
+                        blinkCoroutine = StartCoroutine(HighlightBlink(raol));
                         break;
                     case "Balthasar":
-                        currentTextField.color = new Color(105f / 255f, 165f / 255f, 209f / 255f, 255f);
+                        currentTextField.color = db.balthasarColor;
+                        blinkCoroutine = StartCoroutine(HighlightBlink(balthasar));
+
                         break;
                     case "Thob":
-                        currentTextField.color = new Color(148f / 255f, 73f / 255f, 191f / 255f, 255f);
+                        currentTextField.color = db.thobColor;
+                        blinkCoroutine = StartCoroutine(HighlightBlink(thob));
+
                         break;
                     case "Jolie":
-                        currentTextField.color = new Color(179f / 255f, 40f / 255f, 40f / 255f, 255f);
+                        currentTextField.color = db.jolieColor;
+                        blinkCoroutine = StartCoroutine(HighlightBlink(jolie));
+
                         break;
                     default:
                         break;
                 }
+
                 while (index < words.Length)
                 {
 
@@ -408,7 +424,10 @@ public class DialogueBox : MonoBehaviour
                 //at the end of a line of dialogue
                 if (speakerAlive)
                 {
+                    StopCoroutine(blinkCoroutine);
+
                     yield return new WaitForSeconds(autoPauseAtLineEndTime);
+
                 }
             }
 
@@ -548,6 +567,37 @@ public class DialogueBox : MonoBehaviour
         if (charactersPerSecond < 10)
             charactersPerSecond = 10;
         scrollTime = 5f / charactersPerSecond;
+    }
+
+    IEnumerator HighlightBlink(Hero hero)
+    {
+        SpriteRenderer highlight = hero.transform.GetChild(4).GetComponent<SpriteRenderer>();
+        Color heroColor;
+
+        switch (hero.name)
+        {
+            case "Raul":
+                heroColor = db.raolColor;
+                break;
+            case "Balthasar":
+                heroColor = db.balthasarColor;
+                break;
+            case "Thob":
+                heroColor = db.thobColor;
+                break;
+            case "Jolie":
+                heroColor = db.jolieColor;
+                break;
+        }
+        while (true)
+        {
+            Color temp = highlight.color;
+            highlight.color = new Color(temp.r, temp.g, temp.b, 255);
+            yield return new WaitForSeconds(blinkTime);
+            highlight.color = new Color(temp.r, temp.g, temp.b, 0);
+            yield return new WaitForSeconds(blinkTime);
+        }
+        
     }
 
 }
