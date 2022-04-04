@@ -30,6 +30,8 @@ public class RTSController : MonoBehaviour
     public Commands command { get; private set; }
 
     public DialogueBox dialogueBox { get; private set; }
+    public DialogueManager DM { get; private set; }
+    public DataBucket db { get; private set; }
     //public CursorCollider mouseOver { get; private set; }
 
     public bool raol_alive;
@@ -53,6 +55,8 @@ public class RTSController : MonoBehaviour
         repairButton = GameObject.Find("Repair").GetComponent<Image>();
         upgradeButton = GameObject.Find("Upgrade").GetComponent<Image>();
         dialogueBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
+        DM = GameObject.Find("DialogueManager").GetComponent <DialogueManager>();
+        db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
         bonesText = GameObject.Find("BonesText").GetComponent<Text>();
 
     //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
@@ -127,6 +131,12 @@ private void Start()
                     if (hit.collider.gameObject != selected)
                     {
                         selected = hit.collider.gameObject;
+
+                        if (db.tutorialMode == 1 && selected.name == "Raol")
+                        {
+                            StartCoroutine(dialogueBox.PlayText(DM.tutorial1, true));
+                            db.tutorialMode++;
+                        }
                         Reset();
                     }
                 }

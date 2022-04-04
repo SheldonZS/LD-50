@@ -13,125 +13,127 @@ public class DialogueManager : MonoBehaviour
     //one time
 
 
-    List<string> intro = new List<string>();
-    List<string> tutorial = new List<string>();
-    List<string> firstRuin_R = new List<string>();
-    List<string> firstRuin_B = new List<string>();
-    List<string> firstRuin_T = new List<string>();
-    List<string> firstRuin_J = new List<string>();
-    List<string> firstTower_R = new List<string>();
-    List<string> firstTower_B = new List<string>();
-    List<string> firstTower_T = new List<string>();
-    List<string> firstTower_J = new List<string>();
-    List<string> firstUpgrade_R = new List<string>();
-    List<string> firstUpgrade_B = new List<string>();
-    List<string> firstUpgrade_T = new List<string>();
-    List<string> firstUpgrade_J = new List<string>();
+    public List<string> intro = new List<string>();
+    public List<string> tutorial = new List<string>();
+    public List<string> tutorial1 = new List<string>();
+    public List<string> tutorial2 = new List<string>();
+    public List<string> firstRuin_R = new List<string>();
+    public List<string> firstRuin_B = new List<string>();
+    public List<string> firstRuin_T = new List<string>();
+    public List<string> firstRuin_J = new List<string>();
+    public List<string> firstTower_R = new List<string>();
+    public List<string> firstTower_B = new List<string>();
+    public List<string> firstTower_T = new List<string>();
+    public List<string> firstTower_J = new List<string>();
+    public List<string> firstUpgrade_R = new List<string>();
+    public List<string> firstUpgrade_B = new List<string>();
+    public List<string> firstUpgrade_T = new List<string>();
+    public List<string> firstUpgrade_J = new List<string>();
 
-    List<string> firstTowerEnemy = new List<string>();
-    List<string> firstCharEnemy = new List<string>();
+    public List<string> firstTowerEnemy = new List<string>();
+    public List<string> firstCharEnemy = new List<string>();
 
-    List<string> enemiesOnPath = new List<string>();
-    List<string> howBonesWork = new List<string>();
-    List<string> howBonesWork2 = new List<string>();
-    List<string> cannotRepairHome = new List<string>();
+    public List<string> enemiesOnPath = new List<string>();
+    public List<string> howBonesWork = new List<string>();
+    public List<string> howBonesWork2 = new List<string>();
+    public List<string> cannotRepairHome = new List<string>();
 
-    List<string> firstHurt_R = new List<string>();
-    List<string> firstHurt_B = new List<string>();
-    List<string> firstHurt_T = new List<string>();
-    List<string> firstHurt_J = new List<string>();
+    public List<string> firstHurt_R = new List<string>();
+    public List<string> firstHurt_B = new List<string>();
+    public List<string> firstHurt_T = new List<string>();
+    public List<string> firstHurt_J = new List<string>();
 
-    List<string> firstUpgradeFail_R = new List<string>();
-    List<string> firstUpgradeFail_B = new List<string>();
-    List<string> firstUpgradeFail_T = new List<string>();
-    List<string> firstUpgradeFail_J = new List<string>();
+    public List<string> firstUpgradeFail_R = new List<string>();
+    public List<string> firstUpgradeFail_B = new List<string>();
+    public List<string> firstUpgradeFail_T = new List<string>();
+    public List<string> firstUpgradeFail_J = new List<string>();
 
-    List<string> home75 = new List<string>();
-    List<string> home50 = new List<string>();
-    List<string> home25 = new List<string>();
-    List<string> homeRuined = new List<string>();
+    public List<string> home75 = new List<string>();
+    public List<string> home50 = new List<string>();
+    public List<string> home25 = new List<string>();
+    public List<string> homeRuined = new List<string>();
 
     //deaths
-    List<string> firstDeath_R = new List<string>();
-    List<string> firstDeath_B = new List<string>();
-    List<string> firstDeath_T = new List<string>();
-    List<string> firstDeath_J = new List<string>();
+    public List<string> firstDeath_R = new List<string>();
+    public List<string> firstDeath_B = new List<string>();
+    public List<string> firstDeath_T = new List<string>();
+    public List<string> firstDeath_J = new List<string>();
 
-    List<string> secondDeath_R = new List<string>();
-    List<string> secondDeath_B = new List<string>();
-    List<string> secondDeath_T = new List<string>();
-    List<string> secondDeath_J = new List<string>();
+    public List<string> secondDeath_R = new List<string>();
+    public List<string> secondDeath_B = new List<string>();
+    public List<string> secondDeath_T = new List<string>();
+    public List<string> secondDeath_J = new List<string>();
 
-    List<string> thirdDeath_R = new List<string>();
-    List<string> thirdDeath_B = new List<string>();
-    List<string> thirdDeath_T = new List<string>();
-    List<string> thirdDeath_J = new List<string>();
+    public List<string> thirdDeath_R = new List<string>();
+    public List<string> thirdDeath_B = new List<string>();
+    public List<string> thirdDeath_T = new List<string>();
+    public List<string> thirdDeath_J = new List<string>();
 
-    List<string> lastDeath_R = new List<string>();
-    List<string> lastDeath_B = new List<string>();
-    List<string> lastDeath_T = new List<string>();
-    List<string> lastDeath_J = new List<string>();
+    public List<string> lastDeath_R = new List<string>();
+    public List<string> lastDeath_B = new List<string>();
+    public List<string> lastDeath_T = new List<string>();
+    public List<string> lastDeath_J = new List<string>();
 
     //randomize
-    List<string> bonePickUp_R = new List<string>();
-    List<string> bonePickUp_B = new List<string>();
-    List<string> bonePickUp_T = new List<string>();
-    List<string> bonePickUp_J = new List<string>();
+    public List<string> bonePickUp_R = new List<string>();
+    public List<string> bonePickUp_B = new List<string>();
+    public List<string> bonePickUp_T = new List<string>();
+    public List<string> bonePickUp_J = new List<string>();
 
-    List<string> towerBuilt_R = new List<string>();
-    List<string> towerBuilt_B = new List<string>();
-    List<string> towerBuilt_T = new List<string>();
-    List<string> towerBuilt_J = new List<string>();
+    public List<string> towerBuilt_R = new List<string>();
+    public List<string> towerBuilt_B = new List<string>();
+    public List<string> towerBuilt_T = new List<string>();
+    public List<string> towerBuilt_J = new List<string>();
 
-    List<string> towerUpgrade_R = new List<string>();
-    List<string> towerUpgrade_B = new List<string>();
-    List<string> towerUpgrade_T = new List<string>();
-    List<string> towerUpgrade_J = new List<string>();
+    public List<string> towerUpgrade_R = new List<string>();
+    public List<string> towerUpgrade_B = new List<string>();
+    public List<string> towerUpgrade_T = new List<string>();
+    public List<string> towerUpgrade_J = new List<string>();
 
-    List<string> towerRepair_J = new List<string>();
-    List<string> towerRepair_R = new List<string>();
-    List<string> towerRepair_B = new List<string>();
-    List<string> towerRepair_T = new List<string>();
+    public List<string> towerRepair_J = new List<string>();
+    public List<string> towerRepair_R = new List<string>();
+    public List<string> towerRepair_B = new List<string>();
+    public List<string> towerRepair_T = new List<string>();
 
-    List<string> towerFullRepair_J = new List<string>();
-    List<string> towerFullRepair_R = new List<string>();
-    List<string> towerFullRepair_B = new List<string>();
-    List<string> towerFullRepair_T = new List<string>();
+    public List<string> towerFullRepair_J = new List<string>();
+    public List<string> towerFullRepair_R = new List<string>();
+    public List<string> towerFullRepair_B = new List<string>();
+    public List<string> towerFullRepair_T = new List<string>();
 
-    List<string> enemyDestroyed = new List<string>();
-    List<string> waveStarted = new List<string>();
-    List<string> waveDefeated = new List<string>();
+    public List<string> enemyDestroyed = new List<string>();
+    public List<string> waveStarted = new List<string>();
+    public List<string> waveDefeated = new List<string>();
 
-    List<string> returnBase_R = new List<string>();
-    List<string> returnBase_B = new List<string>();
-    List<string> returnBase_T = new List<string>();
-    List<string> returnBase_J = new List<string>();
+    public List<string> returnBase_R = new List<string>();
+    public List<string> returnBase_B = new List<string>();
+    public List<string> returnBase_T = new List<string>();
+    public List<string> returnBase_J = new List<string>();
 
-    List<string> departBase_R = new List<string>();
-    List<string> departBase_B = new List<string>();
-    List<string> departBase_T = new List<string>();
-    List<string> departBase_J = new List<string>();
+    public List<string> departBase_R = new List<string>();
+    public List<string> departBase_B = new List<string>();
+    public List<string> departBase_T = new List<string>();
+    public List<string> departBase_J = new List<string>();
 
-    List<string> enterAura_R = new List<string>();
-    List<string> enterAura_B = new List<string>();
-    List<string> enterAura_T = new List<string>();
-    List<string> enterAura_J = new List<string>();
+    public List<string> enterAura_R = new List<string>();
+    public List<string> enterAura_B = new List<string>();
+    public List<string> enterAura_T = new List<string>();
+    public List<string> enterAura_J = new List<string>();
 
-    List<string> exitAura_R = new List<string>();
-    List<string> exitAura_B = new List<string>();
-    List<string> exitAura_T = new List<string>();
-    List<string> exitAura_J = new List<string>();
+    public List<string> exitAura_R = new List<string>();
+    public List<string> exitAura_B = new List<string>();
+    public List<string> exitAura_T = new List<string>();
+    public List<string> exitAura_J = new List<string>();
 
-    List<string> levelUp_R = new List<string>();
-    List<string> levelUp_B = new List<string>();
-    List<string> levelUp_T = new List<string>();
-    List<string> levelUp_J = new List<string>();
+    public List<string> levelUp_R = new List<string>();
+    public List<string> levelUp_B = new List<string>();
+    public List<string> levelUp_T = new List<string>();
+    public List<string> levelUp_J = new List<string>();
 
     //randomize once
-    List<string> filler_R = new List<string>();
-    List<string> filler_B = new List<string>();
-    List<string> filler_T = new List<string>();
-    List<string> filler_J = new List<string>();
+    public List<string> filler_R = new List<string>();
+    public List<string> filler_B = new List<string>();
+    public List<string> filler_T = new List<string>();
+    public List<string> filler_J = new List<string>();
 
     void Awake()
     {
@@ -142,7 +144,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        db.tutorialMode = true;
+        db.tutorialMode = 0;
 
         InitializeAllStories();
         StartCoroutine(diaBox.PlayText(testWords, true));
@@ -179,10 +181,10 @@ public class DialogueManager : MonoBehaviour
     void InitializeAllStories()
     {
         //these first conversations are assumed to only play when all characters are alive near the beginning of the game
-
+        /*
         intro.Add("Thob: Ah, the joys of retirement. Another day to work on my twenty-one movement lute sonata. Surrounded by friends.");
         intro.Add("Jolie: Zzz...");
-        intro.Add("Thob: Or a nap does sound tempting...");
+        intro.Add("Thob: On the other hand, a nap does sound tempting...");
         intro.Add("Raol: There's someone coming. Down the road.");
         intro.Add("Balthasar: A visitor? Wonderful! No one ever visits us old people.");
         intro.Add("Raol: They're cloaked...like they're trying to hide their face. And masked. Holding some sort of long stick. A scythe?");
@@ -190,10 +192,13 @@ public class DialogueManager : MonoBehaviour
         intro.Add("Raol: My ears may be shot, but my eyes are as good as ever.");
         intro.Add("Thob: May I respectfully point out you are wearing an eyepatch?");
         intro.Add("Raol: It's aesthetic.");
-        intro.Add("Thob: Right. Ahem. So the Reaper has finally come.");
+        intro.Add("Thob: Right. Then assuming your vision is perfect, the Reaper has finally come.");
         intro.Add("Balthasar: Marvelous!");
         intro.Add("Thob: No, Balthasar, that's bad. We must do something about this. Jolie? Jolie, wake up!");
         intro.Add("Jolie: Zzz...to defend...just...add towers...zzz...");
+        */
+        intro.Add("Tutorial: Select Raol, the hero in the top left corner of the retirement home.");
+        intro.Add("incrementTutorial");
 
         tutorial.Add("Thob: Do you think one tower is enough? Jolie, wake up. We need your military expertise.");
         tutorial.Add("Jolie: Nnnh...fine, fine, I'm awake. What do you want?");
@@ -203,6 +208,9 @@ public class DialogueManager : MonoBehaviour
         tutorial.Add("Thob: I can't die yet, I've only finished fifteen movements!");
         tutorial.Add("Raol: It's too late. They're coming.");
         tutorial.Add("Jolie: Really? Multiple Reapers?");
+
+        tutorial1.Add("Use WASD, the arrow keys, or the mouse right-click to move the selected hero.");
+        tutorial2.Add("Select the \"Build\" button in lower right corner. Click somewhere on the map in a valid (green) location to build Raol's first tower.");
 
         howBonesWork.Add("Balthasar: These freshly fallen osseus materials are precisely what we need to manufacture additional defensive structures.");
         howBonesWork.Add("Thob: But we still need to put them in that giant processing machine in the retirement home to transform them into actual building supplies.");

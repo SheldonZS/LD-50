@@ -11,6 +11,7 @@ public class DialogueBox : MonoBehaviour
     private Text testText;
     private RTSController RTSC;
     private EndingManager endingManager;
+    private DataBucket db;
 
     public Color normalText, choiceText, highlightedChoiceText, selectedChoiceText, disabledChoiceText;
     public int margins = 5;
@@ -38,6 +39,7 @@ public class DialogueBox : MonoBehaviour
         background = GetComponent<Image>();
         textMask = GameObject.Find("TextMask").GetComponent<Image>();
         testText = GameObject.Find("TestText").GetComponent<Text>();
+        db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
         if (SceneManager.GetActiveScene().name == "Ending")
         {
             endingManager = GameObject.Find("EndingManager").GetComponent<EndingManager>();
@@ -165,11 +167,15 @@ public class DialogueBox : MonoBehaviour
                 }
             
             }
-
+            //unique commands
             if (words[index] == "startEnding")
             {
                 Debug.Log("starting ending");
                 StartCoroutine(endingManager.RevealEnding());
+            }
+            else if (words[index] == "incrementTutorial")
+            {
+                db.tutorialMode++;
             }
             else if (speakerAlive) //creates a new line (clone)
             {

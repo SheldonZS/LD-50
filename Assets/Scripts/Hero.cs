@@ -29,6 +29,10 @@ public class Hero : MonoBehaviour
 
     private int bonesCarried = 0;
 
+    private DataBucket db;
+    private DialogueBox diaBox;
+    private DialogueManager DM;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +51,10 @@ public class Hero : MonoBehaviour
 
         highlight = transform.GetChild(1).GetComponent<Animator>();
         highlight.SetBool("Selected", false);
+
+        db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
+        diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
+        DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>(); 
     }
 
     // Update is called once per frame
@@ -54,145 +62,164 @@ public class Hero : MonoBehaviour
     {
         //
 
-        if (commands.Count == 0) commands.Add(new HeroCommand(Commands.idle));
-        HeroCommand currentCommand = commands[0];
+   
 
-        if (RTSC.selected != gameObject)
+        if ((db.tutorialMode >=2 && this.name == "Raol") || db.tutorialMode >= 3)
         {
-            highlight.SetBool("Selected", false);
 
-            ExecuteCommand();
+            if (commands.Count == 0) commands.Add(new HeroCommand(Commands.idle));
+            HeroCommand currentCommand = commands[0];
 
-            return;
-        }
+            if (RTSC.selected != gameObject)
+            {
+                highlight.SetBool("Selected", false);
 
-        if (collider.IsTouching(RTSC.homeBase))
-        {
-            RTSC.bones += bonesCarried;
-            bonesCarried = 0;
-        }
+                ExecuteCommand();
 
-        highlight.SetBool("Selected", true);
-        bool manualMove = false;
 
-        if ((currentCommand.command == Commands.idle || currentCommand.command == Commands.move) &&
+
+                return;
+            }
+
+            if (collider.IsTouching(RTSC.homeBase))
+            {
+                RTSC.bones += bonesCarried;
+                bonesCarried = 0;
+            }
+
+            highlight.SetBool("Selected", true);
+            bool manualMove = false;
+            if ((currentCommand.command == Commands.idle || currentCommand.command == Commands.move) &&
             (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) ||
             Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow)))
-        {
-            commands.Clear();
-            commands.Add(new HeroCommand(Commands.idle));
-
-            Vector2 direction = Vector2.zero;
-
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) direction.y += 1;
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) direction.x -= 1;
-            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) direction.y -= 1;
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) direction.x += 1;
-
-            rb.velocity = direction.normalized * moveSpeed;
-            manualMove = true;
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            Vector2 clickPos = RTSC.MouseToGrid();
-            //RTSC.Say(this, "Right Clicked at world position " + clickPos);
-
-            if (clickPos.x >= -.5 && clickPos.x <= 17.5 && clickPos.y >= 0 && clickPos.y <= 10)
             {
-                if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
+                if (db. tutorialMode == 2)
                 {
-                    commands.Clear();
-                    rb.velocity = Vector2.zero;
+                    StartCoroutine(diaBox.PlayText(DM.tutorial2, true));
+                    db.tutorialMode++;
                 }
+                commands.Clear();
+                commands.Add(new HeroCommand(Commands.idle));
 
-                commands.Add(new HeroCommand(Commands.move, clickPos));
+                Vector2 direction = Vector2.zero;
+
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) direction.y += 1;
+                if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) direction.x -= 1;
+                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) direction.y -= 1;
+                if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) direction.x += 1;
+
+                rb.velocity = direction.normalized * moveSpeed;
+                manualMove = true;
             }
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 clickPos = RTSC.MouseToGrid();
-
-            if (clickPos.x >= -.5 && clickPos.x <= 17.5 && clickPos.y >= 0 && clickPos.y <= 10)
+            else if (Input.GetMouseButtonDown(1))
             {
-
-                switch (RTSC.command)
+                if (db.tutorialMode == 2)
                 {
-                    case Commands.build:
-                        if (RTSC.GridContains(RTSC.MouseToGrid(), "Monster"))
-                            RTSC.Say(this, "There are monsters there");
-                        if (RTSC.GridContains(RTSC.MouseToGrid(), "Tower"))
-                            RTSC.Say(this, "There's already a tower there");
-                        else
-                        {
-                            if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
-                                commands.Clear();
-                            commands.Add(new HeroCommand(Commands.build, RTSC.RoundToGrid(RTSC.MouseToGrid()), towers[0]));
-                        }
-                        break;
-                    case Commands.repair:
-                        TowerBase targetTower = RTSC.GetTowerAt(clickPos);
-                        if (targetTower == null)
-                            RTSC.Say(this, "No tower here");
-                        else if (targetTower.builder != this)
-                            RTSC.Say(this, "This is not my tower");
-                        else
-                        {
-                            if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
-                                commands.Clear();
-                            commands.Add(new HeroCommand(Commands.repair, clickPos, targetTower.gameObject));
-                        }
-                        break;
-                    case Commands.upgrade:
-                        targetTower = RTSC.GetTowerAt(clickPos);
-                        if (targetTower == null)
-                            RTSC.Say(this, "No tower here");
-                        else if (targetTower.builder != this)
-                            RTSC.Say(this, "This is not my tower");
-                        else
-                        {
-                            if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
-                                commands.Clear();
-                            commands.Add(new HeroCommand(Commands.upgrade, clickPos, targetTower.gameObject));
-                        }
-                        break;
-                    case Commands.move:
-                    default:
-                        Vector3 mouseWorldPosition = RTSC.camera.ScreenToWorldPoint(Input.mousePosition);
+                    StartCoroutine(diaBox.PlayText(DM.tutorial2, true));
+                    db.tutorialMode++;
+                }
+                Vector2 clickPos = RTSC.MouseToGrid();
+                //RTSC.Say(this, "Right Clicked at world position " + clickPos);
 
-                        //RTSC.Say(this, "Clicked at world position: " + mouseWorldPosition);
+                if (clickPos.x >= -.5 && clickPos.x <= 17.5 && clickPos.y >= 0 && clickPos.y <= 10)
+                {
+                    if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
+                    {
+                        commands.Clear();
+                        rb.velocity = Vector2.zero;
+                    }
 
-                        RaycastHit2D[] hits = Physics2D.RaycastAll(mouseWorldPosition, Vector2.zero);
+                    commands.Add(new HeroCommand(Commands.move, clickPos));
+                }
+            }
+            else if (Input.GetMouseButtonDown(0))
+            {
+                Vector2 clickPos = RTSC.MouseToGrid();
 
-                        bool canMove = true;
-                        foreach (RaycastHit2D hit in hits)
-                        {
-                            if (hit.collider.gameObject.tag == "Player")
+                if (clickPos.x >= -.5 && clickPos.x <= 17.5 && clickPos.y >= 0 && clickPos.y <= 10)
+                {
+
+                    switch (RTSC.command)
+                    {
+                        case Commands.build:
+                            if (RTSC.GridContains(RTSC.MouseToGrid(), "Monster"))
+                                RTSC.Say(this, "There are monsters there");
+                            if (RTSC.GridContains(RTSC.MouseToGrid(), "Tower"))
+                                RTSC.Say(this, "There's already a tower there");
+                            else
                             {
-                                if (hit.collider.gameObject != gameObject)
+                                if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
+                                    commands.Clear();
+                                commands.Add(new HeroCommand(Commands.build, RTSC.RoundToGrid(RTSC.MouseToGrid()), towers[0]));
+                            }
+                            break;
+                        case Commands.repair:
+                            TowerBase targetTower = RTSC.GetTowerAt(clickPos);
+                            if (targetTower == null)
+                                RTSC.Say(this, "No tower here");
+                            else if (targetTower.builder != this)
+                                RTSC.Say(this, "This is not my tower");
+                            else
+                            {
+                                if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
+                                    commands.Clear();
+                                commands.Add(new HeroCommand(Commands.repair, clickPos, targetTower.gameObject));
+                            }
+                            break;
+                        case Commands.upgrade:
+                            targetTower = RTSC.GetTowerAt(clickPos);
+                            if (targetTower == null)
+                                RTSC.Say(this, "No tower here");
+                            else if (targetTower.builder != this)
+                                RTSC.Say(this, "This is not my tower");
+                            else
+                            {
+                                if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
+                                    commands.Clear();
+                                commands.Add(new HeroCommand(Commands.upgrade, clickPos, targetTower.gameObject));
+                            }
+                            break;
+                        case Commands.move:
+                        default:
+                            /*
+                            Vector3 mouseWorldPosition = RTSC.camera.ScreenToWorldPoint(Input.mousePosition);
+
+                            //RTSC.Say(this, "Clicked at world position: " + mouseWorldPosition);
+
+                            RaycastHit2D[] hits = Physics2D.RaycastAll(mouseWorldPosition, Vector2.zero);
+
+                            bool canMove = true;
+                            foreach (RaycastHit2D hit in hits)
+                            {
+                                if (hit.collider.gameObject.tag == "Player")
                                 {
-                                    canMove = false;
+                                    if (hit.collider.gameObject != gameObject)
+                                    {
+                                        canMove = false;
+                                    }
                                 }
                             }
-                        }
 
-                        if (canMove)
-                        {
-                            if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
+                            if (canMove)
                             {
-                                commands.Clear();
-                                rb.velocity = Vector2.zero;
+                                if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
+                                {
+                                    commands.Clear();
+                                    rb.velocity = Vector2.zero;
+                                }
+
+                                commands.Add(new HeroCommand(Commands.move, clickPos));
                             }
-
-                            commands.Add(new HeroCommand(Commands.move, clickPos));
-                        }
-
-                        break;
+                            */
+                            break;
+                    }
                 }
             }
-        }
 
-        if  (!manualMove)
-            ExecuteCommand();
+            if (!manualMove)
+                ExecuteCommand();
+        }
+        
 
     }
 
@@ -271,7 +298,7 @@ public class Hero : MonoBehaviour
                     newTower.builder = this;
                     newTower.SetHealth(1);
 
-                    commands[0] = new HeroCommand(Commands.repair, command.location, newTower.gameObject);
+                    commands[0] = new HeroCommand(Commands.buildToMax, command.location, newTower.gameObject);
 
                     RTSC.Reset();
                     return false;
@@ -282,6 +309,37 @@ public class Hero : MonoBehaviour
                     rb.velocity = direction.normalized * moveSpeed;
                     return false;
                 }
+            case Commands.buildToMax:
+                rb.velocity = Vector2.zero;
+                repairTower = command.tower.GetComponent<TowerBase>();
+                if (repairTower == null || repairTower.health <= 0)
+                {
+                    RTSC.Say(this, "No tower here");
+                    repairDecimal = 0;
+                    return true;
+                }
+
+                if (collider.IsTouching(repairTower.GetComponent<BoxCollider2D>()))
+                {
+                    float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * Time.deltaTime + repairDecimal;
+                    int repairInt = Mathf.FloorToInt(repairAmount);
+                    repairTower.Repair(repairInt);
+
+                    if (repairTower.health >= repairTower.maxHealth)
+                    {
+                        RTSC.Say(this, "Job's done!");
+                        repairDecimal = 0;
+                        return true;
+                    }
+
+                    repairDecimal = repairAmount - repairInt;
+                }
+                else
+                {
+                    Vector2 direction = command.location - (Vector2)transform.localPosition;
+                    rb.velocity = direction.normalized * moveSpeed;
+                }
+                return false;
             case Commands.repair:
                 rb.velocity = Vector2.zero;
                 repairTower = command.tower.GetComponent<TowerBase>();
@@ -393,4 +451,4 @@ public class HeroCommand
     }
 }
 
-public enum Commands { idle, move, build, repair, upgrade}
+public enum Commands { idle, move, build, repair, upgrade, buildToMax}

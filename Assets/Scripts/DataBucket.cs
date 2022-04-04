@@ -10,13 +10,15 @@ public struct GameData
 
 public class DataBucket : MonoBehaviour
 {
-    public bool debugMode, raolUnlocked, thobUnlocked, balUnlocked, jolieUnlocked, tutorialMode;
+    public bool debugMode, raolUnlocked, thobUnlocked, balUnlocked, jolieUnlocked;
 
     public static DataBucket instance = null;
 
     public GameData data;
 
     public int selection;
+
+    public int tutorialMode;
 
     void Awake()
     {
