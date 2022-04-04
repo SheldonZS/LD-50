@@ -25,6 +25,7 @@ public class Hero : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D collider;
     private RTSController RTSC;
+    private SpriteRenderer renderer;
 
     private float repairDecimal;
     private TowerBase repairTower;
@@ -56,6 +57,7 @@ public class Hero : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
+        renderer = GetComponent<SpriteRenderer>();
 
         RTSC = GetComponentInParent<RTSController>();
 
@@ -84,7 +86,11 @@ public class Hero : MonoBehaviour
             return;
         //
 
-   
+        if (rb.velocity.x > 0)
+            renderer.flipX = true;
+        else if (rb.velocity.x < 0)
+            renderer.flipX = false;
+
 
         if ((db.tutorialMode >=2 && this.name == "Raol") || db.tutorialMode >= 4)
         {
@@ -136,6 +142,7 @@ public class Hero : MonoBehaviour
                     if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) direction.y -= 1;
                     if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) direction.x += 1;
 
+                    animator.SetInteger("animation", (int)CharacterAnimation.move);
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                     manualMove = true;
                 }
@@ -378,6 +385,7 @@ public class Hero : MonoBehaviour
                 if (repairTower == null || repairTower.health <= 0)
                 {
                     //RTSC.Say(this, "No tower here");
+                    building = false;
                     repairDecimal = 0;
                     return true;
                 }

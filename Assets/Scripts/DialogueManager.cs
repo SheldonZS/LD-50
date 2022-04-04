@@ -147,7 +147,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        db.tutorialMode = 0;
+        //db.tutorialMode = 0;
 
         InitializeAllStories();
         StartCoroutine(diaBox.PlayText(intro, TextMode.imm));

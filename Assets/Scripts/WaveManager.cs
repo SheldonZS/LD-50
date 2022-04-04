@@ -39,6 +39,13 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentWave == 0)
+            return;
+
+        if (RTSC.gridAnchor.GetComponentsInChildren<MonsterBase>().Length == 0 && waveFinished)
+        {
+            WaveDefeated();
+        }
         /*if (Input.GetKeyDown(KeyCode.M))
         {
             int rand = Random.Range(0, spawners.Length);
@@ -47,8 +54,8 @@ public class WaveManager : MonoBehaviour
         }
         */
 
-        if (Input.GetKeyDown(KeyCode.Q))
-            StartNextWave();
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //    StartNextWave();
 
         if (waveFinished)
             return;

@@ -5097,6 +5097,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6653499738708659768, guid: 1163800086d830442965acabb443142a,
+        type: 3}
+      propertyPath: tutorialMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6653499738708659769, guid: 1163800086d830442965acabb443142a,
         type: 3}
       propertyPath: m_RootOrder
@@ -5440,6 +5445,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TextWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700075703951564417, guid: 0105f55e97be0ca4c8c368d93aa01655,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0105f55e97be0ca4c8c368d93aa01655, type: 3}
