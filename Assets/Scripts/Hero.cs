@@ -35,6 +35,9 @@ public class Hero : MonoBehaviour
     private DialogueBox diaBox;
     private DialogueManager DM;
 
+    public float bardBuildMultiplier = 1f;
+    public float bardMoveMultiplier = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -112,7 +115,7 @@ public class Hero : MonoBehaviour
                     if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) direction.y -= 1;
                     if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) direction.x += 1;
 
-                    rb.velocity = direction.normalized * moveSpeed;
+                    rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                     manualMove = true;
                 }
 
@@ -251,7 +254,7 @@ public class Hero : MonoBehaviour
                 Vector2 movement = command.location - (Vector2)transform.localPosition;
                 float mag = movement.magnitude;
 
-                if (mag <= moveSpeed * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) || Vector2.Angle(rb.velocity, movement) > 90)
+                if (mag <= moveSpeed * bardMoveMultiplier * Mathf.Max(Time.deltaTime, Time.fixedDeltaTime) || Vector2.Angle(rb.velocity, movement) > 90)
                 {
                     transform.localPosition = command.location;
                     rb.velocity = Vector2.zero;
@@ -259,7 +262,7 @@ public class Hero : MonoBehaviour
                 }
                 else
                 {
-                    rb.velocity = movement.normalized * moveSpeed;
+                    rb.velocity = movement.normalized * moveSpeed * bardMoveMultiplier;
                     return false;
                 }
 
@@ -315,7 +318,7 @@ public class Hero : MonoBehaviour
                 else
                 {
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
-                    rb.velocity = direction.normalized * moveSpeed;
+                    rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                     return false;
                 }
 
@@ -331,7 +334,7 @@ public class Hero : MonoBehaviour
 
                 if (collider.IsTouching(repairTower.GetComponent<BoxCollider2D>()))
                 {
-                    float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * Time.deltaTime + repairDecimal;
+                    float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * bardBuildMultiplier * Time.deltaTime + repairDecimal;
                     int repairInt = Mathf.FloorToInt(repairAmount);
                     repairTower.Repair(repairInt);
 
@@ -353,7 +356,7 @@ public class Hero : MonoBehaviour
                 else if (!building)
                 {
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
-                    rb.velocity = direction.normalized * moveSpeed;
+                    rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                 }
                 return false;
 
@@ -369,7 +372,7 @@ public class Hero : MonoBehaviour
 
                 if (collider.IsTouching(repairTower.GetComponent<BoxCollider2D>()))
                 {
-                    float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * Time.deltaTime + repairDecimal;
+                    float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * bardBuildMultiplier * Time.deltaTime + repairDecimal;
                     int repairInt = Mathf.FloorToInt(repairAmount);
                     repairTower.Repair(repairInt);
 
@@ -385,7 +388,7 @@ public class Hero : MonoBehaviour
                 else
                 {
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
-                    rb.velocity = direction.normalized * moveSpeed;
+                    rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                 }
                 return false;
 
@@ -437,7 +440,7 @@ public class Hero : MonoBehaviour
                 else
                 {
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
-                    rb.velocity = direction.normalized * moveSpeed;
+                    rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                 }
                 return false;
             case Commands.idle:

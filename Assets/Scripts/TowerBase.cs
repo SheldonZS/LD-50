@@ -155,6 +155,21 @@ public class TowerBase : MonoBehaviour
     //Wizard Towers
     public void BalthasarTower()
     {
+        GameObject target = GetClosestMonster(range);
+
+        if (target == null)
+            return;
+
+        ProjectileController bolt = Instantiate(builder.attackPrefabs[0], RTSController.instance.gridAnchor).GetComponent<ProjectileController>();
+        bolt.transform.localPosition = transform.localPosition + Vector3.up * 0.5f;
+
+        Vector2 direction = target.transform.localPosition - transform.localPosition;
+
+        bolt.transform.eulerAngles = Vector3.back * DirectionToAngle(direction);
+        bolt.SetProjectile(transform.localPosition, direction, 5f, range, damage, true);
+
+        cooldown = attackCooldown;
+
 
     }
 
