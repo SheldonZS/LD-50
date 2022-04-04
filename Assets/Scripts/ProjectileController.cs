@@ -10,7 +10,12 @@ public class ProjectileController : MonoBehaviour
     private int damage;
 
     private bool alreadyHit = false;
+    private GameObject endEffect = null;
 
+    public void SetEndEffect(GameObject end)
+    {
+        endEffect = end;
+    }
 
     public void SetProjectile(Vector2 from, Vector2 direction, float speed, float range, int dam, bool pierce = false)
     {
@@ -27,7 +32,14 @@ public class ProjectileController : MonoBehaviour
     void FixedUpdate()
     {
         if (((Vector2)transform.localPosition - source).magnitude >= maxRange)
+        {
             Destroy(gameObject);
+
+            if (endEffect != null)
+            {
+                Instantiate(endEffect, transform.position, Quaternion.identity, RTSController.instance.gridAnchor);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
