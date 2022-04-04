@@ -8,7 +8,10 @@ public class MonsterBase : MonoBehaviour
     public int moveSpeed;
     public int maxHealth;
     public int health;
+
     public int bonesDropped;
+    public GameObject bonesPrefab;
+
     public MonsterMove moveAI;
     public MonsterAttack attackAI;
 
@@ -85,9 +88,16 @@ public class MonsterBase : MonoBehaviour
     }
     public IEnumerator Die()
     {
+        if (bonesDropped > 0)
+        {
+            GameObject bones = Instantiate(bonesPrefab, RTSController.instance.gridAnchor);
+            bones.transform.localPosition = transform.localPosition + Vector3.forward * .01f;
+            bones.GetComponent<BoneCollectible>().bones = bonesDropped;
+        }
+
         Color color = GetComponent<SpriteRenderer>().color;
 
-        for (color.a = 1; color.a > 0; color.a -= .1f)
+        for (color.a = 1; color.a > 0; color.a -= Time.deltaTime * 2)
         {
             GetComponent<SpriteRenderer>().color = color;
             yield return null;

@@ -168,6 +168,9 @@ MonoBehaviour:
   moveSpeed: 2
   maxHealth: 100
   health: 100
+  bonesDropped: 100
+  bonesPrefab: {fileID: 6447048961695060161, guid: 546bff12490108f42aacb414bea4f876,
+    type: 3}
   moveAI: 0
   attackAI: 0
   path: []
