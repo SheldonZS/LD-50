@@ -25,6 +25,8 @@ public class TowerBase : MonoBehaviour
     public Hero builder;
 
     public TowerDamage[] damageImages;
+    public TowerDamage[] upgradedDamageImages;
+
     private SpriteRenderer sr;
     public bool operational { get; private set; }
     private HealthBar healthBar;
@@ -35,7 +37,7 @@ public class TowerBase : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         operational = false;
@@ -98,19 +100,26 @@ public class TowerBase : MonoBehaviour
     {
         health -= damage;
 
-        foreach(TowerDamage state in damageImages)
-            if(health >= state.minHealth)
-            {
-                sr.sprite = state.image;
-                break;
-            }
-
         health = Mathf.Clamp(health, 0, maxHealth);
         healthBar.UpdateHealth(health);
 
+        foreach (TowerDamage state in (upgraded ? upgradedDamageImages : damageImages))
+        {
+            Debug.Log("Checking if health (" + health + ") >= " + state.minHealth);
+            
+            if (health >= state.minHealth)
+            {
+                
+                sr.sprite = state.image;
+                break;
+            }
+        }
+
         if (health <= 0)
         {
-            builder.PlayRuinText();
+            if (builder != null)
+                builder.PlayRuinText();
+            //else text when base is destroyed
         }
     }
 

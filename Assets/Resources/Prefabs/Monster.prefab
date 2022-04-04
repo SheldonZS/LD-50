@@ -97,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 2906459290243993333}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a44fb27e389d3b468de192c09b47739, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -168,6 +168,10 @@ MonoBehaviour:
   moveSpeed: 2
   maxHealth: 100
   health: 100
+  attackDamage: 0
+  attackCooldown: 0
+  bardMoveMultiplier: 1
+  bardCooldownMultiplier: 1
   bonesDropped: 100
   bonesPrefab: {fileID: 6447048961695060161, guid: 546bff12490108f42aacb414bea4f876,
     type: 3}

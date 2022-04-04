@@ -31,9 +31,11 @@ public class MonsterBase : MonoBehaviour
     private RTSController RTSC;
 
     private float cooldown;
+    private Color baseColor;
 
     public void SetStats(Color color, float moveSpeed, int HP, int attack, float cooldown, int bones, MonsterMove moveType, MonsterAttack AttackType)
     {
+        baseColor = color;
         GetComponent<SpriteRenderer>().color = color;
         this.moveSpeed = moveSpeed;
         health = HP;
@@ -96,11 +98,12 @@ public class MonsterBase : MonoBehaviour
         if (attacking)
         {
             rb.velocity = Vector2.zero;
-            animator.SetInteger("state", (int)CharacterAnimation.action);
+            animator.SetInteger("animation", (int)CharacterAnimation.action);
             cooldown = attackCooldown;
         }
         else
         {
+            animator.SetInteger("animation", (int)CharacterAnimation.move);
             switch (moveAI)
             {
                 case MonsterMove.path:
@@ -212,24 +215,30 @@ public class MonsterBase : MonoBehaviour
         {
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
-            StartCoroutine(Die());
+            Die();
             enabled = false;
         }
         else
         {
-            StartCoroutine(Hurt());
+            //animator.SetInteger("animation", (int)CharacterAnimation.hurt);
+            Hurt();
         }
 
     }
 
-    public IEnumerator Hurt()
+    public void Hurt()
     {
-        Color color = GetComponent<SpriteRenderer>().color;
-        GetComponent<SpriteRenderer>().color = Color.red;
-        yield return new WaitForSeconds(.1f);
-        GetComponent<SpriteRenderer>().color = color;
+        StartCoroutine(HurtAnimation());
     }
-    public IEnumerator Die()
+
+    public IEnumerator HurtAnimation()
+    {
+         GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(.1f);
+
+        GetComponent<SpriteRenderer>().color = baseColor;
+    }
+    public void Die()
     {
         if (bonesDropped > 0)
         {
@@ -238,16 +247,13 @@ public class MonsterBase : MonoBehaviour
             bones.GetComponent<BoneCollectible>().bones = bonesDropped;
         }
 
-        Color color = GetComponent<SpriteRenderer>().color;
+        animator.SetInteger("animation", (int)CharacterAnimation.dying);
 
-        for (color.a = 1; color.a > 0; color.a -= Time.deltaTime * 2)
-        {
-            GetComponent<SpriteRenderer>().color = color;
-            yield return null;
-        }
+    }
 
+    public void DestroySelf()
+    {
         Destroy(gameObject);
-       
     }
 
     public Vector2 RandomDirection()

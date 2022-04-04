@@ -80,6 +80,10 @@ public class RTSController : MonoBehaviour
 
         bones = 200;
         ResetButtons();
+
+        TowerBase home = homeBase.GetComponent<TowerBase>();
+        home.SetHealth(home.maxHealth);
+
     }
 
 
