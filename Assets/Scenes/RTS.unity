@@ -1401,6 +1401,7 @@ MonoBehaviour:
   bal_alive: 0
   thob_alive: 0
   jolie_alive: 0
+  base_intact: 0
 --- !u!114 &429916841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3516,7 +3517,17 @@ MonoBehaviour:
   upgradedDamage: 0
   upgradedAttackCooldown: 0
   builder: {fileID: 0}
-  damageImages: []
+  damageImages:
+  - minHealth: 50
+    image: {fileID: 7749575111809185884, guid: d34e4374ca3469d46a437af343c0c7fc, type: 3}
+  - minHealth: 25
+    image: {fileID: -1903116580477873583, guid: d34e4374ca3469d46a437af343c0c7fc,
+      type: 3}
+  - minHealth: 1
+    image: {fileID: -6156741320348386662, guid: d34e4374ca3469d46a437af343c0c7fc,
+      type: 3}
+  - minHealth: 0
+    image: {fileID: 7967172216592625991, guid: d34e4374ca3469d46a437af343c0c7fc, type: 3}
   upgradedDamageImages:
   - minHealth: 50
     image: {fileID: 7749575111809185884, guid: d34e4374ca3469d46a437af343c0c7fc, type: 3}

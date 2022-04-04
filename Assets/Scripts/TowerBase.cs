@@ -120,7 +120,13 @@ public class TowerBase : MonoBehaviour
             operational = false;
             if (builder != null)
                 builder.PlayRuinText();
-            //else text when base is destroyed
+            else
+            {
+                RTSController.instance.base_intact = false;
+                gameObject.tag = "Obstacle";
+                gameObject.layer = 0;
+                //text when base is destroyed
+            }
         }
     }
 
