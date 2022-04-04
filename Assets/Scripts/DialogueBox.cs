@@ -180,6 +180,8 @@ public class DialogueBox : MonoBehaviour
 
             bool speakerAlive = true;
 
+            Debug.Log(words[index]);
+
             //Check if hero is alive unless in ending
             if (SceneManager.GetActiveScene().name != "Ending")
             {
@@ -230,26 +232,32 @@ public class DialogueBox : MonoBehaviour
                 switch (words[index].Split(':')[1])
                 {
                     case "raol":
-                        //destroy raol gameobject
+                        RTSC.raol_alive = false;
+                        Destroy(GameObject.Find("Raol"));
                         break;
                     case "bal":
-                        //destroy bal gameobject
+                        RTSC.bal_alive = false;
+                        Destroy(GameObject.Find("Balthasar"));
 
                         break;
                     case "thob":
-                        //destroy thob gameobject
+                        RTSC.thob_alive = false;
+                        Destroy(GameObject.Find("Thob"));
 
                         break;
                     case "jolie":
-                        //destroy jolie gameobject
+                        RTSC.jolie_alive = false;
+                        Destroy(GameObject.Find("Jolie"));
 
                         break;
                 }
 
-                //unpause
+                Time.timeScale = 1;
             }
+
             else if (speakerAlive) //creates a new line (clone)
             {
+
                 if (textBoxes.Count > 0)
                     currentLineY = textBoxes[textBoxes.Count - 1].GetComponent<RectTransform>().localPosition.y - lineHeight;
 
@@ -261,7 +269,7 @@ public class DialogueBox : MonoBehaviour
                     currentLineY += lineHeight;
                 }
 
-                float startTime = Time.time;
+                float startTime = Time.unscaledTime;
 
                 testText.text = "";
                 currentTextField = Instantiate(testText.gameObject, testText.transform.parent).GetComponent<Text>();
@@ -301,6 +309,7 @@ public class DialogueBox : MonoBehaviour
 
                 while (index < words.Length)
                 {
+
 
                     //checks whether the next word in the line is an italicize or normal command
                     if (words[index] == "/i" || words[index] == "/n")
@@ -351,7 +360,7 @@ public class DialogueBox : MonoBehaviour
                                         currentLineY += lineHeight;
                                     }
 
-                                    startTime = Time.time;
+                                    startTime = Time.unscaledTime;
                                     cumulativeCharacters = 0;
 
                                     currentTextField.rectTransform.localPosition = new Vector3(margins, currentLineY, 0);
@@ -388,7 +397,7 @@ public class DialogueBox : MonoBehaviour
                                     currentLineY += lineHeight;
                                 }
 
-                                startTime = Time.time;
+                                startTime = Time.unscaledTime;
                                 cumulativeCharacters = 0;
 
                                 testText.text = "";
@@ -407,13 +416,13 @@ public class DialogueBox : MonoBehaviour
                         }
 
                         string fullText = currentTextField.text;
-                        int shownCharacters = (int)Mathf.Clamp(((Time.time - startTime) * charactersPerSecond) - cumulativeCharacters, 0, fullText.Length);
+                        int shownCharacters = (int)Mathf.Clamp(((Time.unscaledTime - startTime) * charactersPerSecond) - cumulativeCharacters, 0, fullText.Length);
 
                         while (shownCharacters < fullText.Length && Input.GetMouseButtonDown(0) == false)
                         {
                             currentTextField.text = fullText.Substring(0, shownCharacters);
                             yield return null;
-                            shownCharacters = (int)Mathf.Clamp(((Time.time - startTime) * charactersPerSecond) - cumulativeCharacters, 0, fullText.Length);
+                            shownCharacters = (int)Mathf.Clamp(((Time.unscaledTime - startTime) * charactersPerSecond) - cumulativeCharacters, 0, fullText.Length);
                         }
                         currentTextField.text = fullText;
                     }
@@ -433,7 +442,7 @@ public class DialogueBox : MonoBehaviour
                 if (speakerAlive)
                 {
 
-                    yield return new WaitForSeconds(autoPauseAtLineEndTime);
+                    yield return new WaitForSecondsRealtime(autoPauseAtLineEndTime);
 
                 }
             }
@@ -456,13 +465,13 @@ public class DialogueBox : MonoBehaviour
 
     public IEnumerator ScrollText()
     {
-        float startTime = Time.time;
+        float startTime = Time.unscaledTime;
         float totalScrolled = 0;
         float scrollAmount;
 
-        while (Time.time < startTime + scrollTime && Input.GetMouseButtonDown(0) == false)
+        while (Time.unscaledTime < startTime + scrollTime && Input.GetMouseButtonDown(0) == false)
         {
-            scrollAmount = lineHeight * Time.deltaTime / scrollTime;
+            scrollAmount = lineHeight * Time.unscaledDeltaTime / scrollTime;
             totalScrolled += scrollAmount;
 
             foreach (Text box in textBoxes)
@@ -580,11 +589,14 @@ public class DialogueBox : MonoBehaviour
     {
         foreach (GameObject hero in RTSC.heroes)
         {
-            hero.transform.GetChild(4).GetComponent<SpriteRenderer>().enabled = false;
+            if (hero!=null)
+                hero.transform.GetChild(4).GetComponent<SpriteRenderer>().enabled = false;
         }
     }
     IEnumerator HighlightBlink(Hero hero)
     {
+        if (hero == null)
+            yield break;
         SpriteRenderer highlight = hero.transform.GetChild(4).GetComponent<SpriteRenderer>();
         highlight.enabled = true;
         Color heroColor;

@@ -690,17 +690,21 @@ public class Hero : MonoBehaviour
 
     void CharacterDeath()
     {
-        //pause game
+        int lifeCount = 0;
+        Time.timeScale = 0;
 
-
+        foreach (GameObject hero in RTSC.heroes)
+        {
+            if (hero != null)
+                lifeCount++;
+        }
         switch (this.name)
         {
             case "Raol":
                 //play character death anim
                 //play character death sound
-                RTSC.raol_alive = false;
 
-                switch (RTSC.heroes.Count)
+                switch (lifeCount)
                 {
                     case 4:
                         ShowText(DM.firstDeath_R, TextMode.imm);
@@ -721,9 +725,8 @@ public class Hero : MonoBehaviour
             case "Balthasar":
                 //play character death anim
                 //play character death sound
-                RTSC.bal_alive = false;
 
-                switch (RTSC.heroes.Count)
+                switch (lifeCount)
                 {
                     case 4:
                         ShowText(DM.firstDeath_B, TextMode.imm);
@@ -744,9 +747,8 @@ public class Hero : MonoBehaviour
             case "Thob":
                 //play character death anim
                 //play character death sound
-                RTSC.thob_alive = false;
 
-                switch (RTSC.heroes.Count)
+                switch (lifeCount)
                 {
                     case 4:
                         ShowText(DM.firstDeath_T, TextMode.imm);
@@ -767,9 +769,8 @@ public class Hero : MonoBehaviour
             case "Jolie":
                 //play character death anim
                 //play character death sound
-                RTSC.jolie_alive = false;
 
-                switch (RTSC.heroes.Count)
+                switch (lifeCount)
                 {
                     case 4:
                         ShowText(DM.firstDeath_J, TextMode.imm);

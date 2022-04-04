@@ -1333,6 +1333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 429916839}
   - component: {fileID: 429916840}
+  - component: {fileID: 429916841}
   m_Layer: 0
   m_Name: RTS Controller
   m_TagString: Untagged
@@ -1389,9 +1390,29 @@ MonoBehaviour:
   - {fileID: 196659663}
   - {fileID: 1300879437}
   - {fileID: 1340707348}
-  monsters:
+  homeBase: {fileID: 1266331565}
+  raol_alive: 0
+  bal_alive: 0
+  thob_alive: 0
+  jolie_alive: 0
+--- !u!114 &429916841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429916838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7de6463c906bc43b4baeadfccdf1ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterPrefab:
   - {fileID: 2906459290243993333, guid: b724f1f08eda7a14daea29a423bf6726, type: 3}
-  spawnPoints:
+  blue: {r: 0, g: 0, b: 0, a: 0}
+  purple: {r: 0, g: 0, b: 0, a: 0}
+  red: {r: 0, g: 0, b: 0, a: 0}
+  spawners:
   - location: {x: 0, y: 5}
     path:
     - {x: 1, y: 5}
@@ -1429,11 +1450,6 @@ MonoBehaviour:
     - {x: 13, y: 3}
     - {x: 13, y: 7}
     - {x: 14, y: 7}
-  homeBase: {fileID: 1266331565}
-  raol_alive: 0
-  bal_alive: 0
-  thob_alive: 0
-  jolie_alive: 0
 --- !u!1001 &492736627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4003,6 +4019,12 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: attackPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 5367939558161253185, guid: bcc1c625c3e71284daaf5cf64c68d562,
+        type: 3}
     - target: {fileID: 4038786752953339034, guid: 8651f22933af0db48bcf39703e54ac6c,
         type: 3}
       propertyPath: m_IsActive
@@ -6472,6 +6494,12 @@ PrefabInstance:
       propertyPath: towers.Array.data[0]
       value: 
       objectReference: {fileID: 8834848687929935486, guid: dfff810b1187b3c4ba21a89939357216,
+        type: 3}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: attackPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 5367939558161253185, guid: bcc1c625c3e71284daaf5cf64c68d562,
         type: 3}
     - target: {fileID: 4038786752953339034, guid: 8651f22933af0db48bcf39703e54ac6c,
         type: 3}

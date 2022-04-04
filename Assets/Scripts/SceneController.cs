@@ -7,7 +7,7 @@ public class SceneController : MonoBehaviour
 {
     public void onClickStart()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("RTS");
     }
 
     public void onClickCredits()

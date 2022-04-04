@@ -1409,6 +1409,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefab:
   - {fileID: 2906459290243993333, guid: b724f1f08eda7a14daea29a423bf6726, type: 3}
+  blue: {r: 0, g: 0, b: 0, a: 1}
+  purple: {r: 0, g: 0, b: 0, a: 1}
+  red: {r: 0, g: 0, b: 0, a: 1}
   spawners:
   - location: {x: 0, y: 5}
     path:
