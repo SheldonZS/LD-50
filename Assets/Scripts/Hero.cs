@@ -100,7 +100,10 @@ public class Hero : MonoBehaviour
             if (clickPos.x >= -.5 && clickPos.x <= 17.5 && clickPos.y >= 0 && clickPos.y <= 10)
             {
                 if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
+                {
                     commands.Clear();
+                    rb.velocity = Vector2.zero;
+                }
 
                 commands.Add(new HeroCommand(Commands.move, clickPos));
             }
@@ -175,7 +178,10 @@ public class Hero : MonoBehaviour
                         if (canMove)
                         {
                             if (currentCommand.command == Commands.idle || (!(Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))))
+                            {
                                 commands.Clear();
+                                rb.velocity = Vector2.zero;
+                            }
 
                             commands.Add(new HeroCommand(Commands.move, clickPos));
                         }
