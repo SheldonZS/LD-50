@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class Hero : MonoBehaviour
     private DataBucket db;
     private DialogueBox diaBox;
     private DialogueManager DM;
+    private Text boneCountText;
+    private SpriteRenderer boneIcon;
 
     public float bardBuildMultiplier = 1f;
     public float bardMoveMultiplier = 1f;
@@ -67,6 +70,10 @@ public class Hero : MonoBehaviour
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
         diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
         DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
+        boneIcon = transform.GetChild(2).GetComponent<SpriteRenderer>();
+        boneCountText = transform.GetChild(3).GetChild(0).GetComponent<Text>();
+
+        UpdateBoneUI();
     }
 
     // Update is called once per frame
@@ -98,6 +105,8 @@ public class Hero : MonoBehaviour
                 RTSC.bones += bonesCarried;
                 bonesCarried = 0;
                 RTSC.UpdateButtons();
+                UpdateBoneUI();
+
 
             }
 
@@ -245,6 +254,26 @@ public class Hero : MonoBehaviour
     public void PickUpBones(int x)
     {
         bonesCarried += x;
+        UpdateBoneUI();
+
+        switch (this.name)
+        {
+            case "Raol":
+                DM.PlayRandom(DM.bonePickUp_R);
+                break;
+            case "Balthasar":
+                DM.PlayRandom(DM.bonePickUp_B);
+                break;
+            case "Thob":
+                DM.PlayRandom(DM.bonePickUp_T);
+                break;
+            case "Jolie":
+                DM.PlayRandom(DM.bonePickUp_J);
+                break;
+            default:
+                break;
+        }
+
     }
 
     private void ExecuteCommand()
@@ -762,7 +791,20 @@ public class Hero : MonoBehaviour
         }//switch depending on character that is dying
     }
 
-
+    void UpdateBoneUI()
+    {
+        if (bonesCarried == 0)
+        {
+            boneIcon.enabled = false;
+            boneCountText.enabled = false;
+        }
+        else
+        {
+            boneIcon.enabled = true;
+            boneCountText.text = bonesCarried.ToString();
+            boneCountText.enabled = true;
+        }
+    }
     void ShowText(List<string> storyText, TextMode mode)
     {
         StartCoroutine(diaBox.PlayText(storyText, mode));
