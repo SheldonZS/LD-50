@@ -17,4 +17,9 @@ public class Hurtbox : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public void EndAttack()
+    {
+        GetComponent<Animator>().SetBool("attack", false);
+    }
 }
