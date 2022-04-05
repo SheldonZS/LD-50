@@ -375,6 +375,7 @@ public class Hero : MonoBehaviour
                     TowerBase newTower = Instantiate(towers[0], RTSC.gridAnchor).GetComponent<TowerBase>();
                     newTower.transform.localPosition = command.location;
                     newTower.builder = this;
+                    newTower.attackPrefabs = (GameObject[]) attackPrefabs.Clone();
                     newTower.SetHealth(1);
                     RTSC.bones -= newTower.buildCost;
                     UpdateBoneUI();

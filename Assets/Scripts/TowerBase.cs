@@ -37,7 +37,7 @@ public class TowerBase : MonoBehaviour
     private DialogueBox diaBox;
     private DialogueManager DM;
     private AudioSource SFX;
-    private GameObject[] attackPrefabs;
+    public GameObject[] attackPrefabs;
 
     // Start is called before the first frame update
     void Awake()
@@ -51,7 +51,6 @@ public class TowerBase : MonoBehaviour
         diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
         DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
-
         Debug.Log(this.name);
     }
 
@@ -242,16 +241,15 @@ public class TowerBase : MonoBehaviour
         if (target == null)
             return;
 
-        //ProjectileController bolt = Instantiate(attackPrefabs[0], RTSController.instance.gridAnchor).GetComponent<ProjectileController>();
-
-        if (upgraded) GetComponentInChildren<Animator>().SetBool("upgraded", true);
+        GameObject swordSwipe = Instantiate(attackPrefabs[upgraded?1:0], transform.GetChild(1));
+        swordSwipe.transform.localPosition = Vector3.zero;
+            //ProjectileController bolt = .GetComponent<ProjectileController>();
 
         Vector2 direction = target.transform.localPosition - transform.localPosition;
-        turret = transform.GetChild(1).gameObject;
+        transform.GetChild(1).eulerAngles = Vector3.back * (DirectionToAngle(direction) - (upgraded?90:45));
 
-        turret.transform.eulerAngles = Vector3.back * (DirectionToAngle(direction) - (upgraded?90:45));
+        swordSwipe.GetComponent<Hurtbox>().damage = damage;
 
-        GetComponentInChildren<Animator>().SetBool("attack", true);
         cooldown = attackCooldown;
 
     }
