@@ -17,7 +17,7 @@ public class DialogueBox : MonoBehaviour
     private SceneController SceneController;
     private WaveManager wm;
     private Hero raol, balthasar, thob, jolie;
-    private AudioSource wordPop;
+    private AudioSource BGM;
 
     public Color normalText, choiceText, highlightedChoiceText, selectedChoiceText, disabledChoiceText;
     public int margins = 5;
@@ -52,7 +52,7 @@ public class DialogueBox : MonoBehaviour
         testText = GameObject.Find("TestText").GetComponent<Text>();
         SceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
-        wordPop = GameObject.Find("TextWindow").GetComponent<AudioSource>();
+        BGM = GameObject.Find("BGM").GetComponent<AudioSource>();
 
         if (SceneManager.GetActiveScene().name == "Ending")
         {
@@ -278,6 +278,9 @@ public class DialogueBox : MonoBehaviour
                 }
 
                 Time.timeScale = 1;
+                BGM.clip = Resources.Load<AudioClip>("BGM/#50_GameLoop_Combined");
+                BGM.Play();
+                BGM.loop = true;
             }
 
             else if (speakerAlive) //creates a new line (clone)
@@ -478,7 +481,6 @@ public class DialogueBox : MonoBehaviour
         }//displaying multiple lines of dialogue
 
         displayingText = false;
-        wordPop.Stop();
 
         yield return null;
 

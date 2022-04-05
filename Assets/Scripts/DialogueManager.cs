@@ -153,8 +153,7 @@ public class DialogueManager : MonoBehaviour
         InitializeAllStories();
         StartCoroutine(diaBox.PlayText(intro, TextMode.imm));
 
-        GameObject.Find("BGM").GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("BGM/#50_GameLoop_Combined");
-        GameObject.Find("BGM").GetComponent<AudioSource>().Play();
+        
 
     }
 

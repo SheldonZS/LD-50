@@ -5,9 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    public static SceneController instance = null;
+
+    private MusicLooper musicLooper;
+
+    private void Awake()
+    {
+        musicLooper = GameObject.Find("BGM").GetComponent<MusicLooper>();
+
+    }
+
+    private void Start()
+    {
+
+    }
+
     public void onClickStart()
     {
+
         SceneManager.LoadScene("RTS");
+
     }
 
     public void onClickCredits()
@@ -23,6 +40,15 @@ public class SceneController : MonoBehaviour
     public void onClickTitle()
     {
         SceneManager.LoadScene("Title");
+        if (SceneManager.GetActiveScene().name == "Ending" || SceneManager.GetActiveScene().name == "RTS")
+        {
+            AudioSource bgm = musicLooper.bgm;
+
+            if (bgm.clip.ToString() != "#50_MenuLoop (UnityEngine.AudioClip)")
+            {
+                musicLooper.PlayMenuLoop();
+            }
+        }
     }
 
     public void onClickBios()
@@ -32,6 +58,15 @@ public class SceneController : MonoBehaviour
 
     public void onClickEnding()
     {
+        if (SceneManager.GetActiveScene().name != "Title")
+        {
+            musicLooper.bgm.Stop();
+        }
         SceneManager.LoadScene("Ending");
+    }
+
+    public void onClickQuit()
+    {
+        Application.Quit();
     }
 }

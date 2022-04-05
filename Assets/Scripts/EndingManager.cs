@@ -16,7 +16,8 @@ public class EndingManager : MonoBehaviour
     List<string> endStory_T;
     List<string> endStory_J;
 
-    // Start is called before the first frame update
+    private bool endingRevealed;
+
     void Awake()
     {
         db = GameObject.Find("DataBucket").GetComponent<DataBucket>();
@@ -29,7 +30,6 @@ public class EndingManager : MonoBehaviour
 
     private void Start()
     {
-        bgm.Stop();
 
         endStory_R = new List<string>();
         endStory_B = new List<string>();
@@ -37,6 +37,8 @@ public class EndingManager : MonoBehaviour
         endStory_J = new List<string>();
 
         InitializeEndings();
+
+        Time.timeScale = 1;
 
         PlayEnding();
     }
@@ -160,13 +162,18 @@ public class EndingManager : MonoBehaviour
     }
     public IEnumerator RevealEnding()
     {
-        bgm.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_GameOver"));
-        for (float i = 0; i <= 1; i += Time.deltaTime)
+        if (!endingRevealed)
         {
-            // set color with i as alpha
-            endingImage.color = new Color(1, 1, 1, i);
-            yield return null;
+            bgm.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_GameOver"));
+            for (float i = 0; i <= 1; i += Time.deltaTime)
+            {
+                // set color with i as alpha
+                endingImage.color = new Color(1, 1, 1, i);
+                yield return null;
+            }
+            endingRevealed = true;
         }
+
     }
 
     void InitializeEndings()

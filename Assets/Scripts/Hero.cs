@@ -26,7 +26,7 @@ public class Hero : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D collider;
     private RTSController RTSC;
-    private AudioSource SFX, SFXLoop;
+    public AudioSource SFX, SFXLoop, BGM;
     private SpriteRenderer renderer;
 
     private float repairDecimal;
@@ -63,7 +63,8 @@ public class Hero : MonoBehaviour
 
         RTSC = GetComponentInParent<RTSController>();
         SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
-        SFXLoop = this.GetComponent<AudioSource>();
+        SFXLoop = GameObject.Find("SFXLoop").GetComponent<AudioSource>();
+        BGM = GameObject.Find("BGM").GetComponent<AudioSource>();
 
         commands = new List<HeroCommand>();
         health = maxHealth;
@@ -113,8 +114,9 @@ public class Hero : MonoBehaviour
                 return;
             }
 
-            if (collider.IsTouching(RTSC.homeBase))
+            if (collider.IsTouching(RTSC.homeBase) && RTSC.home.health > 0 && bonesCarried > 0)
             {
+
                 RTSC.bones += bonesCarried;
                 bonesCarried = 0;
                 RTSC.UpdateButtons();
@@ -149,7 +151,6 @@ public class Hero : MonoBehaviour
                     animator.SetInteger("animation", (int)CharacterAnimation.move);
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                     manualMove = true;
-                    this.GetComponent<AudioSource>().Play();
 
                 }
 
@@ -171,7 +172,7 @@ public class Hero : MonoBehaviour
                     {
                         commands.Clear();
                         rb.velocity = Vector2.zero;
-                        this.GetComponent<AudioSource>().Stop();
+                        
                     }
 
                     commands.Add(new HeroCommand(Commands.move, clickPos));
@@ -317,13 +318,11 @@ public class Hero : MonoBehaviour
                 {
                     transform.localPosition = command.location;
                     rb.velocity = Vector2.zero;
-                    this.GetComponent<AudioSource>().Play();
                     return true;
                 }
                 else
                 {
                     rb.velocity = movement.normalized * moveSpeed * bardMoveMultiplier;
-                    this.GetComponent<AudioSource>().Stop();
                     return false;
                 }
 
@@ -394,13 +393,11 @@ public class Hero : MonoBehaviour
 
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
-                    this.GetComponent<AudioSource>().Play();
                     return false;
                 }
 
             case Commands.buildToMax:
                 rb.velocity = Vector2.zero;
-                this.GetComponent<AudioSource>().Stop();
 
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
@@ -464,6 +461,9 @@ public class Hero : MonoBehaviour
                             ShowText(DM.tutorial3, TextMode.imm);
                             db.tutorialMode++;
                         }
+
+                        SFXLoop.Stop();
+
                         switch (this.name)
                         {
                             case "Raol":
@@ -538,14 +538,12 @@ public class Hero : MonoBehaviour
 
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
-                    this.GetComponent<AudioSource>().Play();
 
                 }
                 return false;
 
             case Commands.repair:
                 rb.velocity = Vector2.zero;
-                this.GetComponent<AudioSource>().Stop();
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
@@ -603,14 +601,12 @@ public class Hero : MonoBehaviour
 
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
-                    this.GetComponent<AudioSource>().Play();
 
                 }
                 return false;
 
             case Commands.upgrade:
                 rb.velocity = Vector2.zero;
-                this.GetComponent<AudioSource>().Stop();
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
@@ -722,7 +718,6 @@ public class Hero : MonoBehaviour
 
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
-                    this.GetComponent<AudioSource>().Play();
 
                 }
                 return false;
@@ -731,7 +726,6 @@ public class Hero : MonoBehaviour
                 animator.SetInteger("animation", (int)CharacterAnimation.idle);
 
                 rb.velocity = Vector2.zero;
-                this.GetComponent<AudioSource>().Stop();
                 return false;
         }
 
@@ -814,6 +808,9 @@ public class Hero : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
             Destroy(transform.GetChild(i).gameObject);
 
+        BGM.loop = false;
+        SFXLoop.Stop();
+
 
         foreach (GameObject hero in RTSC.heroes)
         {
@@ -824,7 +821,8 @@ public class Hero : MonoBehaviour
         {
             case "Raol":
                 //play character death anim
-                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathRanger"));
+                BGM.clip = Resources.Load<AudioClip>("BGM/#50_DeathRanger");
+                BGM.Play();
                 Debug.Log(RTSC.heroes.Count);
                 switch (RTSC.heroes.Count)
                 {
@@ -846,7 +844,8 @@ public class Hero : MonoBehaviour
                 break;
             case "Balthasar":
                 //play character death anim
-                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathWizard"));
+                BGM.clip = (Resources.Load<AudioClip>("BGM/#50_DeathWizard"));
+                BGM.Play();
 
                 switch (lifeCount)
                 {
@@ -868,7 +867,8 @@ public class Hero : MonoBehaviour
                 break;
             case "Thob":
                 //play character death anim
-                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathBard"));
+                BGM.clip = (Resources.Load<AudioClip>("BGM/#50_DeathBard"));
+                BGM.Play();
 
 
                 switch (lifeCount)
@@ -891,7 +891,8 @@ public class Hero : MonoBehaviour
                 break;
             case "Jolie":
                 //play character death anim
-                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathFighter"));
+                BGM.clip = (Resources.Load<AudioClip>("BGM/#50_DeathFighter"));
+                BGM.Play();
 
                 switch (lifeCount)
                 {

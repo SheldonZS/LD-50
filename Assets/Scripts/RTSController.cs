@@ -33,12 +33,15 @@ public class RTSController : MonoBehaviour
     public DataBucket db { get; private set; }
     //public CursorCollider mouseOver { get; private set; }
     public WaveManager wave { get; private set; }
+    public MusicLooper musicLooper { get; private set; }
 
     public bool raol_alive = true;
     public bool bal_alive = true;
     public bool thob_alive = true;
     public bool jolie_alive = true;
     public bool base_intact = true;
+
+    public TowerBase home; 
 
     // Start is called before the first frame update
 
@@ -69,11 +72,21 @@ public class RTSController : MonoBehaviour
         repairButton = GameObject.Find("Repair").GetComponent<Button>();
         upgradeButton = GameObject.Find("Upgrade").GetComponent<Button>();
         wave = GetComponent<WaveManager>();
+        musicLooper = GameObject.Find("BGM").GetComponent<MusicLooper>();
         //mouseOver = GameObject.Find("MouseOver").GetComponent<CursorCollider>();
     }
 
     private void Start()
     {
+        
+        AudioClip song = Resources.Load<AudioClip>("BGM/#50_GameLoop_Combined");
+        musicLooper.bgm.Stop();
+        musicLooper.bgm.clip = song;
+        musicLooper.bgm.volume = 0f;
+        musicLooper.bgm.Play();
+        StartCoroutine(musicLooper.StartFade(5f, .5f));
+
+
         raol_alive = true;
         bal_alive = true;
         thob_alive = true;
@@ -83,7 +96,7 @@ public class RTSController : MonoBehaviour
         bones = db.debugMode? 9999 : 200;
         ResetButtons();
 
-        TowerBase home = homeBase.GetComponent<TowerBase>();
+        home = homeBase.GetComponent<TowerBase>();
         home.SetHealth(home.maxHealth);
 
     }
