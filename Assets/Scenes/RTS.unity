@@ -3613,6 +3613,7 @@ MonoBehaviour:
   - minHealth: 0
     image: {fileID: 7967172216592625991, guid: d34e4374ca3469d46a437af343c0c7fc, type: 3}
   turret: {fileID: 0}
+  attackPrefabs: []
 --- !u!212 &1266331563
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4195,9 +4196,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
         type: 3}
+      propertyPath: towers.Array.data[0]
+      value: 
+      objectReference: {fileID: 8834848687929935486, guid: c6735796af4755d4da968bd83e5d0122,
+        type: 3}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: attackPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
       propertyPath: attackPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 5367939558161253185, guid: bcc1c625c3e71284daaf5cf64c68d562,
+      objectReference: {fileID: 2527007670242326790, guid: 44aea82d5cadefc4ba91289497f2a414,
+        type: 3}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: attackPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 4022080487255336520, guid: e55aba8324f062d4888c0e30f5295f4d,
         type: 3}
     - target: {fileID: 4038786752953339034, guid: 8651f22933af0db48bcf39703e54ac6c,
         type: 3}
@@ -5301,6 +5319,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6653499738708659768, guid: 1163800086d830442965acabb443142a,
+        type: 3}
+      propertyPath: debugMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6653499738708659769, guid: 1163800086d830442965acabb443142a,
         type: 3}
       propertyPath: m_RootOrder
