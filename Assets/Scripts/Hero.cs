@@ -15,6 +15,7 @@ public class Hero : MonoBehaviour
     public float moveSpeed = 200f;
     public float buildSpeedMultiplier = 1f;
 
+    public GameObject dustcloud;
     public GameObject[] towers;
     public GameObject[] attackPrefabs;
 
@@ -26,6 +27,7 @@ public class Hero : MonoBehaviour
     private BoxCollider2D collider;
     private RTSController RTSC;
     private AudioSource SFX, SFXLoop;
+    private SpriteRenderer renderer;
 
     private float repairDecimal;
     private TowerBase repairTower;
@@ -57,6 +59,7 @@ public class Hero : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
+        renderer = GetComponent<SpriteRenderer>();
 
         RTSC = GetComponentInParent<RTSController>();
         SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
@@ -87,7 +90,11 @@ public class Hero : MonoBehaviour
             return;
         //
 
-   
+        if (rb.velocity.x > 0)
+            renderer.flipX = true;
+        else if (rb.velocity.x < 0)
+            renderer.flipX = false;
+
 
         if ((db.tutorialMode >=2 && this.name == "Raol") || db.tutorialMode >= 4)
         {
@@ -139,6 +146,7 @@ public class Hero : MonoBehaviour
                     if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) direction.y -= 1;
                     if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) direction.x += 1;
 
+                    animator.SetInteger("animation", (int)CharacterAnimation.move);
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                     manualMove = true;
                     this.GetComponent<AudioSource>().Play();
@@ -371,6 +379,10 @@ public class Hero : MonoBehaviour
                     newTower.SetHealth(1);
                     RTSC.bones -= newTower.buildCost;
                     UpdateBoneUI();
+
+                    GameObject dustEffect = Instantiate(dustcloud, newTower.transform);
+                    dustEffect.transform.localPosition = Vector3.zero + Vector3.back;
+
                     commands[0] = new HeroCommand(Commands.buildToMax, command.location, newTower.gameObject);
 
                     RTSC.Reset();
@@ -394,6 +406,7 @@ public class Hero : MonoBehaviour
                 if (repairTower == null || repairTower.health <= 0)
                 {
                     //RTSC.Say(this, "No tower here");
+                    building = false;
                     repairDecimal = 0;
                     return true;
                 }
@@ -948,6 +961,11 @@ public class Hero : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void DestoySelf()
+    {
+        Destroy(gameObject);
     }
 }
 

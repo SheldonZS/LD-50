@@ -39,6 +39,16 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q) && DataBucket.instance.debugMode)
+            StartNextWave();
+
+        if (currentWave == 0)
+            return;
+
+        if (RTSC.gridAnchor.GetComponentsInChildren<MonsterBase>().Length == 0 && waveFinished)
+        {
+            WaveDefeated();
+        }
         /*if (Input.GetKeyDown(KeyCode.M))
         {
             int rand = Random.Range(0, spawners.Length);
@@ -46,9 +56,6 @@ public class WaveManager : MonoBehaviour
             monster.SetSpawn(spawners[rand]);
         }
         */
-
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //StartNextWave();
 
         if (waveFinished)
             return;

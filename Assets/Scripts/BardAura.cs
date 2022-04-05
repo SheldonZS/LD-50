@@ -9,11 +9,18 @@ public class BardAura : MonoBehaviour
     public float hasteMoveMultiplier = 1.2f;
     public float hasteBuildMultiplier = 1.2f;
 
+    public float SpinDegreesPerSecond;
+
     private TowerBase tower;
 
     private void Start()
     {
         tower = GetComponentInParent<TowerBase>();   
+    }
+
+    private void Update()
+    {
+        transform.eulerAngles += Vector3.forward * SpinDegreesPerSecond * Time.deltaTime;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

@@ -37,6 +37,7 @@ public class TowerBase : MonoBehaviour
     private DialogueBox diaBox;
     private DialogueManager DM;
     private AudioSource SFX;
+    private GameObject[] attackPrefabs;
 
     // Start is called before the first frame update
     void Awake()
@@ -50,6 +51,8 @@ public class TowerBase : MonoBehaviour
         diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
         DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
+
+        attackPrefabs = (GameObject[]) builder.attackPrefabs.Clone();
     }
 
     private void Update()
@@ -126,6 +129,9 @@ public class TowerBase : MonoBehaviour
 
         if (health <= 0)
         {
+            gameObject.tag = "Obstacle";
+            gameObject.layer = 0;
+
             operational = false;
             if (builder != null)
             {
@@ -140,6 +146,7 @@ public class TowerBase : MonoBehaviour
                 gameObject.tag = "Obstacle";
                 gameObject.layer = 0;
                 diaBox.PlayText(DM.homeRuined, TextMode.queue);
+                //text when base is destroyed
             }
         }
     }
@@ -176,7 +183,7 @@ public class TowerBase : MonoBehaviour
         if (target == null)
             return;
 
-        ProjectileController arrow = Instantiate(builder.attackPrefabs[0], RTSController.instance.gridAnchor).GetComponent<ProjectileController>();
+        ProjectileController arrow = Instantiate(attackPrefabs[0], RTSController.instance.gridAnchor).GetComponent<ProjectileController>();
         arrow.transform.localPosition = transform.localPosition + Vector3.up * 0.5f;
 
         Vector2 direction = target.transform.localPosition - transform.localPosition;
@@ -195,12 +202,12 @@ public class TowerBase : MonoBehaviour
         if (target == null)
             return;
 
-        ProjectileController bolt = Instantiate(builder.attackPrefabs[0], RTSController.instance.gridAnchor).GetComponent<ProjectileController>();
+        ProjectileController bolt = Instantiate(attackPrefabs[0], RTSController.instance.gridAnchor).GetComponent<ProjectileController>();
         
         if(upgraded)
         {
             bolt.GetComponent<Collider2D>().enabled = false;
-            bolt.SetEndEffect(builder.attackPrefabs[1]);
+            bolt.SetEndEffect(attackPrefabs[1]);
         }
         bolt.transform.localPosition = transform.localPosition + Vector3.up * 0.5f;
 
