@@ -825,19 +825,19 @@ public class Hero : MonoBehaviour
             case "Raol":
                 //play character death anim
                 SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathRanger"));
-
-                switch (lifeCount)
+                Debug.Log(RTSC.heroes.Count);
+                switch (RTSC.heroes.Count)
                 {
-                    case 4:
+                    case 3:
                         ShowText(DM.firstDeath_R, TextMode.imm);
                         break;
-                    case 3:
+                    case 2:
                         ShowText(DM.secondDeath_R, TextMode.imm);
                         break;
-                    case 2:
+                    case 1:
                         ShowText(DM.thirdDeath_R, TextMode.imm);
                         break;
-                    case 1:
+                    case 0:
                         ShowText(DM.lastDeath_R, TextMode.imm);
                         db.data.ending = EndingCode.Raol;
                         db.raolUnlocked = true;
@@ -850,16 +850,16 @@ public class Hero : MonoBehaviour
 
                 switch (lifeCount)
                 {
-                    case 4:
+                    case 3:
                         ShowText(DM.firstDeath_B, TextMode.imm);
                         break;
-                    case 3:
+                    case 2:
                         ShowText(DM.secondDeath_B, TextMode.imm);
                         break;
-                    case 2:
+                    case 1:
                         ShowText(DM.thirdDeath_B, TextMode.imm);
                         break;
-                    case 1:
+                    case 0:
                         ShowText(DM.lastDeath_B, TextMode.imm);
                         db.data.ending = EndingCode.Bal;
                         db.balUnlocked = true;
@@ -873,16 +873,16 @@ public class Hero : MonoBehaviour
 
                 switch (lifeCount)
                 {
-                    case 4:
+                    case 3:
                         ShowText(DM.firstDeath_T, TextMode.imm);
                         break;
-                    case 3:
+                    case 2:
                         ShowText(DM.secondDeath_T, TextMode.imm);
                         break;
-                    case 2:
+                    case 1:
                         ShowText(DM.thirdDeath_T, TextMode.imm);
                         break;
-                    case 1:
+                    case 0:
                         ShowText(DM.lastDeath_T, TextMode.imm);
                         db.data.ending = EndingCode.Thob;
                         db.thobUnlocked = true;
@@ -895,16 +895,16 @@ public class Hero : MonoBehaviour
 
                 switch (lifeCount)
                 {
-                    case 4:
+                    case 3:
                         ShowText(DM.firstDeath_J, TextMode.imm);
                         break;
-                    case 3:
+                    case 2:
                         ShowText(DM.secondDeath_J, TextMode.imm);
                         break;
-                    case 2:
+                    case 1:
                         ShowText(DM.thirdDeath_J, TextMode.imm);
                         break;
-                    case 1:
+                    case 0:
                         ShowText(DM.lastDeath_J, TextMode.imm);
                         db.data.ending = EndingCode.Jolie;
                         db.jolieUnlocked = true;

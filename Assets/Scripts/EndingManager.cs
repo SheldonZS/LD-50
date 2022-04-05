@@ -38,7 +38,7 @@ public class EndingManager : MonoBehaviour
 
         InitializeEndings();
 
-
+        db.data.ending = EndingCode.Bal;
         PlayEnding();
     }
 

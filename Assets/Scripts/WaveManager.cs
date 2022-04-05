@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
@@ -21,12 +22,14 @@ public class WaveManager : MonoBehaviour
     private RTSController RTSC;
     private DialogueBox diaBox;
     private DialogueManager DM;
+    private Text waveText;
 
     private void Awake()
     {
         RTSC = GetComponentInParent<RTSController>();
         diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
         DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
+        waveText = GameObject.Find("waveText").GetComponent<Text>();
 
     }
     // Start is called before the first frame update
@@ -129,6 +132,7 @@ public class WaveManager : MonoBehaviour
         waveStartTime = Time.time + delay;
         waveFinished = false;
         currentWave++;
+        waveText.text = "Wave: " + currentWave;
         spawnedThisWave = 0;
 
         switch (currentWave)
