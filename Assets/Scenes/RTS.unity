@@ -4072,6 +4072,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
         type: 3}
+      propertyPath: towers.Array.data[0]
+      value: 
+      objectReference: {fileID: 8834848687929935486, guid: c6735796af4755d4da968bd83e5d0122,
+        type: 3}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
       propertyPath: attackPrefabs.Array.data[0]
       value: 
       objectReference: {fileID: 5367939558161253185, guid: bcc1c625c3e71284daaf5cf64c68d562,
