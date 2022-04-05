@@ -25,7 +25,6 @@ public class BioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        db.data.ending = EndingCode.Bal;
 
         if (db.data.ending == EndingCode.none)
         {
@@ -116,12 +115,11 @@ public class BioManager : MonoBehaviour
             case "jaden":
                 bioText.color = new Color(136f / 255f, 197f / 255f, 68f / 255f, 128f);
                 bioText.text = "Name: Jaden Highhill" +
-                    "\nAge:" +
+
                     "\nRace/Class: Halfling Arcane Trickster" +
-                    "\nAlignment: " +
-                    "\n\nBackstory: " +
+
                     "\n\nPlayer: Sheldon";
-                bioText.text += "\n\nInevitable Fate: ";
+                bioText.text += "\n\nInevitable Fate: Having Bio filled out after game jam.";
                 break;
             default:
                 Debug.Log("not a character");

@@ -283,6 +283,21 @@ public class RTSController : MonoBehaviour
             {
                 buildErrorText.text = "Aura Slows Monsters & Speeds Heroes";
             }
+            else if (selected.name == "Jolie")
+            {
+                buildErrorText.text = "Copies Raol Because She's Tired";
+
+            }
+            else if (selected.name == "Raol")
+            {
+                buildErrorText.text = "Shoots Arrows";
+
+            }
+            else if (selected.name == "Thob")
+            {
+                buildErrorText.text = "Tosses Wild Magic";
+
+            }
 
             buildButton.enabled = true;
         }

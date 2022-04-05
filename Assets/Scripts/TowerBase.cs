@@ -36,6 +36,7 @@ public class TowerBase : MonoBehaviour
 
     private DialogueBox diaBox;
     private DialogueManager DM;
+    private AudioSource SFX;
     private GameObject[] attackPrefabs;
 
     // Start is called before the first frame update
@@ -49,6 +50,7 @@ public class TowerBase : MonoBehaviour
 
         diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
         DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
+        SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
 
         attackPrefabs = (GameObject[]) builder.attackPrefabs.Clone();
     }
@@ -110,13 +112,16 @@ public class TowerBase : MonoBehaviour
         health = Mathf.Clamp(health, 0, maxHealth);
         healthBar.UpdateHealth(health);
 
+        SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_TowerHit"));
+
+
         foreach (TowerDamage state in (upgraded ? upgradedDamageImages : damageImages))
         {
             //Debug.Log("Checking if health (" + health + ") >= " + state.minHealth);
             
             if (health >= state.minHealth)
             {
-                
+                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_TowerCrumbles"));
                 sr.sprite = state.image;
                 break;
             }
@@ -130,13 +135,17 @@ public class TowerBase : MonoBehaviour
             operational = false;
             if (builder != null)
             {
-                //builder.PlayRuinText();
-                diaBox.PlayText(DM.homeRuined, TextMode.queue);
+                builder.PlayRuinText();
+                SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_TowerDestroyed"));
+
             }
  
             else
             {
                 RTSController.instance.base_intact = false;
+                gameObject.tag = "Obstacle";
+                gameObject.layer = 0;
+                diaBox.PlayText(DM.homeRuined, TextMode.queue);
                 //text when base is destroyed
             }
         }

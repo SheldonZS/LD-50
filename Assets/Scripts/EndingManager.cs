@@ -38,7 +38,6 @@ public class EndingManager : MonoBehaviour
 
         InitializeEndings();
 
-        db.raolUnlocked = true;
 
         PlayEnding();
     }

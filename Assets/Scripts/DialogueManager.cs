@@ -239,6 +239,7 @@ public class DialogueManager : MonoBehaviour
     {
         //these first conversations are assumed to only play when all characters are alive near the beginning of the game
         
+        /*
         intro.Add("Thob: Ah, the joys of retirement. Another day to work on my twenty-one movement lute sonata. Surrounded by friends.");
         intro.Add("Jolie: Zzz...");
         intro.Add("Thob: On the other hand, a nap does sound tempting...");
@@ -253,7 +254,7 @@ public class DialogueManager : MonoBehaviour
         intro.Add("Balthasar: Marvelous!");
         intro.Add("Thob: No, Balthasar, that's bad. We must do something about this. Jolie? Jolie, wake up!");
         intro.Add("Jolie: Zzz...to defend...just...add towers...zzz...");
-        
+        */
         intro.Add("Tutorial: Select Raol, the hero in the top left corner of the retirement home.");
         intro.Add("incrementTutorial");
 
@@ -518,7 +519,7 @@ public class DialogueManager : MonoBehaviour
         bonePickUp_R.Add("Raol: Those bones must smell terrible, but I've lost my sense of smell.");
         bonePickUp_R.Add("Raol: Better take these to get processed.");
         bonePickUp_R.Add("Raol: These bones won't process themselves.");
-        bonePickUp_R.Add("Raol: I’ll be sure to put aside some of these for you, Kol Kol.");
+        bonePickUp_R.Add("Raol: Iï¿½ll be sure to put aside some of these for you, Kol Kol.");
         bonePickUp_R.Add("Raol: I wish I had all those bones I buried in my backyard now.");
         bonePickUp_R.Add("Raol: Mother Moon, a humble offering to you...");
         
@@ -567,7 +568,7 @@ public class DialogueManager : MonoBehaviour
         towerBuilt_J.Add("Jolie: Did we really need another one of these?");
         towerBuilt_J.Add("Jolie: I'd like to go to bed now.");
         towerBuilt_J.Add("Jolie: I thought coming to the retirement home meant no more work.");
-        towerBuilt_J.Add("Jolie: Why yes, I am a Die-IY person. It’s a pun on DIY person, I came up with it by myself.");
+        towerBuilt_J.Add("Jolie: Why yes, I am a Die-IY person. Itï¿½s a pun on DIY person, I came up with it by myself.");
 
         towerUpgrade_R.Add("Raol: A moon as full as my heart.");
         towerUpgrade_R.Add("Raol: Let's see what the gods think about this.");
@@ -579,7 +580,7 @@ public class DialogueManager : MonoBehaviour
         towerUpgrade_B.Add("Balthasar: Finally, somewhere worthy to cache my tank ammunition, since I seem to have misplaced my tank.");
         towerUpgrade_B.Add("Balthasar: The exterior may seem overly convoluted, but I promise it is architecturally sound.");
         towerUpgrade_B.Add("Balthasar: Unlimited POWER!");
-        towerUpgrade_B.Add("Balthasar: How did I do it? It’s the power of the arcane arts. There is no necessity for further elucidation.");
+        towerUpgrade_B.Add("Balthasar: How did I do it? Itï¿½s the power of the arcane arts. There is no necessity for further elucidation.");
 
         towerUpgrade_T.Add("Thob: Such shiny gems!");
         towerUpgrade_T.Add("Thob: Another dwarven masterpiece.");
@@ -597,22 +598,22 @@ public class DialogueManager : MonoBehaviour
         towerRepair_J.Add("Jolie: Figure. They always forget to allocate resources for maintenance.");
         towerRepair_J.Add("Jolie: At least in the army, I was working for a reason. Or was I?");
         towerRepair_J.Add("Jolie: Finally I lay my sword to rest... Only to pick up a hammer.");
-        towerRepair_J.Add("Jolie: To be honest, I’m more used to breaking things with a hammer.");
+        towerRepair_J.Add("Jolie: To be honest, Iï¿½m more used to breaking things with a hammer.");
 
         towerRepair_R.Add("Raol: I...will...repair...until...the...moon...shines!");
         towerRepair_R.Add("Raol: I wonder what Kol Kol would think of me now.");
         towerRepair_R.Add("Raol: There are two ways to do this: my way and the wrong way.");
-        towerRepair_R.Add("Raol: If these parts were loose enough to fall out, they’ll also go back in if I hammer hard enough!");
-        towerRepair_R.Add("Raol: I made it myself, so ain’t nobody gonna tell me how to fix it!");
+        towerRepair_R.Add("Raol: If these parts were loose enough to fall out, theyï¿½ll also go back in if I hammer hard enough!");
+        towerRepair_R.Add("Raol: I made it myself, so ainï¿½t nobody gonna tell me how to fix it!");
 
 
-        towerRepair_B.Add("Balthasar: With a wave of my finger and a flick of my wand, I hope it won’t explode, and make the harm undone!");
+        towerRepair_B.Add("Balthasar: With a wave of my finger and a flick of my wand, I hope it wonï¿½t explode, and make the harm undone!");
         towerRepair_B.Add("Balthasar:The structural integrity of this construction must be reinforced post-haste!");
         towerRepair_B.Add("Preventative maintenance is always superior to starting from nothing. I ought to know that by now.");
         towerRepair_B.Add(" Arise, my hammer! Descend, my hammer! Arise! This is much more fun when I speak the movements out loud.");
         towerRepair_B.Add("If I install a bone-processing machine in my tower, might it be able to automate its repairs?");
 
-        towerRepair_T.Add("Thob: Hi ho, hi ho, it’s off to work we go!");
+        towerRepair_T.Add("Thob: Hi ho, hi ho, itï¿½s off to work we go!");
         towerRepair_T.Add("Thob: This would be much easier if there were six more dwarves. They could work while I sing for them!");
         towerRepair_T.Add("Thob: No one will notice that the gem I embed here belongs to them, right?");
         towerRepair_T.Add("Thob: If a tree falls alone in the forest, I'm sad I didn't get to see it go.");
@@ -621,14 +622,14 @@ public class DialogueManager : MonoBehaviour
         towerFullRepair_J.Add("Jolie: Zzz...oh, is it done?");
         towerFullRepair_J.Add("Jolie: Why did I do this?");
         towerFullRepair_J.Add("Jolie: Huzzah. It is finished.");
-        towerFullRepair_J.Add("Jolie: Ugh. I’m so done with this.");
+        towerFullRepair_J.Add("Jolie: Ugh. Iï¿½m so done with this.");
         towerFullRepair_J.Add("Jolie: Mrs. Cooper reporting in, repairs completed. Finally.");
 
         towerFullRepair_R.Add("Raol: And keep your filthy hands off this shrine.");
         towerFullRepair_R.Add("Raol: There. That should keep them busy for a bit.");
         towerFullRepair_R.Add("Raol: My people know how to shove arrows where the moon don't shine.");
         towerFullRepair_R.Add("Raol: See? Better than new. Alpha males don't need instruction booklets.");
-        towerFullRepair_R.Add("Raol: All done! Couldn’t have done it better myself.");
+        towerFullRepair_R.Add("Raol: All done! Couldnï¿½t have done it better myself.");
 
         towerFullRepair_B.Add("Balthasar: As chaotic as new!");
         towerFullRepair_B.Add("Balthasar: More complex than its previous iteration!");
@@ -652,7 +653,7 @@ public class DialogueManager : MonoBehaviour
         waveStarted.Add("Balthasar: Maybe this will convince the head nurse of my proposal to install new safety measures to the retirement home.");
         waveStarted.Add("Thob: A one, and a two, and a one, two, three, four!");
         waveStarted.Add("Thob: Last time I had a crowd that wanted to get a hold of me this bad was over a century ago! Sadly.");
-        waveStarted.Add("Jolie: I remember fighting an endless horde once. Back then, I didn’t even need to draw my sword.");
+        waveStarted.Add("Jolie: I remember fighting an endless horde once. Back then, I didnï¿½t even need to draw my sword.");
         waveStarted.Add("Jolie: They seem endless. Just like my days waiting for the sweet embrace of death.");
 
         waveDefeated.Add("Raol: That's the last of them for now.");
@@ -661,7 +662,7 @@ public class DialogueManager : MonoBehaviour
         waveDefeated.Add("Thob: Drinks, anyone?");
         waveDefeated.Add("Raol: If only I had the time to track down where our enemies come from...");
         waveDefeated.Add("Raol: Mother Moon still watches over us, stay strong.");
-        waveDefeated.Add("Jolie: Don’t bother waking me up for the next round.");
+        waveDefeated.Add("Jolie: Donï¿½t bother waking me up for the next round.");
         waveDefeated.Add("Jolie: Even the army had more meaningful work to offer me than this nonsense.");
         waveDefeated.Add("Balthasar: Marvelous! This means we have time for me to regale you with another recollection of mine, and I know just the one for this occasion...");
 

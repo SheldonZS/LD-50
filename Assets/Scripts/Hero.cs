@@ -26,7 +26,7 @@ public class Hero : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D collider;
     private RTSController RTSC;
-    private AudioSource SFX;
+    private AudioSource SFX, SFXLoop;
     private SpriteRenderer renderer;
 
     private float repairDecimal;
@@ -63,6 +63,7 @@ public class Hero : MonoBehaviour
 
         RTSC = GetComponentInParent<RTSController>();
         SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
+        SFXLoop = this.GetComponent<AudioSource>();
 
         commands = new List<HeroCommand>();
         health = maxHealth;
@@ -148,9 +149,11 @@ public class Hero : MonoBehaviour
                     animator.SetInteger("animation", (int)CharacterAnimation.move);
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
                     manualMove = true;
+                    this.GetComponent<AudioSource>().Play();
+
                 }
 
-                
+
             }
             else if (Input.GetMouseButtonDown(1) && !building && !upgrading)
             {
@@ -168,6 +171,7 @@ public class Hero : MonoBehaviour
                     {
                         commands.Clear();
                         rb.velocity = Vector2.zero;
+                        this.GetComponent<AudioSource>().Stop();
                     }
 
                     commands.Add(new HeroCommand(Commands.move, clickPos));
@@ -313,11 +317,13 @@ public class Hero : MonoBehaviour
                 {
                     transform.localPosition = command.location;
                     rb.velocity = Vector2.zero;
+                    this.GetComponent<AudioSource>().Play();
                     return true;
                 }
                 else
                 {
                     rb.velocity = movement.normalized * moveSpeed * bardMoveMultiplier;
+                    this.GetComponent<AudioSource>().Stop();
                     return false;
                 }
 
@@ -364,12 +370,15 @@ public class Hero : MonoBehaviour
                     building = true;
                     RTSC.UpdateButtons();
 
-                    SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BuildingInProgress"));
+                    SFXLoop.clip = Resources.Load<AudioClip>("SFX/#50_BuildingInProgress");
+                    SFXLoop.Play();
 
                     TowerBase newTower = Instantiate(towers[0], RTSC.gridAnchor).GetComponent<TowerBase>();
                     newTower.transform.localPosition = command.location;
                     newTower.builder = this;
                     newTower.SetHealth(1);
+                    RTSC.bones -= newTower.buildCost;
+                    UpdateBoneUI();
 
                     GameObject dustEffect = Instantiate(dustcloud, newTower.transform);
                     dustEffect.transform.localPosition = Vector3.zero + Vector3.back;
@@ -385,11 +394,14 @@ public class Hero : MonoBehaviour
 
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
+                    this.GetComponent<AudioSource>().Play();
                     return false;
                 }
 
             case Commands.buildToMax:
                 rb.velocity = Vector2.zero;
+                this.GetComponent<AudioSource>().Stop();
+
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
@@ -412,8 +424,7 @@ public class Hero : MonoBehaviour
                         
                         repairDecimal = 0;
                         building = false;
-                        RTSC.bones -= repairTower.buildCost;
-                        UpdateBoneUI();
+
                         RTSC.UpdateButtons();
                         exp++;
                         exp = Mathf.Clamp(exp, 0, maxExp);
@@ -527,11 +538,14 @@ public class Hero : MonoBehaviour
 
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
+                    this.GetComponent<AudioSource>().Play();
+
                 }
                 return false;
 
             case Commands.repair:
                 rb.velocity = Vector2.zero;
+                this.GetComponent<AudioSource>().Stop();
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
@@ -545,8 +559,8 @@ public class Hero : MonoBehaviour
                     animator.SetInteger("animation", (int)CharacterAnimation.action);
 
                     repairing = true;
-                    SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BuildingInProgress"));
-
+                    SFXLoop.clip = Resources.Load<AudioClip>("SFX/#50_BuildingInProgress");
+                    SFXLoop.Play();
                     RTSC.UpdateButtons();
 
                     float repairAmount = (repairTower.maxHealth / repairTower.buildTime) * buildSpeedMultiplier * bardBuildMultiplier * Time.deltaTime + repairDecimal;
@@ -559,6 +573,7 @@ public class Hero : MonoBehaviour
                         repairDecimal = 0;
                         repairing = false;
                         RTSC.UpdateButtons();
+                        SFXLoop.Stop();
 
                         switch (this.name)
                         {
@@ -588,16 +603,20 @@ public class Hero : MonoBehaviour
 
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
+                    this.GetComponent<AudioSource>().Play();
+
                 }
                 return false;
 
             case Commands.upgrade:
                 rb.velocity = Vector2.zero;
+                this.GetComponent<AudioSource>().Stop();
                 repairTower = command.tower.GetComponent<TowerBase>();
                 if (repairTower == null || repairTower.health <= 0)
                 {
                     //RTSC.Say(this, "No tower here");
                     upgrading = false;
+                    SFXLoop.Stop();
                     return true;
                 }
 
@@ -621,7 +640,11 @@ public class Hero : MonoBehaviour
                         }
 
                         upgrading = true;
-                        SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_BuildingInProgress"));
+                        SFXLoop.clip = Resources.Load<AudioClip>("SFX/#50_BuildingInProgress");
+                        SFXLoop.Play();
+
+                        RTSC.bones -= repairTower.upgradeCost;
+                        UpdateBoneUI();
 
                         RTSC.UpdateButtons();
 
@@ -638,8 +661,9 @@ public class Hero : MonoBehaviour
                             //RTSC.Say(this, "Job's done!");
                             upgrading = false;
                             RTSC.UpdateButtons();
-                            RTSC.bones -= repairTower.upgradeCost;
-                            UpdateBoneUI();
+
+
+                            SFXLoop.Stop();
                             //if not upgraded before, play special text. otherwise, pick random
                             if (!firstUpgrade)
                             {
@@ -698,6 +722,8 @@ public class Hero : MonoBehaviour
 
                     Vector2 direction = command.location - (Vector2)transform.localPosition;
                     rb.velocity = direction.normalized * moveSpeed * bardMoveMultiplier;
+                    this.GetComponent<AudioSource>().Play();
+
                 }
                 return false;
             case Commands.idle:
@@ -705,6 +731,7 @@ public class Hero : MonoBehaviour
                 animator.SetInteger("animation", (int)CharacterAnimation.idle);
 
                 rb.velocity = Vector2.zero;
+                this.GetComponent<AudioSource>().Stop();
                 return false;
         }
 
@@ -797,7 +824,7 @@ public class Hero : MonoBehaviour
         {
             case "Raol":
                 //play character death anim
-                //play character death sound
+                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathRanger"));
 
                 switch (lifeCount)
                 {
@@ -819,7 +846,7 @@ public class Hero : MonoBehaviour
                 break;
             case "Balthasar":
                 //play character death anim
-                //play character death sound
+                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathWizard"));
 
                 switch (lifeCount)
                 {
@@ -841,7 +868,8 @@ public class Hero : MonoBehaviour
                 break;
             case "Thob":
                 //play character death anim
-                //play character death sound
+                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathBard"));
+
 
                 switch (lifeCount)
                 {
@@ -863,7 +891,7 @@ public class Hero : MonoBehaviour
                 break;
             case "Jolie":
                 //play character death anim
-                //play character death sound
+                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathFighter"));
 
                 switch (lifeCount)
                 {

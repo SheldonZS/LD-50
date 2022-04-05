@@ -199,7 +199,7 @@ public class DialogueBox : MonoBehaviour
 
             bool speakerAlive = true;
 
-            Debug.Log(words[index]);
+            //Debug.Log(words[index]);
 
             //Check if hero is alive unless in ending
             if (SceneManager.GetActiveScene().name != "Ending")
@@ -241,6 +241,7 @@ public class DialogueBox : MonoBehaviour
             {
                 db.tutorialMode++;
                 wm.StartNextWave();
+                StartCoroutine(wm.AutoWaves());
             }
             else if (words[index] == "endgame")
             {
@@ -249,7 +250,7 @@ public class DialogueBox : MonoBehaviour
             }
             else if(words[index] == "startWave")
             {
-                wm.StartNextWave(waveDelayAfterDialogue);
+                //wm.StartNextWave(waveDelayAfterDialogue);
             }
             else if (words[index].Split(':')[0] == "unpause")
             {
