@@ -230,7 +230,23 @@ public class TowerBase : MonoBehaviour
     //Fighters Towers
     public void JolieTower()
     {
-        RaolTower();
+        GameObject target = GetClosestMonster(range);
+
+        if (target == null)
+            return;
+
+        //ProjectileController bolt = Instantiate(attackPrefabs[0], RTSController.instance.gridAnchor).GetComponent<ProjectileController>();
+
+        if (upgraded) GetComponentInChildren<Animator>().SetBool("upgraded", true);
+
+        Vector2 direction = target.transform.localPosition - transform.localPosition;
+        turret = transform.GetChild(1).gameObject;
+
+        turret.transform.eulerAngles = Vector3.back * (DirectionToAngle(direction) - (upgraded?90:45));
+
+        GetComponentInChildren<Animator>().SetBool("attack", true);
+        cooldown = attackCooldown;
+
     }
 
     public float DirectionToAngle(Vector2 direction)
