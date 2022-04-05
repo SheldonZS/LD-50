@@ -52,9 +52,13 @@ public class TowerBase : MonoBehaviour
         DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
 
-        attackPrefabs = (GameObject[]) builder.attackPrefabs.Clone();
     }
 
+    private void Start()
+    {
+        attackPrefabs = (GameObject[])builder.attackPrefabs.Clone();
+
+    }
     private void Update()
     {
         if (builder == null || operational == false)

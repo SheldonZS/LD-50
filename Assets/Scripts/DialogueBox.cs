@@ -145,7 +145,7 @@ public class DialogueBox : MonoBehaviour
     public IEnumerator PlayText(List<string> story, TextMode mode)
     {
         Coroutine storyRoutine = null;
-         
+
         if (displayingText)
         {
             if (mode == TextMode.queue)

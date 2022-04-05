@@ -1573,7 +1573,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Wave: X'
+  m_Text: 'Wave: 0'
 --- !u!222 &433524338
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4272,6 +4272,12 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
+        type: 3}
+      propertyPath: towers.Array.data[0]
+      value: 
+      objectReference: {fileID: 8834848687929935486, guid: c6735796af4755d4da968bd83e5d0122,
+        type: 3}
     - target: {fileID: 2931191893161954699, guid: 8651f22933af0db48bcf39703e54ac6c,
         type: 3}
       propertyPath: attackPrefabs.Array.data[0]

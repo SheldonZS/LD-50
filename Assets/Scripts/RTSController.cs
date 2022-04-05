@@ -285,7 +285,7 @@ public class RTSController : MonoBehaviour
             }
             else if (selected.name == "Jolie")
             {
-                buildErrorText.text = "Copies Raol Because She's Tired";
+                buildErrorText.text = "Sword Turret";
 
             }
             else if (selected.name == "Raol")
