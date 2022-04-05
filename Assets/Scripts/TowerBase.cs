@@ -114,7 +114,7 @@ public class TowerBase : MonoBehaviour
 
         foreach (TowerDamage state in (upgraded ? upgradedDamageImages : damageImages))
         {
-            Debug.Log("Checking if health (" + health + ") >= " + state.minHealth);
+            //Debug.Log("Checking if health (" + health + ") >= " + state.minHealth);
             
             if (health >= state.minHealth)
             {

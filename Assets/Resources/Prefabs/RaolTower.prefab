@@ -315,7 +315,7 @@ MonoBehaviour:
   buildCost: 100
   buildTime: 10
   range: 4
-  damage: 10
+  damage: 7
   attackCooldown: 0.5
   upgradeMaxHealth: 200
   upgradeCost: 100

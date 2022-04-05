@@ -47,8 +47,8 @@ public class WaveManager : MonoBehaviour
         }
         */
 
-        if (Input.GetKeyDown(KeyCode.Q))
-            StartNextWave();
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //StartNextWave();
 
         if (waveFinished)
             return;
@@ -140,6 +140,17 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    public IEnumerator AutoWaves()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(30f);
+            StartNextWave();
+        }
+
+        
+    }
+
     public void SpawnMonster(RTSController rtsc, int spawner, Color color, float moveSpeed, int HP, int attack, float cooldown, int bones, MonsterMove moveType, MonsterAttack AttackType)
     {
         MonsterBase monster = Instantiate(monsterPrefab[0], gridAnchor).GetComponent<MonsterBase>();
@@ -168,7 +179,7 @@ public class WaveManager : MonoBehaviour
                 break;
             default:
                 DM.PlayRandomAlive(DM.waveDefeated, TextMode.queue);
-                StartNextWave(delayAfterWaveEnd);
+                //StartNextWave(delayAfterWaveEnd);
                 break;
         }
 

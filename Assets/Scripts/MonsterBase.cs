@@ -229,7 +229,7 @@ public class MonsterBase : MonoBehaviour
         else
         {
             //animator.SetInteger("animation", (int)CharacterAnimation.hurt);
-            SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_Enemy Death"));
+            SFX.PlayOneShot(Resources.Load<AudioClip>("SFX/#50_EnemyDeath"));
             Hurt();
         }
 
@@ -264,6 +264,7 @@ public class MonsterBase : MonoBehaviour
         animator.SetInteger("animation", (int)CharacterAnimation.dying);
         if (RTSC.gridAnchor.GetComponentsInChildren<MonsterBase>().Length == 1)
         {
+            Debug.Log("ever called");
             RTSC.wave.WaveDefeated();
         }
     }

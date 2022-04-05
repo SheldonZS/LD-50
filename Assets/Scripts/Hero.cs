@@ -369,7 +369,8 @@ public class Hero : MonoBehaviour
                     newTower.transform.localPosition = command.location;
                     newTower.builder = this;
                     newTower.SetHealth(1);
-
+                    RTSC.bones -= newTower.buildCost;
+                    UpdateBoneUI();
                     commands[0] = new HeroCommand(Commands.buildToMax, command.location, newTower.gameObject);
 
                     RTSC.Reset();
@@ -410,8 +411,7 @@ public class Hero : MonoBehaviour
                         
                         repairDecimal = 0;
                         building = false;
-                        RTSC.bones -= repairTower.buildCost;
-                        UpdateBoneUI();
+
                         RTSC.UpdateButtons();
                         exp++;
                         exp = Mathf.Clamp(exp, 0, maxExp);
@@ -630,6 +630,9 @@ public class Hero : MonoBehaviour
                         SFXLoop.clip = Resources.Load<AudioClip>("SFX/#50_BuildingInProgress");
                         SFXLoop.Play();
 
+                        RTSC.bones -= repairTower.upgradeCost;
+                        UpdateBoneUI();
+
                         RTSC.UpdateButtons();
 
                         upgradeStartTime = Time.time;
@@ -645,8 +648,7 @@ public class Hero : MonoBehaviour
                             //RTSC.Say(this, "Job's done!");
                             upgrading = false;
                             RTSC.UpdateButtons();
-                            RTSC.bones -= repairTower.upgradeCost;
-                            UpdateBoneUI();
+
 
                             SFXLoop.Stop();
                             //if not upgraded before, play special text. otherwise, pick random
@@ -809,7 +811,7 @@ public class Hero : MonoBehaviour
         {
             case "Raol":
                 //play character death anim
-                //play character death sound
+                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathRanger"));
 
                 switch (lifeCount)
                 {
@@ -831,7 +833,7 @@ public class Hero : MonoBehaviour
                 break;
             case "Balthasar":
                 //play character death anim
-                //play character death sound
+                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathWizard"));
 
                 switch (lifeCount)
                 {
@@ -853,7 +855,8 @@ public class Hero : MonoBehaviour
                 break;
             case "Thob":
                 //play character death anim
-                //play character death sound
+                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathBard"));
+
 
                 switch (lifeCount)
                 {
@@ -875,7 +878,7 @@ public class Hero : MonoBehaviour
                 break;
             case "Jolie":
                 //play character death anim
-                //play character death sound
+                SFX.PlayOneShot(Resources.Load<AudioClip>("BGM/#50_DeathFighter"));
 
                 switch (lifeCount)
                 {

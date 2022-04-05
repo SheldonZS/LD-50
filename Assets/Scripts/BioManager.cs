@@ -25,7 +25,6 @@ public class BioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        db.data.ending = EndingCode.Bal;
 
         if (db.data.ending == EndingCode.none)
         {

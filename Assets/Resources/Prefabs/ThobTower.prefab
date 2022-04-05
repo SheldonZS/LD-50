@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  buildCost: 100
+  buildCost: 200
   buildTime: 10
   range: 4
   damage: 50

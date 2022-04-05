@@ -312,11 +312,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  buildCost: 175
+  buildCost: 300
   buildTime: 10
   range: 4
-  damage: 50
-  attackCooldown: 1
+  damage: 25
+  attackCooldown: 4
   upgradeMaxHealth: 200
   upgradeCost: 100
   upgradeTime: 1
