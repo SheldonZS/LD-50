@@ -127,7 +127,7 @@ public class TowerBase : MonoBehaviour
 
         if (health <= 0)
         {
-            gameObject.tag = "Obstacle";
+            gameObject.tag = "Path";
             gameObject.layer = 0;
 
             operational = false;
