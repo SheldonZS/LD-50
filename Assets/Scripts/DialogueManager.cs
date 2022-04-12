@@ -153,6 +153,8 @@ public class DialogueManager : MonoBehaviour
         InitializeAllStories();
         StartCoroutine(diaBox.PlayText(intro, TextMode.imm));
 
+        
+
     }
 
     // Update is called once per frame
@@ -239,7 +241,7 @@ public class DialogueManager : MonoBehaviour
     {
         //these first conversations are assumed to only play when all characters are alive near the beginning of the game
         
-        /*
+        
         intro.Add("Thob: Ah, the joys of retirement. Another day to work on my twenty-one movement lute sonata. Surrounded by friends.");
         intro.Add("Jolie: Zzz...");
         intro.Add("Thob: On the other hand, a nap does sound tempting...");
@@ -254,7 +256,6 @@ public class DialogueManager : MonoBehaviour
         intro.Add("Balthasar: Marvelous!");
         intro.Add("Thob: No, Balthasar, that's bad. We must do something about this. Jolie? Jolie, wake up!");
         intro.Add("Jolie: Zzz...to defend...just...add towers...zzz...");
-        */
         intro.Add("Tutorial: Select Raol, the hero in the top left corner of the retirement home.");
         intro.Add("incrementTutorial");
 

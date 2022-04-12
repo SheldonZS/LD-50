@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class MusicLooper : MonoBehaviour
 {
-    private AudioSource bgm;
+    public AudioSource bgm;
 
     public bool loop;
     public float loopStart;
     public float loopEnd;
 
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        bgm = GetComponent<AudioSource>();
+        bgm = GameObject.Find("BGM").GetComponent<AudioSource>();
+
+    }
+
+    private void Start()
+    {
+       PlayMenuLoop();
+        Debug.Log(bgm.clip.ToString());
     }
 
     // Update is called once per frame
@@ -22,6 +28,18 @@ public class MusicLooper : MonoBehaviour
     {
         if (loop & bgm.time >= loopEnd)
             bgm.time += loopStart - loopEnd;
+    }
+
+    public void PlayMenuLoop()
+    {
+        AudioClip song = Resources.Load<AudioClip>("BGM/#50_MenuLoop");
+        PlayCustomLoop(song, 19.944f, 0);
+    }
+
+    public IEnumerator PlayMenuLoopAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PlayMenuLoop();
     }
 
     public void PlayCustomLoop(AudioClip song, float start = 0, float end = 0)
@@ -133,5 +151,22 @@ public class MusicLooper : MonoBehaviour
         bgm.time = bgmTime;
 
         yield return FadeIn(fadeDuration, volume);
+    }
+
+    public IEnumerator StartFade(float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float start = bgm.volume;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+
+            bgm.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+
+           // Debug.Log(bgm.volume + " " + currentTime + " " + duration);
+            yield return null;
+        }
+        bgm.volume = targetVolume;
+        yield break;
     }
 }

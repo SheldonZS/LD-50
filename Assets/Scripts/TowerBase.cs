@@ -51,8 +51,16 @@ public class TowerBase : MonoBehaviour
         diaBox = GameObject.Find("TextWindow").GetComponent<DialogueBox>();
         DM = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         SFX = GameObject.Find("SFX").GetComponent<AudioSource>();
+        Debug.Log(this.name);
     }
 
+    private void Start()
+    {
+        if (this.name == "Home")
+            return;
+        attackPrefabs = (GameObject[])builder.attackPrefabs.Clone();
+
+    }
     private void Update()
     {
         if (builder == null || operational == false)
